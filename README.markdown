@@ -28,6 +28,76 @@ Just include the script.
 <script src="device.js"></script>
 ``` 
 
+### CSS CLASS NAMES
+
+The following tables map which CSS classes are added based on device and orientation.
+
+#### Device CSS Class Names
+
+<table>
+	<tr>
+		<th>Device</th>
+		<th>CSS Classes</th>
+	</tr>
+	<tr>
+		<td>iPad</td>
+		<td>ios ipad tablet</td>
+	</tr>
+	<tr>
+		<td>iPhone</td>
+		<td>ios iphone mobile</td>
+	</tr>
+	<tr>
+		<td>iPod</td>
+		<td>ios ipod mobile</td>
+	</tr>
+	<tr>
+		<td>Android Phone</td>
+		<td>android mobile</td>
+	</tr>
+	<tr>
+		<td>Android Tablet</td>
+		<td>android tablet</td>
+	</tr>
+	<tr>
+		<td>BlackBerry Phone</td>
+		<td>blackberry mobile</td>
+	</tr>
+	<tr>
+		<td>BlackBerry Tablet</td>
+		<td>blackberry tablet</td>
+	</tr>
+	<tr>
+		<td>Windows Phone</td>
+		<td>windows mobile</td>
+	</tr>
+	<tr>
+		<td>Windows Tablet</td>
+		<td>(no support)</td>
+	</tr>
+	<tr>
+		<td>Desktop</td>
+		<td>desktop</td>
+	</tr>
+</table>
+
+#### Orientation CSS Class Names
+
+<table>
+	<tr>
+		<th>Orientation</th>
+		<th>CSS Classes</th>
+	</tr>
+	<tr>
+		<td>Landscape</td>
+		<td>landscape</td>
+	</tr>
+	<tr>
+		<td>Portrait</td>
+		<td>portrait</td>
+	</tr>
+</table>
+
 ### TODO
 
 * Add UserAgent sniffing for edge cases.
