@@ -79,11 +79,11 @@
 		var that = {};
 
 		that.portrait = function () {
-			return window.orientation === 0 ? true : false;
+			return Math.abs(window.orientation) == 90 ? false : true;
 		};
 
 		that.landscape = function () {
-			return window.orientation != 0 ? true : false;
+			return Math.abs(window.orientation) == 90 ? true : false;
 		};
 
 		return that;
