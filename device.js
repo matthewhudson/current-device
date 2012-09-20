@@ -57,15 +57,23 @@
 		return userAgent.match(/android/i) ? true : false;
 	};
 
+	device.androidPhone = function () {
+		return (device.android() && userAgent.match(/mobile/i)) ? true : false;
+	};
+	
 	// See: http://android-developers.blogspot.com/2010/12/android-browser-user-agent-issues.html
 	device.androidTablet = function () {
-		return (device.android() && userAgent.match(/mobile/i)) ? true : false;
+		return (device.android() && !userAgent.match(/mobile/i)) ? true : false;
 	};
 
 	device.blackberry = function () {
 		return userAgent.match(/blackberry/i) ? true : false;
 	};
 
+	device.blackberryPhone = function () {
+		return (device.blackberry() && !userAgent.match(/tablet/i)) ? true : false;
+	};
+	
 	// See: http://supportforums.blackberry.com/t5/Web-and-WebWorks-Development/How-to-detect-the-BlackBerry-Browser/ta-p/559862
 	device.blackberryTablet = function () {
 		return userAgent.match(/rim tablet/i) ? true : false;
@@ -76,7 +84,7 @@
 	};
 		
 	device.mobile = function () {
-		return (device.android() || device.iphone() || device.ipod() || device.windowsPhone() || device.blackberry());
+		return (device.androidPhone() || device.iphone() || device.ipod() || device.windowsPhone() || device.blackberryPhone());
 	};
 
 	device.tablet = function () {
@@ -147,9 +155,11 @@
 			addClass("android mobile");
 		}
 	} else if (device.blackberry()) {
-		addClass("blackberry");
-	} else if (device.blackberryTablet()) {
-		addClass("blackberry tablet");
+		if (device.blackberryTablet()) {
+			addClass("blackberry tablet");
+		} else {
+			addClass("blackberry mobile");
+		}
 	} else if (device.windowsPhone()) {
 		addClass("windows mobile");
 	} else {

@@ -1,6 +1,6 @@
 # [DEVICE.JS](http://www.matthewghudson.com/projects/device.js/)
 
-Device.js makes it easy for you to write [conditional CSS](http://www.conditional-css.com/) based on device operating system (iOS, Android, Blackberry), orientation (Portrait vs. Landscape), and type (Tablet vs. Mobile).
+Device.js makes it easy for you to write [Conditional CSS](http://www.conditional-css.com/) _and_ JavaScript based on device operating system (iOS, Android, Blackberry), orientation (Portrait vs. Landscape), and type (Tablet vs. Mobile).
 
 [View the Demo](http://www.matthewghudson.com/projects/device.js/)
 
@@ -22,13 +22,13 @@ Device.js inserts CSS classes into the `<html>` element.
 
 ### USAGE 
 
-Just include the script.
+Just include the script. The script then updates the `<html>` section with the [appropriate classes](https://github.com/matthewhudson/device.js#conditional-css) based on the device's characteristics.
 
 ``` html
 <script src="device.js"></script>
 ``` 
 
-### CSS CLASS NAMES
+### CONDITIONAL CSS
 
 The following tables map which CSS classes are added based on device and orientation.
 
@@ -95,6 +95,80 @@ The following tables map which CSS classes are added based on device and orienta
 	<tr>
 		<td>Portrait</td>
 		<td>portrait</td>
+	</tr>
+</table>
+
+### CONDITIONAL JAVASCRIPT
+
+Device.js _also_ includes support for conditional JavaScript, allowing you to write checks on the following device characteristics:
+
+#### Device CSS Class Names
+
+<table>
+	<tr>
+		<th>Device</th>
+		<th>JavaScript Method</th>
+	</tr>
+	<tr>
+		<td>iPad</td>
+		<td>device.ipad()</td>
+	</tr>
+	<tr>
+		<td>iPhone</td>
+		<td>device.iphone()</td>
+	</tr>
+	<tr>
+		<td>iPod</td>
+		<td>device.ipod()</td>
+	</tr>
+	<tr>
+		<td>Android</td>
+		<td>device.android()</td>
+	</tr>
+	<tr>
+		<td>Android Phone</td>
+		<td>device.androidPhone()</td>
+	</tr>
+	<tr>
+		<td>Android Tablet</td>
+		<td>device.androidTablet()</td>
+	</tr>
+	<tr>
+		<td>BlackBerry</td>
+		<td>device.blackberry()</td>
+	</tr>
+	<tr>
+		<td>BlackBerry Phone</td>
+		<td>device.blackberryPhone()</td>
+	</tr>
+	<tr>
+		<td>BlackBerry Tablet</td>
+		<td>device.blackberryTablet()</td>
+	</tr>
+	<tr>
+		<td>Windows Phone</td>
+		<td>device.windowsPhone()</td>
+	</tr>
+	<tr>
+		<td>Windows Tablet</td>
+		<td>(no support)</td>
+	</tr>
+</table>
+
+#### Orientation CSS Class Names
+
+<table>
+	<tr>
+		<th>Orientation</th>
+		<th>CSS Classes</th>
+	</tr>
+	<tr>
+		<td>Landscape</td>
+		<td>device.landscape()</td>
+	</tr>
+	<tr>
+		<td>Portrait</td>
+		<td>device.portrait()</td>
 	</tr>
 </table>
 
