@@ -124,7 +124,7 @@
 	// Remove single CSS class from the <html> element.
 	var removeClass = function (className) {
 		if (hasClass(className)) {
-			docElement.className = docElement.classNamy.replace(className, "");
+			docElement.className = docElement.className.replace(className, "");
 		}
 	};
 
