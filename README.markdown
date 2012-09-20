@@ -111,43 +111,43 @@ Device.js _also_ includes support for conditional JavaScript, allowing you to wr
 	</tr>
 	<tr>
 		<td>iPad</td>
-		<td>`device.ipad()`</td>
+		<td>device.ipad()</td>
 	</tr>
 	<tr>
 		<td>iPhone</td>
-		<td>`device.iphone()`</td>
+		<td>device.iphone()</td>
 	</tr>
 	<tr>
 		<td>iPod</td>
-		<td>`device.ipod()`</td>
+		<td>device.ipod()</td>
 	</tr>
 	<tr>
 		<td>Android</td>
-		<td>`device.android()`</td>
+		<td>device.android()</td>
 	</tr>
 	<tr>
 		<td>Android Phone</td>
-		<td>`device.androidPhone()`</td>
+		<td>device.androidPhone()</td>
 	</tr>
 	<tr>
 		<td>Android Tablet</td>
-		<td>`device.androidTablet()`</td>
+		<td>device.androidTablet()</td>
 	</tr>
 	<tr>
 		<td>BlackBerry</td>
-		<td>`device.blackberry()`</td>
+		<td>device.blackberry()</td>
 	</tr>
 	<tr>
 		<td>BlackBerry Phone</td>
-		<td>`device.blackberryPhone()`</td>
+		<td>device.blackberryPhone()</td>
 	</tr>
 	<tr>
 		<td>BlackBerry Tablet</td>
-		<td>`device.blackberryTablet()`</td>
+		<td>device.blackberryTablet()</td>
 	</tr>
 	<tr>
 		<td>Windows Phone</td>
-		<td>`device.windowsPhone()`</td>
+		<td>device.windowsPhone()</td>
 	</tr>
 	<tr>
 		<td>Windows Tablet</td>
@@ -164,11 +164,11 @@ Device.js _also_ includes support for conditional JavaScript, allowing you to wr
 	</tr>
 	<tr>
 		<td>Landscape</td>
-		<td>`device.landscape()`</td>
+		<td>device.landscape()</td>
 	</tr>
 	<tr>
 		<td>Portrait</td>
-		<td>`device.portrait()`</td>
+		<td>device.portrait()</td>
 	</tr>
 </table>
 
