@@ -103,7 +103,7 @@
 				"<h4>DEBUG</h4>" 
 				+ "<p>UA String: " + userAgent + "</p>"
 				+ "<p>Dimensions: " + window.innerWidth + 'x' + window.innerHeight + "</p>"
-				+ "<p>Orientation: " + (window.orientation || "-") + "</p>"
+				+ "<p>Orientation: " + window.orientation + "</p>"
 				+ "<p>CSS Classes: " + docElement.className + "</p>";
 		}
 	}
