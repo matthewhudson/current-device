@@ -110,6 +110,18 @@ Device.js _also_ includes support for conditional JavaScript, allowing you to wr
 		<th>JavaScript Method</th>
 	</tr>
 	<tr>
+		<td>Mobile</td>
+		<td>device.mobile()</td>
+	</tr>
+	<tr>
+		<td>Tablet</td>
+		<td>device.tablet()</td>
+	</tr>
+	<tr>
+		<td>iOS</td>
+		<td>device.ios()</td>
+	</tr>
+	<tr>
 		<td>iPad</td>
 		<td>device.ipad()</td>
 	</tr>
