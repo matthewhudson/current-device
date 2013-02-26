@@ -21,7 +21,7 @@
   // The client UserAgent string.
   var userAgent = window.navigator.userAgent.toLowerCase();
 
-  // Export the Webpipe object for **Node.js**, with
+  // Export the Device object for **Node.js**, with
   // backwards-compatibility for the old 'require()' API. If we're in
   // the browser, add 'device' as a global object via a string identifier,
   // for Closure Compiler "advanced" mode.
