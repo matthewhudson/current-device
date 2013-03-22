@@ -8,7 +8,7 @@
   // Baseline setup
   // --------------
 
-  // Establish the root object, 'window' in the browser, 
+  // Establish the root object, 'window' in the browser,
   // or 'global' on the server.
   var root = this;
 
@@ -99,7 +99,7 @@
     return Math.abs(window.orientation) == 90 ? true : false;
   };
 
-  // Private Utility 
+  // Private Utility
   // ---------------
 
   // If #debug selector exists, insert debug information.
@@ -177,13 +177,19 @@
     debug();
   }
 
-  // Detect whether device supports orientationchange event, 
+  // Detect whether device supports orientationchange event,
   // otherwise fall back to the resize event.
   var supportsOrientationChange = "onorientationchange" in window,
     orientationEvent = supportsOrientationChange ? "orientationchange" : "resize";
 
   // Listen for changes in orientation.
-  window.addEventListener(orientationEvent, checkOrientation, false);
+  if (window.addEventListener) {
+    window.addEventListener(orientationEvent, checkOrientation, false);
+  } else if (window.attachEvent) {
+    window.attachEvent(orientationEvent, checkOrientation);
+  } else {
+    window[orientationEvent] = checkOrientation;
+  }
 
   checkOrientation();
 
