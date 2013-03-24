@@ -100,6 +100,14 @@
 			p.footer a:hover {
 				text-decoration:underline;
 			}
+			.mobile .mobile,
+			.desktop .desktop {
+				background: green;
+				color: #FFF;
+			}
+			#debug span {
+				display: block;
+			}
         </style>
     </head>
     <body>
@@ -109,17 +117,48 @@
 					<div class="content">
 			            <h1>Device.js</h1>
 			
-						<div id="debug"></div>
+						<div id="debug">
+							<span class="mobile">Mobile</span>
+							<span class="tablet">Tablet</span>
+							<span class="desktop">Desktop</span>
+
+
+							<span class="tablet">Orientation</span>
+							<span class="desktop">Landscape</span>
+
+							<span class="ios">iOS</span>
+							<span class="iphone">iPhone</span>
+							<span class="ipad">iPad</span>
+							<span class="ipod">iPod</span>
+
+							<span class="android mobile">Android Phone</span>
+							<span class="android tablet">Android Tablet</span>
+
+							<span class="blackberry mobile">Blackberry Phone</span>
+							<span class="blackberry tablet">Blackberry Tablet</span>
+
+							<span class="windows mobile">Windows Phone</span>
+						</div>
 					</div>
 					<p class="footer">Created by <a href="http://www.matthewghudson.com/">Matthew Hudson</a> &mdash; Download from <a href="http://github.com/matthewhudson/device.js">Github</a>
         		</div>
 			</div>
 		</div>
 
-		<script src="../device.js"></script>
+		<script src="../lib/device.js"></script>
 		
-		<script>
+		<script type="text/javascript">
 		
+		var debug_el = window.document.getElementById("debug");
+		var doc_el = window.document.documentElement;
+		device(function () {
+	      debug_el.innerHTML =
+	        "<h4>DEBUG</h4>" 
+	        + "<p>UA String: " + window.navigator.userAgent + "</p>" 
+	        + "<p>Dimensions: " + window.innerWidth + 'x' + window.innerHeight + "</p>" 
+	        + "<p>Orientation: " + (window.orientation || "Not supported") + "</p>"
+	        + "<p>CSS Classes: " + doc_el.className + "</p>";
+	    });
 		console.log("device.portrait() === %s", device.portrait());
 		console.log("device.landscape() === %s", device.landscape());
 		console.log("device.mobile() === %s", device.mobile());
