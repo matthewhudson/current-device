@@ -48,7 +48,7 @@ device.blackberryTablet = () ->
   if _user_agent.match /rim tablet/i then yes else no
 
 device.windowsPhone = () ->
-  if  _user_agent.match /windows phone/i then yes else no
+  if _user_agent.match /windows phone/i then yes else no
 
 device.mobile = () ->
   device.androidPhone() or device.iphone() or device.ipod() or device.windowsPhone() or device.blackberryPhone()
