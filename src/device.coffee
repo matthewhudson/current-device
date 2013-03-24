@@ -3,7 +3,7 @@
 # Device.js is freely distributable under the MIT license.
 # For all details and documentation:
 # http://matthewhudson.me/projects/device.js/
-device = {}
+window.device = {}
 
 # The <html> element.
 _doc_element = window.document.documentElement
