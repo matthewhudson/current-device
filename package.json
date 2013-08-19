@@ -1,0 +1,13 @@
+{
+  "name": "device.js",
+  "version": "0.1.2",
+  "devDependencies": {
+    "grunt": "latest",
+    "grunt-contrib-jshint": "~0.1.1",
+    "grunt-contrib-nodeunit": "~0.1.2",
+    "grunt-contrib-coffee": "~0.7.0",
+    "grunt-bumpup": "~0.2.0",
+    "grunt-contrib-watch": "~0.5.1",
+    "grunt-contrib-uglify": "~0.2.2"
+  }
+}
