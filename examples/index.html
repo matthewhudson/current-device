@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>Matthew Hudson / Device.js</title>
-        <style>
-			html, body {
-				min-height:100%;
-				height:100%;
-			}
-					
+  <head>
+    <meta charset="utf-8">
+    <title>Matthew Hudson / Device.js</title>
+    <style>
+      html, body {
+        min-height:100%;
+        height:100%;
+      }
+          
             html {
                 padding: 30px 10px;
                 font-size: 20px;
@@ -33,143 +33,142 @@
                 margin: 10px 0px;
                 font-size: 50px;
                 text-align: center;
-				color:#222;
+        color:#222;
             }
-			
-			h4 {
-				text-align: center;
-				color: #333;
-			}
-			
+      
+      h4 {
+        text-align: center;
+        color: #333;
+      }
+      
             p {
                 margin: 1em 0;
             }
 
-			.container-outer {
-				width: 100%;
-				padding: 0;
-				display: table;
-				height: 100%;
-				position: absolute;
-				top: 0;
-				left: 0;
-				margin: 0;
-			}
-			
-			.container-middle {
-				padding: 0;
-				vertical-align: middle;
-				display: table-cell;
-				margin: 0;
-			}
-			
-			.container-inner {
-				width: 500px;
-				margin: 0 auto;
-			}
-			
-			.content {
-				text-align: left;
-				padding: 10px 35px;
-                border: 1px solid #b3b3b3;
-                border-radius: 4px;
-                box-shadow: 0 1px 10px #a7a7a7, inset 0 1px 0 #fff;
-                background: #fcfcfc;
+      .container-outer {
+        width: 100%;
+        padding: 0;
+        display: table;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin: 0;
+      }
+      
+      .container-middle {
+        padding: 0;
+        vertical-align: middle;
+        display: table-cell;
+        margin: 0;
+      }
+      
+      .container-inner {
+        width: 500px;
+        margin: 0 auto;
+      }
+      
+      .content {
+        text-align: left;
+        padding: 10px 35px;
+        border: 1px solid #b3b3b3;
+        border-radius: 4px;
+        box-shadow: 0 1px 10px #a7a7a7, inset 0 1px 0 #fff;
+        background-color:#fafafa;
+        background-image: -moz-radial-gradient(50% 35%, ellipse cover, #FAF7F7, #fffde8 100%);
+        background-image: -webkit-radial-gradient(50% 35%, ellipse cover, #FAF7F7, #fffde8 100%);
+        background-image: -o-radial-gradient(50% 35%, ellipse cover, #FAF7F7, #fffde8 100%);
+        background-image: -ms-radial-gradient(50% 35%, ellipse cover, #FAF7F7, #fffde8 100%);
+        background-image: radial-gradient(50% 35%, ellipse cover, #FAF7F7, #fffde8 100%);
+      }
+      
+      p.footer {
+        text-align:center;
+        font-size:0.75em;
+      }
+      
+      p.footer a, 
+      p.footer a:visited 
+      p.footer a:active {
+        color:#424242;
+        text-decoration:none;
+        font-weight:bold;
+      }
+      
+      p.footer a:hover {
+        text-decoration:underline;
+      }
+      .mobile .mobile,
+      .tablet .tablet,
+      .desktop .desktop,
+      .portrait .portrait,
+      .landscape .landscape,
+      .ios .ios,
+      .iphone .iphone,
+      .ipad .ipad,
+      .ipod .ipod,
+      .android .android,
+      .blackberry .blackberry,
+      .windows .windows {
+        background: green;
+        color: #FFF;
+      }
+      span {
+        display: block;
+        padding: 2px 15px;
+      }
+      h2 {
+        margin: 0;
+      }
+      .content {
+        padding: 25px 35px;
+      }
+    </style>
+  </head>
+  <body>
 
-				background-color:#FAF7F7;
-				background-image: -moz-radial-gradient(50% 35%, ellipse cover, #FAF7F7, #fffde8 100%);
-				background-image: -webkit-radial-gradient(50% 35%, ellipse cover, #FAF7F7, #fffde8 100%);
-				background-image: -o-radial-gradient(50% 35%, ellipse cover, #FAF7F7, #fffde8 100%);
-				background-image: -ms-radial-gradient(50% 35%, ellipse cover, #FAF7F7, #fffde8 100%);
-				background-image: radial-gradient(50% 35%, ellipse cover, #FAF7F7, #fffde8 100%);
-			}
-			
-			p.footer {
-				text-align:center;
-				font-size:0.75em;
-			}
-			
-			p.footer a, 
-			p.footer a:visited 
-			p.footer a:active {
-				color:#424242;
-				text-decoration:none;
-				font-weight:bold;
-			}
-			
-			p.footer a:hover {
-				text-decoration:underline;
-			}
-			.mobile .mobile,
-			.desktop .desktop {
-				background: green;
-				color: #FFF;
-			}
-			#debug span {
-				display: block;
-			}
-        </style>
-    </head>
-    <body>
-		<div class="container-outer">
-			<div class="container-middle"> 
-				<div class="container-inner"> 
-					<div class="content">
-			            <h1>Device.js</h1>
-			
-						<div id="debug">
-							<span class="mobile">Mobile</span>
-							<span class="tablet">Tablet</span>
-							<span class="desktop">Desktop</span>
+    <div class="container-outer">
+      <div class="container-middle"> 
+        <div class="container-inner"> 
+          <div class="content">
+            <h2>Device Type</h2>
+            <span class="mobile">.mobile</span>
+            <span class="tablet">.tablet</span>
+            <span class="desktop">.desktop</span>
 
 
-							<span class="tablet">Orientation</span>
-							<span class="desktop">Landscape</span>
+            <h2>Orientation</h2>
+            <span class="portrait">.portrait</span>
+            <span class="landscape">.landscape</span>
 
-							<span class="ios">iOS</span>
-							<span class="iphone">iPhone</span>
-							<span class="ipad">iPad</span>
-							<span class="ipod">iPod</span>
+            <h2>Device OS</h2>
+            <span class="ios">.ios</span>
+            <span class="iphone">.iphone</span>
+            <span class="ipad">.ipad</span>
+            <span class="ipod">.ipod</span>
+            <span class="android">.android</span>
+            <span class="blackberry">.blackberry</span>
+            <span class="windows">.windows</span>
+          </div>
+          <p class="footer">Created by <a href="http://www.matthewhudson.me/">Matthew Hudson</a> &mdash; Download <a href="http://github.com/matthewhudson/device.js">device.js on Github</a>
+        </div>
+      </div>
+    </div>
 
-							<span class="android mobile">Android Phone</span>
-							<span class="android tablet">Android Tablet</span>
+    <script src="../lib/device.min.js"></script>
+    
+    <script type="text/javascript">
+      console.log("device.portrait() === %s", device.portrait());
+      console.log("device.landscape() === %s", device.landscape());
+      console.log("device.mobile() === %s", device.mobile());
+      console.log("device.tablet() === %s", device.tablet());
+      console.log("device.ipad() === %s", device.ipad());
+      console.log("device.ipod() === %s", device.ipod());
+      console.log("device.iphone() === %s", device.iphone());
+      console.log("device.android() === %s", device.android());
+      console.log("device.androidTablet() === %s", device.androidTablet());
+      console.log("device.blackberryTablet() === %s", device.blackberryTablet());
+    </script>
 
-							<span class="blackberry mobile">Blackberry Phone</span>
-							<span class="blackberry tablet">Blackberry Tablet</span>
-
-							<span class="windows mobile">Windows Phone</span>
-						</div>
-					</div>
-					<p class="footer">Created by <a href="http://www.matthewghudson.com/">Matthew Hudson</a> &mdash; Download from <a href="http://github.com/matthewhudson/device.js">Github</a>
-        		</div>
-			</div>
-		</div>
-
-		<script src="../lib/device.js"></script>
-		
-		<script type="text/javascript">
-		/*
-		var debug_el = window.document.getElementById("debug");
-		var doc_el = window.document.documentElement;
-		device(function () {
-	      debug_el.innerHTML =
-	        "<h4>DEBUG</h4>" 
-	        + "<p>UA String: " + window.navigator.userAgent + "</p>" 
-	        + "<p>Dimensions: " + window.innerWidth + 'x' + window.innerHeight + "</p>" 
-	        + "<p>Orientation: " + (window.orientation || "Not supported") + "</p>"
-	        + "<p>CSS Classes: " + doc_el.className + "</p>";
-	    });*/
-		console.log("device.portrait() === %s", device.portrait());
-		console.log("device.landscape() === %s", device.landscape());
-		console.log("device.mobile() === %s", device.mobile());
-		console.log("device.tablet() === %s", device.tablet());
-		console.log("device.ipad() === %s", device.ipad());
-		console.log("device.ipod() === %s", device.ipod());
-		console.log("device.iphone() === %s", device.iphone());
-		console.log("device.android() === %s", device.android());
-		console.log("device.androidTablet() === %s", device.androidTablet());
-		console.log("device.blackberryTablet() === %s", device.blackberryTablet());
-		
-		</script>
-    </body>
+  </body>
 </html>
