@@ -9,8 +9,8 @@ window.device = {}
 _doc_element = window.document.documentElement
 
 # The client user agent string.
+# Lowercase, so we can use the more efficient indexOf(), instead of Regex
 _user_agent = window.navigator.userAgent.toLowerCase()
-
 
 # Main functions
 # --------------
@@ -19,42 +19,48 @@ device.ios = () ->
   device.iphone() or device.ipod() or device.ipad()
 
 device.iphone = () ->
-  if _user_agent.match /iphone/i then yes else no
+  _find 'iphone'
 
 device.ipod = () ->
-  if _user_agent.match /ipod/i then yes else no
+  _find 'ipod'
 
 device.ipad = () ->
-  if _user_agent.match /ipad/i then yes else no
+  _find 'ipad'
 
 device.android = () ->
-  if _user_agent.match /android/i then yes else no
+  _find 'android'
 
 device.androidPhone = () ->
-  if device.android() and _user_agent.match /mobile/i then yes else no
+  device.android() and _find 'mobile'
 
 # See: http://android-developers.blogspot.com/2010/12/android-browser-user-agent-issues.html
 device.androidTablet = () ->
-  if device.android() and not _user_agent.match /mobile/i then yes else no
+  device.android() and not _find 'mobile'
 
 device.blackberry = () ->
-  if _user_agent.match /blackberry/i then yes else no
+  _find 'blackberry'
 
 device.blackberryPhone = () ->
-  if device.blackberry() and not _user_agent.match /tablet/i then yes else no
+  device.blackberry() and not _find 'tablet'
 
 # See: http://supportforums.blackberry.com/t5/Web-and-WebWorks-Development/How-to-detect-the-BlackBerry-Browser/ta-p/559862
 device.blackberryTablet = () ->
-  if _user_agent.match /rim tablet/i then yes else no
+  _find 'rim' and _find 'tablet'
+
+device.windows = ->
+  _find 'windows'
 
 device.windowsPhone = () ->
-  if _user_agent.match /windows phone/i then yes else no
+  device.windows() and _find 'phone'
+
+device.windowsTablet = () ->
+  device.windows() and _find 'touch'
 
 device.mobile = () ->
   device.androidPhone() or device.iphone() or device.ipod() or device.windowsPhone() or device.blackberryPhone()
 
 device.tablet = () ->
-  device.ipad() or device.androidTablet() or device.blackberryTablet()
+  device.ipad() or device.androidTablet() or device.blackberryTablet() or device.windowsTablet()
 
 device.portrait = () ->
   if Math.abs window.orientation is 90 then no else yes
@@ -65,6 +71,10 @@ device.landscape = () ->
 
 # Private Utility 
 # ---------------
+
+# Simple UA string search
+_find = (needle) ->
+  if _user_agent.indexOf(needle) != -1 then yes else no
 
 # Check if docElement already has a given class.
 _hasClass = (class_name) ->
@@ -106,8 +116,12 @@ else if device.blackberry()
   else
     _addClass "blackberry mobile"
 
-else if device.windowsPhone()
-  _addClass "windows mobile"
+else if device.windows()
+  if device.windowsTablet()
+    _addClass "windows tablet"
+  else
+    _addClass "windows mobile"
+
 else 
   _addClass "desktop"
 
