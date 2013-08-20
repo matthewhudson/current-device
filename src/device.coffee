@@ -38,14 +38,14 @@ device.androidTablet = () ->
   device.android() and not _find 'mobile'
 
 device.blackberry = () ->
-  _find 'blackberry'
+  _find 'blackberry' or _find 'bb10' or _find 'rim'
 
 device.blackberryPhone = () ->
   device.blackberry() and not _find 'tablet'
 
 # See: http://supportforums.blackberry.com/t5/Web-and-WebWorks-Development/How-to-detect-the-BlackBerry-Browser/ta-p/559862
 device.blackberryTablet = () ->
-  _find 'rim' and _find 'tablet'
+  device.blackberry() and _find 'tablet'
 
 device.windows = ->
   _find 'windows'

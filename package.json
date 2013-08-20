@@ -1,6 +1,6 @@
 {
   "name": "device.js",
-  "version": "0.1.47",
+  "version": "0.1.51",
   "devDependencies": {
     "grunt": "latest",
     "grunt-contrib-jshint": "~0.1.1",
