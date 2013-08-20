@@ -73,7 +73,7 @@ The following tables map which CSS classes are added based on device and orienta
 	</tr>
 	<tr>
 		<td>Windows Tablet</td>
-		<td>(no support)</td>
+		<td>windows tablet</td>
 	</tr>
 	<tr>
 		<td>Desktop</td>
@@ -158,12 +158,16 @@ Device.js _also_ includes support for conditional JavaScript, allowing you to wr
 		<td>device.blackberryTablet()</td>
 	</tr>
 	<tr>
+		<td>Windows</td>
+		<td>device.windows()</td>
+	</tr>
+	<tr>
 		<td>Windows Phone</td>
 		<td>device.windowsPhone()</td>
 	</tr>
 	<tr>
 		<td>Windows Tablet</td>
-		<td>(no support)</td>
+		<td>device.windowsTablet()</td>
 	</tr>
 </table>
 
@@ -184,17 +188,12 @@ Device.js _also_ includes support for conditional JavaScript, allowing you to wr
 	</tr>
 </table>
 
-### TODO
-
-* Add UserAgent sniffing for edge cases.
-* Add fallback in case "orientation" event doesn't exist.
-
 ### DEVICE SUPPORT 
 
 * iOS: iPhone, iPod, iPad
 * Android: Phones & Tablets
 * Blackberry: Phones & Tablets
-* Windows Phone (no Windows Tablet support yet)
+* Windows: Phones & Tablets
 
 ### SUGGESTIONS
 
