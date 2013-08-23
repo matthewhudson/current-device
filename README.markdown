@@ -1,8 +1,8 @@
-# [DEVICE.JS](http://www.matthewghudson.com/projects/device.js/)
+# [DEVICE.JS](http://matthewhudson.me/projects/device.js/)
 
-Device.js makes it easy for you to write [Conditional CSS](http://www.conditional-css.com/) _and_ JavaScript based on device operating system (iOS, Android, Blackberry), orientation (Portrait vs. Landscape), and type (Tablet vs. Mobile).
+Device.js makes it easy for you to write conditional CSS _and_ JavaScript based on device operating system (iOS, Android, Blackberry), orientation (Portrait vs. Landscape), and type (Tablet vs. Mobile).
 
-[View the Demo](http://www.matthewghudson.com/projects/device.js/)
+[View the Demo](http://matthewhudson.me/projects/device.js/)
 
 ### EXAMPLES
 
@@ -10,15 +10,15 @@ Device.js inserts CSS classes into the `<html>` element.
 
 #### iPhone
 
-<img src="http://www.matthewghudson.com/projects/device.js/screenshots/iphone.png" />
+<img src="http://matthewhudson.me/projects/device.js/screenshots/iphone.png" />
 
 #### Android Tablet
 
-<img src="http://www.matthewghudson.com/projects/device.js/screenshots/android.png" />
+<img src="http://matthewhudson.me/projects/device.js/screenshots/android.png" />
 
 #### Blackberry Tablet
 
-<img src="http://www.matthewghudson.com/projects/device.js/screenshots/blackberry.png" />
+<img src="http://matthewhudson.me/projects/device.js/screenshots/blackberry.png" />
 
 ### USAGE 
 
