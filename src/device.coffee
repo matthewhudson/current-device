@@ -15,57 +15,57 @@ _user_agent = window.navigator.userAgent.toLowerCase()
 # Main functions
 # --------------
 
-device.ios = () ->
+device.ios = ->
   device.iphone() or device.ipod() or device.ipad()
 
-device.iphone = () ->
+device.iphone = ->
   _find 'iphone'
 
-device.ipod = () ->
+device.ipod = ->
   _find 'ipod'
 
-device.ipad = () ->
+device.ipad = ->
   _find 'ipad'
 
-device.android = () ->
+device.android = ->
   _find 'android'
 
-device.androidPhone = () ->
+device.androidPhone = ->
   device.android() and _find 'mobile'
 
 # See: http://android-developers.blogspot.com/2010/12/android-browser-user-agent-issues.html
-device.androidTablet = () ->
+device.androidTablet = ->
   device.android() and not _find 'mobile'
 
-device.blackberry = () ->
+device.blackberry = ->
   _find 'blackberry' or _find 'bb10' or _find 'rim'
 
-device.blackberryPhone = () ->
+device.blackberryPhone = ->
   device.blackberry() and not _find 'tablet'
 
 # See: http://supportforums.blackberry.com/t5/Web-and-WebWorks-Development/How-to-detect-the-BlackBerry-Browser/ta-p/559862
-device.blackberryTablet = () ->
+device.blackberryTablet = ->
   device.blackberry() and _find 'tablet'
 
 device.windows = ->
   _find 'windows'
 
-device.windowsPhone = () ->
+device.windowsPhone = ->
   device.windows() and _find 'phone'
 
-device.windowsTablet = () ->
+device.windowsTablet = ->
   device.windows() and _find 'touch'
 
-device.mobile = () ->
+device.mobile = ->
   device.androidPhone() or device.iphone() or device.ipod() or device.windowsPhone() or device.blackberryPhone()
 
-device.tablet = () ->
+device.tablet = ->
   device.ipad() or device.androidTablet() or device.blackberryTablet() or device.windowsTablet()
 
-device.portrait = () ->
+device.portrait = ->
   if Math.abs window.orientation is 90 then no else yes
 
-device.landscape = () ->
+device.landscape = ->
   if Math.abs window.orientation is 90 then yes else no
 
 
@@ -130,7 +130,7 @@ else
 # --------------------
 
 # Handle device orientation changes
-_handleOrientation = () ->
+_handleOrientation = ->
   if device.landscape()
     _removeClass "portrait"
     _addClass "landscape"
