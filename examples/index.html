@@ -155,11 +155,15 @@
       </div>
     </div>
 
-    <script src="../lib/device.min.js"></script>
+    <script src="../lib/device.js"></script>
     
     <script type="text/javascript">
       console.log("device.portrait() === %s", device.portrait());
+	  try{
       console.log("device.landscape() === %s", device.landscape());
+	  } catch(e){
+		console.log("cant handle orientation: ", e);
+	  }
       console.log("device.mobile() === %s", device.mobile());
       console.log("device.tablet() === %s", device.tablet());
       console.log("device.ipad() === %s", device.ipad());
