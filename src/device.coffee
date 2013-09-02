@@ -63,10 +63,10 @@ device.tablet = ->
   device.ipad() or device.androidTablet() or device.blackberryTablet() or device.windowsTablet()
 
 device.portrait = ->
-  if Math.abs window.orientation is 90 then no else yes
+  if Math.abs(window.orientation) is 90 then no else yes
 
 device.landscape = ->
-  if Math.abs window.orientation is 90 then yes else no
+  if Math.abs(window.orientation) is 90 then yes else no
 
 
 # Private Utility 
