@@ -119,8 +119,10 @@ else if device.blackberry()
 else if device.windows()
   if device.windowsTablet()
     _addClass "windows tablet"
-  else
+  else if device.windowsPhone()
     _addClass "windows mobile"
+  else
+    _addClass "desktop"
 
 else 
   _addClass "desktop"
