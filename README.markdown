@@ -20,6 +20,13 @@ Device.js inserts CSS classes into the `<html>` element.
 
 <img src="http://matthewhudson.me/projects/device.js/screenshots/blackberry.png" />
 
+### DEVICE SUPPORT 
+
+* iOS: iPhone, iPod, iPad
+* Android: Phones & Tablets
+* Blackberry: Phones & Tablets
+* Windows: Phones & Tablets
+
 ### USAGE 
 
 Just include the script. The script then updates the `<html>` section with the [appropriate classes](https://github.com/matthewhudson/device.js#conditional-css) based on the device's characteristics.
@@ -188,17 +195,12 @@ Device.js _also_ includes support for conditional JavaScript, allowing you to wr
 	</tr>
 </table>
 
-### DEVICE SUPPORT 
+### CONTRIBUTING
 
-* iOS: iPhone, iPod, iPad
-* Android: Phones & Tablets
-* Blackberry: Phones & Tablets
-* Windows: Phones & Tablets
-
-### SUGGESTIONS
-
-All comments in how to improve this library are very welcome. Feel free post suggestions to the Issue tracker, or even better, fork the repository to implement your own ideas and submit a pull request.
-
-### LICENSE
-
-Unless attributed otherwise, everything is under the MIT License (see LICENSE for more info).
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Use GruntJS to `build` or `watch` for your changes
+4. Make changes to src/device.coffee
+5. Commit your changes (`git commit -am 'Added some feature'`)
+6. Push to the branch (`git push origin my-new-feature`)
+7. Create new Pull Request
