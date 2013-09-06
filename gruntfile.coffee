@@ -32,7 +32,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-bumpup'
 
-  grunt.registerTask 'build', ['coffee', 'uglify']
+  grunt.registerTask 'build', ['coffee']
 
   grunt.registerTask 'release', (type) ->
     type = if type then type else 'patch'
