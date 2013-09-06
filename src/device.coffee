@@ -74,7 +74,7 @@ device.landscape = ->
 
 # Simple UA string search
 _find = (needle) ->
-  _user_agent.indexOf(needle) != -1
+  _user_agent.indexOf(needle) isnt -1
 
 # Check if docElement already has a given class.
 _hasClass = (class_name) ->
