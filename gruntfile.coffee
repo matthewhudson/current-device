@@ -23,7 +23,7 @@ module.exports = (grunt) ->
         files: [
           'src/device.coffee'
         ]
-        tasks: ['build']
+        tasks: ['coffee']
         options:
           livereload: true
   
@@ -32,7 +32,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-bumpup'
 
-  grunt.registerTask 'build', ['coffee']
+  grunt.registerTask 'default', ['watch']
   grunt.registerTask 'release', ['bump', 'uglify']
 
   grunt.registerTask 'bump', (type) ->

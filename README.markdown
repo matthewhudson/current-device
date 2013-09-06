@@ -207,7 +207,7 @@ In short, check for features when you need features, and check for the browser w
 
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Use GruntJS to `build` or `watch` for your changes
+3. Run `grunt` to automagically compile your changes ([Grunt](http://gruntjs.com/))
 4. Make changes to src/device.coffee
 5. Commit your changes (`git commit -am 'Added some feature'`)
 6. Push to the branch (`git push origin my-new-feature`)
