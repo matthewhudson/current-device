@@ -199,7 +199,7 @@ Device.js _also_ includes support for conditional JavaScript, allowing you to wr
 
 Environment detection has a high rate of misuse. Often times, folks will attempt to work around browser feature support problems by checking for the affected browser and doing something different in response. The preferred solution for those kinds of problems, of course, is to check for the feature, not the browser (ala [Modernizr](http://modernizr.com/)).
 
-However, that common misuse of device detection doesn't mean it should never be done. For example, device.js could be employed to change the interface of your web app such that it uses interaction patterns and UI elements common to the device it's being presented on. Android devices might get a slightly different treatment than Windows or iOS, for instance. Another valid use-case is guiding users to different app stores depending on the device their using.
+However, that common misuse of device detection doesn't mean it should never be done. For example, device.js could be employed to change the interface of your web app such that it uses interaction patterns and UI elements common to the device it's being presented on. Android devices might get a slightly different treatment than Windows or iOS, for instance. Another valid use-case is guiding users to different app stores depending on the device they're using.
 
 In short, check for features when you need features, and check for the browser when you need the browser.
 
