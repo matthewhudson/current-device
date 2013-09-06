@@ -63,10 +63,10 @@ device.tablet = ->
   device.ipad() or device.androidTablet() or device.blackberryTablet() or device.windowsTablet()
 
 device.portrait = ->
-  if Math.abs(window.orientation) is 90 then no else yes
+  Math.abs(window.orientation) isnt 90
 
 device.landscape = ->
-  if Math.abs(window.orientation) is 90 then yes else no
+  Math.abs(window.orientation) is 90
 
 
 # Private Utility 
@@ -74,7 +74,7 @@ device.landscape = ->
 
 # Simple UA string search
 _find = (needle) ->
-  if _user_agent.indexOf(needle) != -1 then yes else no
+  _user_agent.indexOf(needle) != -1
 
 # Check if docElement already has a given class.
 _hasClass = (class_name) ->
