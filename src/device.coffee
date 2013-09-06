@@ -63,18 +63,18 @@ device.tablet = ->
   device.ipad() or device.androidTablet() or device.blackberryTablet() or device.windowsTablet()
 
 device.portrait = ->
-  if Math.abs(window.orientation) is 90 then no else yes
+  Math.abs(window.orientation) isnt 90
 
 device.landscape = ->
-  if Math.abs(window.orientation) is 90 then yes else no
+  Math.abs(window.orientation) is 90
 
 
-# Private Utility 
+# Private Utility
 # ---------------
 
 # Simple UA string search
 _find = (needle) ->
-  if _user_agent.indexOf(needle) != -1 then yes else no
+  _user_agent.indexOf(needle) != -1
 
 # Check if docElement already has a given class.
 _hasClass = (class_name) ->
@@ -83,14 +83,14 @@ _hasClass = (class_name) ->
 
 # Add one or more CSS classes to the <html> element.
 _addClass = (class_name) ->
-  if not _hasClass class_name 
+  if not _hasClass class_name
     _doc_element.className += " " + class_name
 
 # Remove single CSS class from the <html> element.
 _removeClass = (class_name) ->
-  if _hasClass class_name 
-    _doc_element.className = _doc_element.className.replace class_name, "" 
-  
+  if _hasClass class_name
+    _doc_element.className = _doc_element.className.replace class_name, ""
+
 
 # HTML Element Handling
 # ---------------------
@@ -124,7 +124,7 @@ else if device.windows()
   else
     _addClass "desktop"
 
-else 
+else
   _addClass "desktop"
 
 
@@ -136,11 +136,11 @@ _handleOrientation = ->
   if device.landscape()
     _removeClass "portrait"
     _addClass "landscape"
-  else 
+  else
     _removeClass "landscape"
     _addClass "portrait"
 
-# Detect whether device supports orientationchange event, 
+# Detect whether device supports orientationchange event,
 # otherwise fall back to the resize event.
 _supports_orientation = "onorientationchange" in window
 _orientation_event = if _supports_orientation then "orientationchange" else "resize"
