@@ -33,7 +33,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-bumpup'
 
   grunt.registerTask 'default', ['watch']
-  grunt.registerTask 'release', ['bump', 'uglify']
+  grunt.registerTask 'release', ['bump', 'coffee', 'uglify']
 
   grunt.registerTask 'bump', (type) ->
     type = if type then type else 'patch'
