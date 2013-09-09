@@ -38,7 +38,7 @@ device.androidTablet = ->
   device.android() and not _find 'mobile'
 
 device.blackberry = ->
-  _find 'blackberry' or _find 'bb10' or _find 'rim'
+  _find('blackberry') or _find('bb10') or _find('rim')
 
 device.blackberryPhone = ->
   device.blackberry() and not _find 'tablet'
