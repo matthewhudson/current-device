@@ -56,11 +56,20 @@ device.windowsPhone = ->
 device.windowsTablet = ->
   device.windows() and _find 'touch'
 
+device.fxos = ->
+  _find('(mobile; rv:') or _find('(tablet; rv:')
+
+device.fxosPhone = ->
+  device.fxos() and _find 'mobile'
+
+device.fxosTablet = ->
+  device.fxos() and _find 'tablet'
+
 device.mobile = ->
-  device.androidPhone() or device.iphone() or device.ipod() or device.windowsPhone() or device.blackberryPhone()
+  device.androidPhone() or device.iphone() or device.ipod() or device.windowsPhone() or device.blackberryPhone() or device.fxosPhone()
 
 device.tablet = ->
-  device.ipad() or device.androidTablet() or device.blackberryTablet() or device.windowsTablet()
+  device.ipad() or device.androidTablet() or device.blackberryTablet() or device.windowsTablet() or device.fxosTablet()
 
 device.portrait = ->
   Math.abs(window.orientation) isnt 90
@@ -123,6 +132,12 @@ else if device.windows()
     _addClass "windows mobile"
   else
     _addClass "desktop"
+
+else if device.fxos()
+  if device.fxosTablet()
+    _addClass "fxos tablet"
+  else
+    _addClass "fxos mobile"
 
 else
   _addClass "desktop"
