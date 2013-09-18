@@ -65,7 +65,7 @@
       
       .container-inner {
         width: 500px;
-        margin: 0 auto;
+        margin: 15px auto 0;
       }
       
       .content {
@@ -104,13 +104,40 @@
       .portrait .portrait,
       .landscape .landscape,
       .ios .ios,
-      .iphone .iphone,
-      .ipad .ipad,
-      .ipod .ipod,
       .android .android,
       .blackberry .blackberry,
-      .windows .windows {
+      .windows .windows,
+      .androidPhone .androidPhone,
+      .androidTablet .androidTablet,
+      .windowsPhone .windowsPhone,
+      .windowsTablet .windowsTablet,
+      .blackberryPhone .blackberryPhone,
+      .blackberryTablet .blackberryTablet,
+      .iphone .iphone,
+      .ipad .ipad,
+      .ipod .ipod {
         background: green;
+        color: #FFF;
+      }
+      .no-mobile .mobile,
+      .no-tablet .tablet,
+      .no-desktop .desktop,
+      .no-portrait .portrait,
+      .no-landscape .landscape,
+      .no-ios .ios,
+      .no-android .android,
+      .no-blackberry .blackberry,
+      .no-windows .windows,
+      .no-androidPhone .androidPhone,
+      .no-androidTablet .androidTablet,
+      .no-windowsPhone .windowsPhone,
+      .no-windowsTablet .windowsTablet,
+      .no-blackberryPhone .blackberryPhone,
+      .no-blackberryTablet .blackberryTablet,
+      .no-iphone .iphone,
+      .no-ipad .ipad,
+      .no-ipod .ipod {
+        background: #F33;
         color: #FFF;
       }
       span {
@@ -143,41 +170,71 @@
             <span class="tablet">.tablet</span>
             <span class="desktop">.desktop</span>
 
-
             <h2>Orientation</h2>
             <span class="portrait">.portrait</span>
             <span class="landscape">.landscape</span>
 
             <h2>Device OS</h2>
             <span class="ios">.ios</span>
-            <span class="iphone">.iphone</span>
-            <span class="ipad">.ipad</span>
-            <span class="ipod">.ipod</span>
             <span class="android">.android</span>
             <span class="blackberry">.blackberry</span>
             <span class="windows">.windows</span>
+
+            <h2>Android Devices</h2>
+            <span class="androidPhone">.androidPhone</span>
+            <span class="androidTablet">.androidTablet</span>
+
+            <h2>Windows Devices</h2>
+            <span class="windowsPhone">.windowsPhone</span>
+            <span class="windowsTablet">.windowsTablet</span>
+
+            <h2>Blackberry Devices</h2>
+            <span class="blackberryPhone">.blackberryPhone</span>
+            <span class="blackberryTablet">.blackberryTablet</span>
+
+            <h2>Apple Devices</h2>
+            <span class="iphone">.iphone</span>
+            <span class="ipad">.ipad</span>
+            <span class="ipod">.ipod</span>
           </div>
           <p class="footer">
           Created by <a href="http://www.matthewhudson.me/">Matthew Hudson</a> &mdash; 
           Download <a href="http://github.com/matthewhudson/device.js">device.js on Github</a>
           <a href="https://twitter.com/matthewgh" class="twitter-follow-button" data-show-count="true" data-size="large" data-dnt="true">Follow @matthewgh</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
         </div>
       </div>
     </div>
 
+    <script src="../lib/device.js"></script>
+    <!--
     <script src="../lib/device.min.js"></script>
+    //-->
     
     <script type="text/javascript">
-      console.log("device.portrait() === %s", device.portrait());
-      console.log("device.landscape() === %s", device.landscape());
       console.log("device.mobile() === %s", device.mobile());
       console.log("device.tablet() === %s", device.tablet());
+      console.log("device.desktop() === %s", device.desktop());
+
+      console.log("device.portrait() === %s", device.portrait());
+      console.log("device.landscape() === %s", device.landscape());
+
+      console.log("device.ios() === %s", device.ios());
+      console.log("device.android() === %s", device.android());
+      console.log("device.blackberry() === %s", device.blackberry());
+      console.log("device.windows() === %s", device.windows());
+
+      console.log("device.androidPhone() === %s", device.androidPhone());
+      console.log("device.androidTablet() === %s", device.androidTablet());
+
+      console.log("device.windowsPhone() === %s", device.windowsPhone());
+      console.log("device.windowsTablet() === %s", device.windowsTablet());
+
+      console.log("device.iphone() === %s", device.iphone());
       console.log("device.ipad() === %s", device.ipad());
       console.log("device.ipod() === %s", device.ipod());
-      console.log("device.iphone() === %s", device.iphone());
-      console.log("device.android() === %s", device.android());
-      console.log("device.androidTablet() === %s", device.androidTablet());
+
+      console.log("device.blackberryPhone() === %s", device.blackberryPhone());
       console.log("device.blackberryTablet() === %s", device.blackberryTablet());
     </script>
 
