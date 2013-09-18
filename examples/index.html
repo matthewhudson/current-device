@@ -109,7 +109,8 @@
       .ipod .ipod,
       .android .android,
       .blackberry .blackberry,
-      .windows .windows {
+      .windows .windows,
+      .fxos .fxos {
         background: green;
         color: #FFF;
       }
@@ -156,6 +157,7 @@
             <span class="android">.android</span>
             <span class="blackberry">.blackberry</span>
             <span class="windows">.windows</span>
+            <span class="fxos">.fxos</span>
           </div>
           <p class="footer">
           Created by <a href="http://www.matthewhudson.me/">Matthew Hudson</a> &mdash; 
@@ -179,6 +181,9 @@
       console.log("device.android() === %s", device.android());
       console.log("device.androidTablet() === %s", device.androidTablet());
       console.log("device.blackberryTablet() === %s", device.blackberryTablet());
+      console.log("device.fxos() === %s", device.fxos());
+      console.log("device.fxosPhone() === %s", device.fxosPhone());
+      console.log("device.fxosTablet() === %s", device.fxosTablet());
     </script>
 
   </body>
