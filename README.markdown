@@ -26,6 +26,7 @@ Device.js inserts CSS classes into the `<html>` element.
 * Android: Phones & Tablets
 * Blackberry: Phones & Tablets
 * Windows: Phones & Tablets
+* Firefox OS: Phones & Tablets
 
 ### USAGE 
 
@@ -81,6 +82,14 @@ The following tables map which CSS classes are added based on device and orienta
 	<tr>
 		<td>Windows Tablet</td>
 		<td>windows tablet</td>
+	</tr>
+	<tr>
+		<td>Firefox OS Phone</td>
+		<td>fxos mobile</td>
+	</tr>
+	<tr>
+		<td>Firefox OS Tablet</td>
+		<td>fxos tablet</td>
 	</tr>
 	<tr>
 		<td>Desktop</td>
@@ -175,6 +184,18 @@ Device.js _also_ includes support for conditional JavaScript, allowing you to wr
 	<tr>
 		<td>Windows Tablet</td>
 		<td>device.windowsTablet()</td>
+	</tr>
+	<tr>
+		<td>Firefox OS</td>
+		<td>device.fxos()</td>
+	</tr>
+	<tr>
+		<td>Firefox OS Phone</td>
+		<td>device.fxosPhone()</td>
+	</tr>
+	<tr>
+		<td>Firefox OS Tablet</td>
+		<td>device.fxosTablet()</td>
 	</tr>
 </table>
 
