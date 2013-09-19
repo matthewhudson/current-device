@@ -1,6 +1,6 @@
 # [DEVICE.JS](http://matthewhudson.me/projects/device.js/)
 
-Device.js makes it easy to write conditional CSS _and/or_ JavaScript based on device operating system (iOS, Android, Blackberry, Windows), orientation (Portrait vs. Landscape), and type (Tablet vs. Mobile).
+Device.js makes it easy to write conditional CSS _and/or_ JavaScript based on device operating system (iOS, Android, Blackberry, Windows, Firefox OS), orientation (Portrait vs. Landscape), and type (Tablet vs. Mobile).
 
 [View the Demo &rarr;](http://matthewhudson.me/projects/device.js/)
 
