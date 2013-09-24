@@ -157,7 +157,7 @@ _handleOrientation = ->
 
 # Detect whether device supports orientationchange event,
 # otherwise fall back to the resize event.
-_supports_orientation = "onorientationchange" in window
+_supports_orientation = "onorientationchange" of window
 _orientation_event = if _supports_orientation then "orientationchange" else "resize"
 
 # Listen for changes in orientation.
