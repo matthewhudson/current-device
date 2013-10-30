@@ -3,6 +3,11 @@
 # Device.js is freely distributable under the MIT license.
 # For all details and documentation:
 # http://matthewhudson.me/projects/device.js/
+
+# Save the previous value of the device variable.
+previousDevice = window.device
+
+# Add device as a global object.
 window.device = {}
 
 # The <html> element.
@@ -11,6 +16,7 @@ _doc_element = window.document.documentElement
 # The client user agent string.
 # Lowercase, so we can use the more efficient indexOf(), instead of Regex
 _user_agent = window.navigator.userAgent.toLowerCase()
+
 
 # Main functions
 # --------------
@@ -77,6 +83,11 @@ device.portrait = ->
 device.landscape = ->
   Math.abs(window.orientation) is 90
 
+# Run device.js in noConflict mode, returning the device variable to its previous owner.
+# Returns a reference to the device object.
+device.noConflict = ->
+  window.device = previousDevice
+  @
 
 # Private Utility
 # ---------------
