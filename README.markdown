@@ -216,6 +216,17 @@ Device.js _also_ includes support for conditional JavaScript, allowing you to wr
 	</tr>
 </table>
 
+### Utility Methods
+
+#### device.noConflict()
+
+Run device.js in noConflict mode, returning the device variable to its previous owner.
+Returns a reference to the device object.
+
+``` javascript
+var devicejs = device.noConflict();
+```
+
 ### BEST PRACTICES
 
 Environment detection has a high rate of misuse. Often times, folks will attempt to work around browser feature support problems by checking for the affected browser and doing something different in response. The preferred solution for those kinds of problems, of course, is to check for the feature, not the browser (ala [Modernizr](http://modernizr.com/)).
