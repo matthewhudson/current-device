@@ -168,8 +168,13 @@
       </div>
     </div>
 
-    <script src="../lib/device.min.js"></script>
-    
+    <script type="text/javascript">
+      // Dummy value for demonstrating device.noConflict()
+      window.device = "Hello World!";
+    </script>
+
+    <script src="../lib/device.js"></script>
+
     <script type="text/javascript">
       console.log("device.portrait() === %s", device.portrait());
       console.log("device.landscape() === %s", device.landscape());
@@ -184,6 +189,11 @@
       console.log("device.fxos() === %s", device.fxos());
       console.log("device.fxosPhone() === %s", device.fxosPhone());
       console.log("device.fxosTablet() === %s", device.fxosTablet());
+
+      var devicejs = device.noConflict();
+
+      console.log ("device.noConflict() [previous]", window.device);
+      console.log ("device.noConflict() [device.js]", devicejs.iphone());
     </script>
 
   </body>
