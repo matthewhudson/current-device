@@ -77,6 +77,9 @@ device.mobile = ->
 device.tablet = ->
   device.ipad() or device.androidTablet() or device.blackberryTablet() or device.windowsTablet() or device.fxosTablet()
 
+device.desktop = ->
+  not(device.ios() or device.windowsTablet() or device.windowsPhone() or device.blackberry() or device.android() or device.fxos())
+
 device.portrait = ->
   Math.abs(window.orientation) isnt 90
 
