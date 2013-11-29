@@ -70,9 +70,12 @@ device.fxosPhone = ->
 
 device.fxosTablet = ->
   device.fxos() and _find 'tablet'
+  
+device.meego = ->
+  _find 'meego'
 
 device.mobile = ->
-  device.androidPhone() or device.iphone() or device.ipod() or device.windowsPhone() or device.blackberryPhone() or device.fxosPhone()
+  device.androidPhone() or device.iphone() or device.ipod() or device.windowsPhone() or device.blackberryPhone() or device.fxosPhone() or device.meego()
 
 device.tablet = ->
   device.ipad() or device.androidTablet() or device.blackberryTablet() or device.windowsTablet() or device.fxosTablet()
@@ -150,6 +153,9 @@ else if device.fxos()
   else
     _addClass "fxos mobile"
 
+else if device.meego()
+  _addClass "meego mobile"
+	
 else
   _addClass "desktop"
 
