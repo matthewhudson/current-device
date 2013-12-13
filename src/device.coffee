@@ -63,7 +63,7 @@ device.windowsTablet = ->
   device.windows() and _find 'touch'
 
 device.fxos = ->
-  _find('(mobile; rv:') or _find('(tablet; rv:')
+  (_find('(mobile;') or _find('(tablet;')) and _find('; rv:')
 
 device.fxosPhone = ->
   device.fxos() and _find 'mobile'
