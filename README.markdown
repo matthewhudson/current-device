@@ -1,6 +1,6 @@
 # [DEVICE.JS](http://matthewhudson.me/projects/device.js/)
 
-Device.js makes it easy to write conditional CSS _and/or_ JavaScript based on device operating system (iOS, Android, Blackberry, Windows, Firefox OS), orientation (Portrait vs. Landscape), and type (Tablet vs. Mobile).
+Device.js makes it easy to write conditional CSS _and/or_ JavaScript based on device operating system (iOS, Android, Blackberry, Windows, Firefox OS, MeeGo), orientation (Portrait vs. Landscape), and type (Tablet vs. Mobile).
 
 [View the Demo &rarr;](http://matthewhudson.me/projects/device.js/)
 
@@ -20,7 +20,7 @@ Device.js inserts CSS classes into the `<html>` element.
 
 <img src="http://matthewhudson.me/projects/device.js/screenshots/blackberry.png" />
 
-### DEVICE SUPPORT 
+### DEVICE SUPPORT
 
 * iOS: iPhone, iPod, iPad
 * Android: Phones & Tablets
@@ -28,7 +28,7 @@ Device.js inserts CSS classes into the `<html>` element.
 * Windows: Phones & Tablets
 * Firefox OS: Phones & Tablets
 
-### USAGE 
+### USAGE
 
 Just include the script. The script then updates the `<html>` section with the [appropriate classes](https://github.com/matthewhudson/device.js#conditional-css) based on the device's characteristics.
 
@@ -90,6 +90,10 @@ The following tables map which CSS classes are added based on device and orienta
 	<tr>
 		<td>Firefox OS Tablet</td>
 		<td>fxos tablet</td>
+	</tr>
+	<tr>
+		<td>MeeGo</td>
+		<td>meego</td>
 	</tr>
 	<tr>
 		<td>Desktop</td>
@@ -196,6 +200,10 @@ Device.js _also_ includes support for conditional JavaScript, allowing you to wr
 	<tr>
 		<td>Firefox OS Tablet</td>
 		<td>device.fxosTablet()</td>
+	</tr>
+	<tr>
+		<td>MeeGo</td>
+		<td>device.meego()</td>
 	</tr>
 </table>
 
