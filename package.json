@@ -22,5 +22,6 @@
     "grunt-bumpup": "~0.2.0",
     "grunt-contrib-watch": "~0.5.1",
     "grunt-contrib-uglify": "~0.2.2"
-  }
+  },
+  "license": "MIT"
 }
