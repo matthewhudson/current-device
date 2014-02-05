@@ -107,7 +107,8 @@ _hasClass = (class_name) ->
 # Add one or more CSS classes to the <html> element.
 _addClass = (class_name) ->
   if not _hasClass class_name
-    _doc_element.className += " " + class_name
+    clazz = _doc_element.className.replace /\s+$/ "" + " " + class_name
+    _doc_element.className = clazz
 
 # Remove single CSS class from the <html> element.
 _removeClass = (class_name) ->
