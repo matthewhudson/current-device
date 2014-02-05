@@ -81,10 +81,10 @@ device.tablet = ->
   device.ipad() or device.androidTablet() or device.blackberryTablet() or device.windowsTablet() or device.fxosTablet()
 
 device.portrait = ->
-  Math.abs(window.orientation) isnt 90
+  (window.innerHeight/window.innerWidth) > 1
 
 device.landscape = ->
-  Math.abs(window.orientation) is 90
+  (window.innerHeight/window.innerWidth) < 1
 
 # Run device.js in noConflict mode, returning the device variable to its previous owner.
 # Returns a reference to the device object.
