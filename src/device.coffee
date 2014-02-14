@@ -80,6 +80,9 @@ device.mobile = ->
 device.tablet = ->
   device.ipad() or device.androidTablet() or device.blackberryTablet() or device.windowsTablet() or device.fxosTablet()
 
+device.desktop = ->
+  not device.tablet() and not device.mobile()
+
 device.portrait = ->
   (window.innerHeight/window.innerWidth) > 1
 
