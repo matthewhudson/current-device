@@ -70,9 +70,12 @@ device.fxosPhone = ->
 
 device.fxosTablet = ->
   device.fxos() and _find 'tablet'
-  
+
 device.meego = ->
   _find 'meego'
+
+device.nodeWebkit = ->
+  typeof window.process == 'object'
 
 device.mobile = ->
   device.androidPhone() or device.iphone() or device.ipod() or device.windowsPhone() or device.blackberryPhone() or device.fxosPhone() or device.meego()
@@ -155,7 +158,10 @@ else if device.fxos()
 
 else if device.meego()
   _addClass "meego mobile"
-	
+
+else if device.nodeWebkit()
+  _addClass "node-webkit"
+
 else
   _addClass "desktop"
 
