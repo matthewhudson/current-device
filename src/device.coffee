@@ -70,9 +70,12 @@ device.fxosPhone = ->
 
 device.fxosTablet = ->
   device.fxos() and _find 'tablet'
-  
+
 device.meego = ->
   _find 'meego'
+
+device.cordova = ->
+  window.cordova && location.protocol == 'file:'
 
 device.mobile = ->
   device.androidPhone() or device.iphone() or device.ipod() or device.windowsPhone() or device.blackberryPhone() or device.fxosPhone() or device.meego()
@@ -155,9 +158,12 @@ else if device.fxos()
 
 else if device.meego()
   _addClass "meego mobile"
-	
+
 else
   _addClass "desktop"
+
+if device.cordova()
+  _addClass "cordova"
 
 
 # Orientation Handling
