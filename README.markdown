@@ -138,6 +138,10 @@ Device.js _also_ includes support for conditional JavaScript, allowing you to wr
 		<td>device.tablet()</td>
 	</tr>
 	<tr>
+		<td>Desktop</td>
+		<td>device.desktop()</td>
+	</tr>
+	<tr>
 		<td>iOS</td>
 		<td>device.ios()</td>
 	</tr>

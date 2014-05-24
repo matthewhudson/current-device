@@ -80,11 +80,14 @@ device.mobile = ->
 device.tablet = ->
   device.ipad() or device.androidTablet() or device.blackberryTablet() or device.windowsTablet() or device.fxosTablet()
 
+device.desktop = ->
+  not device.tablet() and not device.mobile()
+
 device.portrait = ->
-  Math.abs(window.orientation) isnt 90
+  (window.innerHeight/window.innerWidth) > 1
 
 device.landscape = ->
-  Math.abs(window.orientation) is 90
+  (window.innerHeight/window.innerWidth) < 1
 
 # Run device.js in noConflict mode, returning the device variable to its previous owner.
 # Returns a reference to the device object.
@@ -107,7 +110,8 @@ _hasClass = (class_name) ->
 # Add one or more CSS classes to the <html> element.
 _addClass = (class_name) ->
   if not _hasClass class_name
-    _doc_element.className += " " + class_name
+    clazz = _doc_element.className.replace /\s+$/ "" + " " + class_name
+    _doc_element.className = clazz
 
 # Remove single CSS class from the <html> element.
 _removeClass = (class_name) ->
