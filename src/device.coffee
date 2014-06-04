@@ -1,5 +1,5 @@
 # Device.js
-# (c) 2013 Matthew Hudson
+# (c) 2014 Matthew Hudson
 # Device.js is freely distributable under the MIT license.
 # For all details and documentation:
 # http://matthewhudson.me/projects/device.js/
@@ -113,8 +113,7 @@ _hasClass = (class_name) ->
 # Add one or more CSS classes to the <html> element.
 _addClass = (class_name) ->
   if not _hasClass class_name
-    clazz = _doc_element.className.replace /\s+$/ "" + " " + class_name
-    _doc_element.className = clazz
+    _doc_element.className += " " + class_name
 
 # Remove single CSS class from the <html> element.
 _removeClass = (class_name) ->
