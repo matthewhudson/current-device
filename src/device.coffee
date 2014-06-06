@@ -92,6 +92,9 @@ device.portrait = ->
 device.landscape = ->
   (window.innerHeight/window.innerWidth) < 1
 
+device.standAlone = ->
+  (window.navigator.standalone == true)
+
 # Run device.js in noConflict mode, returning the device variable to its previous owner.
 # Returns a reference to the device object.
 device.noConflict = ->
@@ -167,6 +170,9 @@ else
 
 if device.cordova()
   _addClass "cordova"
+
+if device.standAlone()
+  _addClass "standalone"
 
 
 # Orientation Handling
