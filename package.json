@@ -6,7 +6,15 @@
   "author": {
     "name": "Matthew Hudson",
     "email": "matthud@gmail.com"
+    "url": "https://matthewhudson.me"
   },
+  "contributors": [
+    {
+      "name": "Mike Taylor",
+      "email": "miketaylr",
+      "url": "https://miketaylr.com"
+    }  
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/matthewhudson/device.js.git"
