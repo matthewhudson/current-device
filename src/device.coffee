@@ -7,8 +7,9 @@
 # Save the previous value of the device variable.
 previousDevice = window.device
 
-# Add device as a global object.
-window.device = {}
+# Add _device as a global object.
+_device = {}
+window.device = _device
 
 # The <html> element.
 _doc_element = window.document.documentElement
@@ -21,80 +22,80 @@ _user_agent = window.navigator.userAgent.toLowerCase()
 # Main functions
 # --------------
 
-device.ios = ->
-  device.iphone() or device.ipod() or device.ipad()
+_device.ios = ->
+  _device.iphone() or _device.ipod() or _device.ipad()
 
-device.iphone = ->
+_device.iphone = ->
   _find 'iphone'
 
-device.ipod = ->
+_device.ipod = ->
   _find 'ipod'
 
-device.ipad = ->
+_device.ipad = ->
   _find 'ipad'
 
-device.android = ->
+_device.android = ->
   _find 'android'
 
-device.androidPhone = ->
-  device.android() and _find 'mobile'
+_device.androidPhone = ->
+  _device.android() and _find 'mobile'
 
 # See: http://android-developers.blogspot.com/2010/12/android-browser-user-agent-issues.html
-device.androidTablet = ->
-  device.android() and not _find 'mobile'
+_device.androidTablet = ->
+  _device.android() and not _find 'mobile'
 
-device.blackberry = ->
+_device.blackberry = ->
   _find('blackberry') or _find('bb10') or _find('rim')
 
-device.blackberryPhone = ->
-  device.blackberry() and not _find 'tablet'
+_device.blackberryPhone = ->
+  _device.blackberry() and not _find 'tablet'
 
 # See: http://supportforums.blackberry.com/t5/Web-and-WebWorks-Development/How-to-detect-the-BlackBerry-Browser/ta-p/559862
-device.blackberryTablet = ->
-  device.blackberry() and _find 'tablet'
+_device.blackberryTablet = ->
+  _device.blackberry() and _find 'tablet'
 
-device.windows = ->
+_device.windows = ->
   _find 'windows'
 
-device.windowsPhone = ->
-  device.windows() and _find 'phone'
+_device.windowsPhone = ->
+  _device.windows() and _find 'phone'
 
-device.windowsTablet = ->
-  device.windows() and _find 'touch'
+_device.windowsTablet = ->
+  _device.windows() and _find 'touch'
 
-device.fxos = ->
+_device.fxos = ->
   (_find('(mobile;') or _find('(tablet;')) and _find('; rv:')
 
-device.fxosPhone = ->
-  device.fxos() and _find 'mobile'
+_device.fxosPhone = ->
+  _device.fxos() and _find 'mobile'
 
-device.fxosTablet = ->
-  device.fxos() and _find 'tablet'
+_device.fxosTablet = ->
+  _device.fxos() and _find 'tablet'
 
-device.meego = ->
+_device.meego = ->
   _find 'meego'
 
-device.cordova = ->
+_device.cordova = ->
   window.cordova && location.protocol == 'file:'
 
-device.mobile = ->
-  device.androidPhone() or device.iphone() or device.ipod() or device.windowsPhone() or device.blackberryPhone() or device.fxosPhone() or device.meego()
+_device.mobile = ->
+  _device.androidPhone() or _device.iphone() or _device.ipod() or _device.windowsPhone() or _device.blackberryPhone() or _device.fxosPhone() or _device.meego()
 
-device.tablet = ->
-  device.ipad() or device.androidTablet() or device.blackberryTablet() or device.windowsTablet() or device.fxosTablet()
+_device.tablet = ->
+  _device.ipad() or _device.androidTablet() or _device.blackberryTablet() or _device.windowsTablet() or _device.fxosTablet()
 
-device.desktop = ->
-  not device.tablet() and not device.mobile()
+_device.desktop = ->
+  not _device.tablet() and not _device.mobile()
 
-device.portrait = ->
+_device.portrait = ->
   (window.innerHeight/window.innerWidth) > 1
 
-device.landscape = ->
+_device.landscape = ->
   (window.innerHeight/window.innerWidth) < 1
 
 # Run device.js in noConflict mode, returning the device variable to its previous owner.
-# Returns a reference to the device object.
-device.noConflict = ->
+# Returns a reference to the _device object.
+_device.noConflict = ->
   window.device = previousDevice
   @
 
@@ -125,63 +126,63 @@ _removeClass = (class_name) ->
 # ---------------------
 
 # Insert the appropriate CSS class based on the _user_agent.
-if device.ios()
-  if device.ipad()
+if _device.ios()
+  if _device.ipad()
     _addClass "ios ipad tablet"
-  else if device.iphone()
+  else if _device.iphone()
     _addClass "ios iphone mobile"
-  else if device.ipod()
+  else if _device.ipod()
     _addClass "ios ipod mobile"
 
-else if device.android()
-  if device.androidTablet()
+else if _device.android()
+  if _device.androidTablet()
     _addClass "android tablet"
   else
     _addClass "android mobile"
 
-else if device.blackberry()
-  if device.blackberryTablet()
+else if _device.blackberry()
+  if _device.blackberryTablet()
     _addClass "blackberry tablet"
   else
     _addClass "blackberry mobile"
 
-else if device.windows()
-  if device.windowsTablet()
+else if _device.windows()
+  if _device.windowsTablet()
     _addClass "windows tablet"
-  else if device.windowsPhone()
+  else if _device.windowsPhone()
     _addClass "windows mobile"
   else
     _addClass "desktop"
 
-else if device.fxos()
-  if device.fxosTablet()
+else if _device.fxos()
+  if _device.fxosTablet()
     _addClass "fxos tablet"
   else
     _addClass "fxos mobile"
 
-else if device.meego()
+else if _device.meego()
   _addClass "meego mobile"
 
 else
   _addClass "desktop"
 
-if device.cordova()
+if _device.cordova()
   _addClass "cordova"
 
 
 # Orientation Handling
 # --------------------
 
-# Handle device orientation changes
+# Handle _device orientation changes
 _handleOrientation = ->
-  if device.landscape()
+  if _device.landscape()
     _removeClass "portrait"
     _addClass "landscape"
   else
     _removeClass "landscape"
     _addClass "portrait"
 
-# Detect whether device supports orientationchange event,
+# Detect whether _device supports orientationchange event,
 # otherwise fall back to the resize event.
 _supports_orientation = "onorientationchange" of window
 _orientation_event = if _supports_orientation then "orientationchange" else "resize"
