@@ -121,7 +121,7 @@ _addClass = (class_name) ->
 # Remove single CSS class from the <html> element.
 _removeClass = (class_name) ->
   if _hasClass class_name
-    _doc_element.className = _doc_element.className.replace class_name, ""
+    _doc_element.className = _doc_element.className.replace " " + class_name, ""
 
 
 # HTML Element Handling
