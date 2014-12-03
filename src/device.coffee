@@ -9,9 +9,6 @@ device = {}
 # Save the previous value of the device variable.
 previousDevice = window.device
 
-# Add device as a global object.
-window.device = device
-
 # The <html> element.
 _doc_element = window.document.documentElement
 
@@ -203,3 +200,18 @@ else
   window[_orientation_event] = _handleOrientation
 
 _handleOrientation()
+
+
+
+if typeof define is 'function' and typeof define.amd is 'object' and define.amd
+
+  # AMD. Register as an anonymous module.
+  define ->
+    'use strict'
+    return device
+  
+else if typeof module isnt 'undefined' and module.exports
+  module.exports = device
+else
+  # Add device as a global object.
+  window.device = device
