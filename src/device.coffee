@@ -14,7 +14,7 @@ window.device = {}
 _doc_element = window.document.documentElement
 
 # The client user agent string.
-# Lowercase, so we can use the more efficient indexOf(), instead of Regex
+
 _user_agent = window.navigator.userAgent.toLowerCase()
 
 
@@ -60,7 +60,7 @@ device.windowsPhone = ->
   device.windows() and _find 'phone'
 
 device.windowsTablet = ->
-  device.windows() and (_find('touch') and not device.windowsPhone())
+  device.windows() and (_find('touch') and not device.windowsPhone() )
 
 device.fxos = ->
   (_find('(mobile;') or _find('(tablet;')) and _find('; rv:')
@@ -89,11 +89,36 @@ device.tablet = ->
 device.desktop = ->
   not device.tablet() and not device.mobile()
 
+device.tv = ->
+  tvString = [
+    "googletv"
+    "viera"
+    "smarttv"
+    "smart-tv"
+    "internet.tv"
+    "netcast"
+    "nettv"
+    "appletv"
+    "boxee"
+    "kylo"
+    "roku"
+    "dlnadoc"
+    "roku"
+    "pov_tv"
+    "hbbtv"
+    "ce-html"
+  ]
+  i = 0
+  while i < tvString.length
+    return true if _find(tvString[i]) is true
+    i++
+  false
+
 device.portrait = ->
-  (window.innerHeight/window.innerWidth) > 1
+  (window.innerHeight / window.innerWidth) > 1
 
 device.landscape = ->
-  (window.innerHeight/window.innerWidth) < 1
+  (window.innerHeight / window.innerWidth) < 1
 
 # Run device.js in noConflict mode, returning the device variable to its previous owner.
 # Returns a reference to the device object.
@@ -106,7 +131,7 @@ device.noConflict = ->
 
 # Simple UA string search
 _find = (needle) ->
-  _user_agent.indexOf(needle) isnt -1
+  _user_agent.indexOf(needle) isnt - 1
 
 # Check if docElement already has a given class.
 _hasClass = (class_name) ->
@@ -200,4 +225,3 @@ else if window.attachEvent
 else
   window[_orientation_event] = _handleOrientation
 
-_handleOrientation()
