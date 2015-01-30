@@ -1,6 +1,6 @@
 {
   "name": "device.js",
-  "version": "0.1.61",
+  "version": "0.1.16",
   "homepage": "https://github.com/matthewhudson/device.js",
   "authors": [
     "Matthew Hudson <matthud@gmail.com>"
