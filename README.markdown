@@ -36,6 +36,12 @@ Just include the script. The script then updates the `<html>` section with the [
 <script src="device.js"></script>
 ```
 
+###### Bower
+
+``` sh
+bower install devicejs
+```
+
 ### CONDITIONAL CSS
 
 The following tables map which CSS classes are added based on device and orientation.
