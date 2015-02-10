@@ -110,7 +110,8 @@
       .android .android,
       .blackberry .blackberry,
       .windows .windows,
-      .fxos .fxos {
+      .fxos .fxos,
+      .meego .meego {
         background: green;
         color: #FFF;
       }
@@ -158,6 +159,7 @@
             <span class="blackberry">.blackberry</span>
             <span class="windows">.windows</span>
             <span class="fxos">.fxos</span>
+            <span class="meego">.meego</span>
           </div>
           <p class="footer">
           Created by <a href="http://www.matthewhudson.me/">Matthew Hudson</a> &mdash;
@@ -173,7 +175,7 @@
       window.device = "Hello World!";
     </script>
 
-    <script src="../lib/device.js"></script>
+    <script src="device.js"></script>
 
     <script type="text/javascript">
       console.log("device.portrait() === %s", device.portrait());
@@ -189,6 +191,8 @@
       console.log("device.fxos() === %s", device.fxos());
       console.log("device.fxosPhone() === %s", device.fxosPhone());
       console.log("device.fxosTablet() === %s", device.fxosTablet());
+      console.log("device.meego() === %s", device.meego());
+
 
       var devicejs = device.noConflict();
 
