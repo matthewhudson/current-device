@@ -8,7 +8,7 @@
   "description": "Device.js makes it easy to write conditional CSS _and/or_ JavaScript based on device operating system (iOS, Android, Blackberry, Windows, Firefox OS, MeeGo), orientation (Portrait vs. Landscape), and type (Tablet vs. Mobile).",
   "license": "MIT",
   "main": [
-      "lib/device.js"
+    "lib/device.js"
   ],
   "ignore": [
     "**/.*"
