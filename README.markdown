@@ -34,7 +34,7 @@ Just include the script. The script then updates the `<html>` section with the [
 
 ``` html
 <script src="device.js"></script>
-``` 
+```
 
 ### CONDITIONAL CSS
 
@@ -251,8 +251,7 @@ In short, check for features when you need features, and check for the browser w
 
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Run `grunt` to automagically compile your changes ([Grunt](http://gruntjs.com/))
-4. Make changes to `src/device.coffee`
-5. Commit your changes (`git commit -am 'Added some feature'`) - *PLEASE DO NOT COMMIT* `lib/*.js`
-6. Push to the branch (`git push origin my-new-feature`)
-7. Create new Pull Request
+3. Make change(s)
+4. Commit your changes (`git commit -am 'Added some feature'`)
+5. Push to the branch (`git push origin my-new-feature`)
+6. Create new Pull Request

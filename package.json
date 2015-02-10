@@ -1,6 +1,6 @@
 {
   "name": "device.js",
-  "version": "0.1.61",
+  "version": "0.2.0",
   "homepage": "https://github.com/matthewhudson/device.js",
   "description": "Device.js makes it easy to write conditional CSS _and/or_ JavaScript based on device operating system (iOS, Android, Blackberry, Windows, Firefox OS, MeeGo), orientation (Portrait vs. Landscape), and type (Tablet vs. Mobile).",
   "author": {
@@ -84,9 +84,7 @@
     "grunt": "latest",
     "grunt-contrib-jshint": "~0.11.0",
     "grunt-contrib-nodeunit": "~0.4.1",
-    "grunt-contrib-coffee": "~0.12.0",
     "grunt-bumpup": "~0.6.2",
-    "grunt-contrib-watch": "~0.6.1",
     "grunt-contrib-uglify": "~0.7.0"
   },
   "license": "MIT"
