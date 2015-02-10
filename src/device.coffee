@@ -4,11 +4,13 @@
 # For all details and documentation:
 # http://matthewhudson.me/projects/device.js/
 
+device = {}
+
 # Save the previous value of the device variable.
 previousDevice = window.device
 
 # Add device as a global object.
-window.device = {}
+window.device = device
 
 # The <html> element.
 _doc_element = window.document.documentElement
