@@ -1,6 +1,6 @@
 {
   "name": "device.js",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "homepage": "https://github.com/matthewhudson/device.js",
   "description": "Device.js makes it easy to write conditional CSS _and/or_ JavaScript based on device operating system (iOS, Android, Blackberry, Windows, Firefox OS, MeeGo, AppleTV, etc), orientation (Portrait vs. Landscape), and type (Tablet vs. Mobile).",
   "author": {
