@@ -105,6 +105,10 @@ The following tables map which CSS classes are added based on device and orienta
 		<td>Desktop</td>
 		<td>desktop</td>
 	</tr>
+	<tr>
+		<td>Television</td>
+		<td>television</td>
+	</tr>
 </table>
 
 #### Orientation CSS Class Names
@@ -214,6 +218,10 @@ Device.js _also_ includes support for conditional JavaScript, allowing you to wr
 	<tr>
 		<td>MeeGo</td>
 		<td>device.meego()</td>
+	</tr>
+	<tr>
+		<td>Television</td>
+		<td>device.television()</td>
 	</tr>
 </table>
 
