@@ -1,5 +1,7 @@
 # [DEVICE.JS](http://matthewhudson.me/projects/device.js/)
 
+[![Join the chat at https://gitter.im/matthewhudson/device.js](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/matthewhudson/device.js?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Device.js makes it easy to write conditional CSS _and/or_ JavaScript based on device operating system (iOS, Android, Blackberry, Windows, Firefox OS, MeeGo, AppleTV, etc), orientation (Portrait vs. Landscape), and type (Tablet vs. Mobile).
 
 [View the Demo &rarr;](http://matthewhudson.me/projects/device.js/)
