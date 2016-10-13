@@ -243,7 +243,77 @@ Device.js _also_ includes support for conditional JavaScript, allowing you to wr
 		<td>device.portrait()</td>
 	</tr>
 </table>
+ Android
+Resources
 
+    More information about Android
+    Android Open Source Project
+    Android SDK
+
+ Android
+Resources
+
+    More information about Android
+    Android Open Source Project
+    Android SDK
+
+   Android™ delivers a complete set of software for mobile devices: an operating system, middleware and key mobile applications.
+   Android was built from the ground-up to enable developers to create compelling mobile applications that take full advantage of all a handset has to offer. It was built to be truly open. For example, an application can call upon any of the phone’s core functionality such as making calls, sending text messages, or using the camera, allowing developers to create richer and more cohesive experiences for users. Android is built on the open Linux Kernel. Furthermore, it utilizes a custom virtual machine that was designed to optimize memory and hardware resources in a mobile environment. Android is open source; it can be liberally extended to incorporate new cutting edge technologies as they emerge. The platform will continue to evolve as the developer community works together to build innovative mobile applications. 
+ Developer
+•	Google
+•	Open Handset Alliance
+
+Written in
+Java (UI),[1] C (core), C++
+
+OS family	Unix-like
+
+Working state	Current
+Source model	Open source[2] and in most devices with proprietary components[3]
+
+Initial release	September 23, 2008; 8 years ago[4]
+
+Latest release
+7.0 "Nougat" / August 22, 2016; 51 days ago
+Marketing target	Smartphones, tablet computers, Android TV, Android Auto and Android Wear
+
+Available in
+100+ languages[5]
+
+Package manager
+APK (through Google Play)
+
+Platforms	32- and 64-bit ARM, x86,[6] MIPS[7] and MIPS64[a]
+
+Kernel type
+Monolithic (modified Linux kernel)
+
+Userland
+Bionic libc,[8] mksh shell,[9] Toybox as core utilities beginning with Android 6.0,[10][11] previously native core utilities with a few from NetBSD[12][13]
+
+Default user interface
+Graphical (Multi-touch)
+
+License
+Apache License 2.0
+GNU GPL v2 for the Linux kernel modifications[14]
+
+Official website	android.com
+Code name 	    Version number 	Initial release date 	  API level 	Support Status
+Nougat 	              7.0 – 7.1 	22 August 2016 	          24–25 	Supported
+Marshmallow 	      6.0 – 6.0.1 	5 October 2015         	  23 	        Supported
+Lollipop 	      5.0 – 5.1.1 	12 November 2014 	  21–22 	Supported
+KitKat 	              4.4 – 4.4.4 	31 October 2013 	  19–20 	Security Updates Only
+Jelly Bean 	      4.1 – 4.3.1 	9 July 2012 	          16–18 	Discontinued
+Ice Cream Sandwich    4.0 – 4.0.4	18 October 2011 	  14–15 	Discontinued
+Honeycomb 	      3.0 – 3.2.6 	22 February 2011 	  11–13 	Discontinued
+Gingerbread 	      2.3 – 2.3.7 	6 December 2010 	  9–10  	Discontinued
+Froyo 	              2.2 – 2.2.3 	20 May 2010 	          8 	        Discontinued
+Eclair 	              2.0 – 2.1 	26 October 2009 	  5–7 	        Discontinued
+Donut 	              1.6 	        15 September 2009 	  4 	        Discontinued
+Cupcake 	      1.5 	        27 April 2009 	3 	                Discontinued
+N/A 	              1.0 	        23 September 2008         1             Discontinued
+N/A	              1.1 	        9 February 2009           2 	        Discontinued
 ### Utility Methods
 
 #### device.noConflict()
