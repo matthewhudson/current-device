@@ -196,6 +196,10 @@
       console.log("device.meego() === %s", device.meego());
       console.log("device.television() === %s", device.television());
 
+      device.onChangeOrientation(function (newOrientation) {
+        console.log("New orientation is " + newOrientation);
+      });
+
       var devicejs = device.noConflict();
 
       console.log ("device.noConflict() [previous]", window.device);
