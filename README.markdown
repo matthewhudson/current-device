@@ -244,7 +244,7 @@ Device.js _also_ includes support for conditional JavaScript, allowing you to wr
 	</tr>
 </table>
 
-#### Orientation JavaScript Collback
+#### Orientation JavaScript Callback
 
 ``` javascript
 device.onChangeOrientation(function (newOrientation) {
