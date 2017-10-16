@@ -4,6 +4,10 @@
 
 The following is a set of guidelines for contributing to `uasniffer`. These are mostly guidelines, not rules. Use your best judgment, and feel free to propose changes to this document in a Pull Request.
 
+## Beginner Friendly Features & Bugs
+
+To help you get your feet wet and get you familiar with the contribution process, there's a list of [beginner friendly bugs](https://github.com/matthewhudson/uasniffer/labels/Difficulty%3A%20beginner) that contain features and bugs which are fairly easy to complete. This is a great place to get started.
+
 ## Contributing Code
 
 1. Pull the repo
