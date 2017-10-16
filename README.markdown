@@ -271,3 +271,8 @@ In short, check for features when you need features, and check for the browser w
 4. Commit your changes (`git commit -am 'Added some feature'`)
 5. Push to the branch (`git push origin my-new-feature`)
 6. Create new Pull Request
+
+## Support on Beerpay
+Hey dude! Help me out for a couple of :beers:!
+
+[![Beerpay](https://beerpay.io/matthewhudson/device.js/badge.svg?style=beer-square)](https://beerpay.io/matthewhudson/device.js)  [![Beerpay](https://beerpay.io/matthewhudson/device.js/make-wish.svg?style=flat-square)](https://beerpay.io/matthewhudson/device.js?focus=wish)
