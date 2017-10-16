@@ -1,6 +1,10 @@
 # [DEVICE.JS](http://matthewhudson.me/projects/device.js/)
 
 [![Join the chat at https://gitter.im/matthewhudson/device.js](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/matthewhudson/device.js?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Greenkeeper badge](https://badges.greenkeeper.io/matthewhudson/kash.svg)](https://greenkeeper.io/)
+
+[![Beerpay](https://img.shields.io/beerpay/matthewhudson/device.js.svg)](https://img.shields.io/beerpay/matthewhudson/device.js.svg)
+
 
 Device.js makes it easy to write conditional CSS _and/or_ JavaScript based on device operating system (iOS, Android, Blackberry, Windows, Firefox OS, MeeGo, AppleTV, etc), orientation (Portrait vs. Landscape), and type (Tablet vs. Mobile).
 
@@ -273,6 +277,5 @@ In short, check for features when you need features, and check for the browser w
 6. Create new Pull Request
 
 ## Support on Beerpay
-Hey dude! Help me out for a couple of :beers:!
 
 [![Beerpay](https://beerpay.io/matthewhudson/device.js/badge.svg?style=beer-square)](https://beerpay.io/matthewhudson/device.js)  [![Beerpay](https://beerpay.io/matthewhudson/device.js/make-wish.svg?style=flat-square)](https://beerpay.io/matthewhudson/device.js?focus=wish)
