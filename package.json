@@ -1,8 +1,8 @@
 {
-  "name": "device.js",
+  "name": "uasniffer",
   "version": "0.2.7",
-  "homepage": "https://github.com/matthewhudson/device.js",
-  "description": "Device.js makes it easy to write conditional CSS and/or JavaScript based on device operating system (iOS, Android, Blackberry, Windows, Firefox OS, MeeGo, AppleTV, etc), orientation (Portrait vs. Landscape), and type (Tablet vs. Mobile).",
+  "homepage": "https://github.com/matthewhudson/uasniffer",
+  "description": "uasniffer makes it easy to write conditional CSS and/or JavaScript based on device operating system (iOS, Android, Blackberry, Windows, Firefox OS, MeeGo, AppleTV, etc), orientation (Portrait vs. Landscape), and type (Tablet vs. Mobile).",
   "author": {
     "name": "Matthew Hudson",
     "email": "matthud@gmail.com",
@@ -72,13 +72,13 @@
       "url": "http://eswat.ca"
     }
   ],
-  "main": "lib/device.js",
+  "main": "src/index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/matthewhudson/device.js.git"
+    "url": "git://github.com/matthewhudson/uasniffer.git"
   },
   "bugs": {
-    "url": "https://github.com/matthewhudson/device.js/issues"
+    "url": "https://github.com/matthewhudson/uasniffer/issues"
   },
   "devDependencies": {
     "grunt": "latest",

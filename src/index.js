@@ -1,13 +1,13 @@
-// Device.js
-// (c) 2014 Matthew Hudson
-// Device.js is freely distributable under the MIT license.
+// uasniffer
+// (c) 2012-present Matthew Hudson
+// uasniffer is freely distributable under the MIT license.
 // For all details and documentation:
-// http://matthewhudson.me/projects/device.js/
+// http://thematthewhudson.com/uasniffer/
 
 (function() {
 
-  var device,
-    previousDevice,
+  var uasniffer,
+    previousUasniffer,
     addClass,
     documentElement,
     find,
@@ -17,113 +17,113 @@
     removeClass,
     userAgent;
 
-  // Save the previous value of the device variable.
-  previousDevice = window.device;
+  // Save the previous value of the `uasniffer` variable.
+  previousUasniffer = window.uasniffer;
 
   device = {};
 
-  // Add device as a global object.
-  window.device = device;
+  // Add `uasniffer` as a global object.
+  window.uasniffer = uasniffer;
 
-  // The <html> element.
+  // The `<html>` node.
   documentElement = window.document.documentElement;
 
   // The client user agent string.
-  // Lowercase, so we can use the more efficient indexOf(), instead of Regex
+  // Lowercase, so we can use the more efficient indexOf(), instead of Regex.
   userAgent = window.navigator.userAgent.toLowerCase();
 
   // Main functions
   // --------------
 
-  device.ios = function () {
-    return device.iphone() || device.ipod() || device.ipad();
+  uasniffer.ios = function () {
+    return uasniffer.iphone() || uasniffer.ipod() || uasniffer.ipad();
   };
 
-  device.iphone = function () {
-    return !device.windows() && find('iphone');
+  uasniffer.iphone = function () {
+    return !uasniffer.windows() && find('iphone');
   };
 
-  device.ipod = function () {
+  uasniffer.ipod = function () {
     return find('ipod');
   };
 
-  device.ipad = function () {
+  uasniffer.ipad = function () {
     return find('ipad');
   };
 
-  device.android = function () {
-    return !device.windows() && find('android');
+  uasniffer.android = function () {
+    return !uasniffer.windows() && find('android');
   };
 
-  device.androidPhone = function () {
-    return device.android() && find('mobile');
+  uasniffer.androidPhone = function () {
+    return uasniffer.android() && find('mobile');
   };
 
-  device.androidTablet = function () {
-    return device.android() && !find('mobile');
+  uasniffer.androidTablet = function () {
+    return uasniffer.android() && !find('mobile');
   };
 
-  device.blackberry = function () {
+  uasniffer.blackberry = function () {
     return find('blackberry') || find('bb10') || find('rim');
   };
 
-  device.blackberryPhone = function () {
-    return device.blackberry() && !find('tablet');
+  uasniffer.blackberryPhone = function () {
+    return uasniffer.blackberry() && !find('tablet');
   };
 
-  device.blackberryTablet = function () {
-    return device.blackberry() && find('tablet');
+  uasniffer.blackberryTablet = function () {
+    return uasniffer.blackberry() && find('tablet');
   };
 
-  device.windows = function () {
+  uasniffer.windows = function () {
     return find('windows');
   };
 
-  device.windowsPhone = function () {
-    return device.windows() && find('phone');
+  uasniffer.windowsPhone = function () {
+    return uasniffer.windows() && find('phone');
   };
 
-  device.windowsTablet = function () {
-    return device.windows() && (find('touch') && !device.windowsPhone());
+  uasniffer.windowsTablet = function () {
+    return uasniffer.windows() && (find('touch') && !uasniffer.windowsPhone());
   };
 
-  device.fxos = function () {
+  uasniffer.fxos = function () {
     return (find('(mobile;') || find('(tablet;')) && find('; rv:');
   };
 
-  device.fxosPhone = function () {
-    return device.fxos() && find('mobile');
+  uasniffer.fxosPhone = function () {
+    return uasniffer.fxos() && find('mobile');
   };
 
-  device.fxosTablet = function () {
-    return device.fxos() && find('tablet');
+  uasniffer.fxosTablet = function () {
+    return uasniffer.fxos() && find('tablet');
   };
 
-  device.meego = function () {
+  uasniffer.meego = function () {
     return find('meego');
   };
 
-  device.cordova = function () {
+  uasniffer.cordova = function () {
     return window.cordova && location.protocol === 'file:';
   };
 
-  device.nodeWebkit = function () {
+  uasniffer.nodeWebkit = function () {
     return typeof window.process === 'object';
   };
 
-  device.mobile = function () {
-    return device.androidPhone() || device.iphone() || device.ipod() || device.windowsPhone() || device.blackberryPhone() || device.fxosPhone() || device.meego();
+  uasniffer.mobile = function () {
+    return uasniffer.androidPhone() || uasniffer.iphone() || uasniffer.ipod() || uasniffer.windowsPhone() || uasniffer.blackberryPhone() || uasniffer.fxosPhone() || uasniffer.meego();
   };
 
-  device.tablet = function () {
-    return device.ipad() || device.androidTablet() || device.blackberryTablet() || device.windowsTablet() || device.fxosTablet();
+  uasniffer.tablet = function () {
+    return uasniffer.ipad() || uasniffer.androidTablet() || uasniffer.blackberryTablet() || uasniffer.windowsTablet() || uasniffer.fxosTablet();
   };
 
-  device.desktop = function () {
-    return !device.tablet() && !device.mobile();
+  uasniffer.desktop = function () {
+    return !uasniffer.tablet() && !uasniffer.mobile();
   };
 
-  device.television = function() {
+  uasniffer.television = function() {
     var i, television = [
       "googletv",
       "viera",
@@ -152,21 +152,21 @@
     return false;
   };
 
-  device.portrait = function () {
+  uasniffer.portrait = function () {
     return (window.innerHeight / window.innerWidth) > 1;
   };
 
-  device.landscape = function () {
+  uasniffer.landscape = function () {
     return (window.innerHeight / window.innerWidth) < 1;
   };
 
   // Public Utility Functions
   // ------------------------
 
-  // Run device.js in noConflict mode,
+  // Run `uasniffer` in noConflict mode,
   // returning the device variable to its previous owner.
-  device.noConflict = function () {
-    window.device = previousDevice;
+  uasniffer.noConflict = function () {
+    window.uasniffer = previousUasniffer;
     return this;
   };
 
@@ -206,51 +206,51 @@
 
   // Insert the appropriate CSS class based on the _user_agent.
 
-  if (device.ios()) {
-    if (device.ipad()) {
+  if (uasniffer.ios()) {
+    if (uasniffer.ipad()) {
       addClass("ios ipad tablet");
-    } else if (device.iphone()) {
+    } else if (uasniffer.iphone()) {
       addClass("ios iphone mobile");
-    } else if (device.ipod()) {
+    } else if (uasniffer.ipod()) {
       addClass("ios ipod mobile");
     }
-  } else if (device.android()) {
-    if (device.androidTablet()) {
+  } else if (uasniffer.android()) {
+    if (uasniffer.androidTablet()) {
       addClass("android tablet");
     } else {
       addClass("android mobile");
     }
-  } else if (device.blackberry()) {
-    if (device.blackberryTablet()) {
+  } else if (uasniffer.blackberry()) {
+    if (uasniffer.blackberryTablet()) {
       addClass("blackberry tablet");
     } else {
       addClass("blackberry mobile");
     }
-  } else if (device.windows()) {
-    if (device.windowsTablet()) {
+  } else if (uasniffer.windows()) {
+    if (uasniffer.windowsTablet()) {
       addClass("windows tablet");
-    } else if (device.windowsPhone()) {
+    } else if (uasniffer.windowsPhone()) {
       addClass("windows mobile");
     } else {
       addClass("desktop");
     }
-  } else if (device.fxos()) {
-    if (device.fxosTablet()) {
+  } else if (uasniffer.fxos()) {
+    if (uasniffer.fxosTablet()) {
       addClass("fxos tablet");
     } else {
       addClass("fxos mobile");
     }
-  } else if (device.meego()) {
+  } else if (uasniffer.meego()) {
     addClass("meego mobile");
-  } else if (device.nodeWebkit()) {
+  } else if (uasniffer.nodeWebkit()) {
     addClass("node-webkit");
-  } else if (device.television()) {
+  } else if (uasniffer.television()) {
     addClass("television");
-  } else if (device.desktop()) {
+  } else if (uasniffer.desktop()) {
     addClass("desktop");
   }
 
-  if (device.cordova()) {
+  if (uasniffer.cordova()) {
     addClass("cordova");
   }
 
@@ -259,7 +259,7 @@
 
   // Handle device orientation changes.
   handleOrientation = function () {
-    if (device.landscape()) {
+    if (uasniffer.landscape()) {
       removeClass("portrait");
       addClass("landscape");
     } else {
@@ -289,12 +289,12 @@
 
   if (typeof define === 'function' && typeof define.amd === 'object' && define.amd) {
     define(function() {
-      return device;
+      return uasniffer;
     });
   } else if (typeof module !== 'undefined' && module.exports) {
-    module.exports = device;
+    module.exports = uasniffer;
   } else {
-    window.device = device;
+    window.uasniffer = uasniffer;
   }
 
 }).call(this);

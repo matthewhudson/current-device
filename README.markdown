@@ -1,17 +1,17 @@
-# [DEVICE.JS](http://thematthewhudson.com/device.js/)
+# [UASNIFFER](http://thematthewhudson.com/uasniffer/)
 
-[![Join the chat at https://gitter.im/matthewhudson/device.js](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/matthewhudson/device.js?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Join the chat at https://gitter.im/matthewhudson/uasniffer](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/matthewhudson/uasniffer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Greenkeeper badge](https://badges.greenkeeper.io/matthewhudson/kash.svg)](https://greenkeeper.io/)
 
-[![Beerpay](https://img.shields.io/beerpay/matthewhudson/device.js.svg)](https://img.shields.io/beerpay/matthewhudson/device.js.svg)
+[![Beerpay](https://img.shields.io/beerpay/matthewhudson/uasniffer.svg)](https://img.shields.io/beerpay/matthewhudson/uasniffer.svg)
 
-Device.js makes it easy to write conditional CSS _and/or_ JavaScript based on device operating system (iOS, Android, Blackberry, Windows, Firefox OS, MeeGo, AppleTV, etc), orientation (Portrait vs. Landscape), and type (Tablet vs. Mobile).
+This module makes it easy to write conditional CSS _and/or_ JavaScript based on device operating system (iOS, Android, Blackberry, Windows, Firefox OS, MeeGo, AppleTV, etc), orientation (Portrait vs. Landscape), and type (Tablet vs. Mobile).
 
-[View the Demo &rarr;](http://thematthewhudson.com/device.js/)
+[View the Demo &rarr;](http://thematthewhudson.com/uasniffer/)
 
 ### EXAMPLES
 
-Device.js inserts CSS classes into the `<html>` element.
+The module inserts CSS classes into the `<html>` element.
 
 #### iPhone
 
@@ -35,16 +35,16 @@ Device.js inserts CSS classes into the `<html>` element.
 
 ### USAGE
 
-Just include the script. The script then updates the `<html>` section with the [appropriate classes](https://github.com/matthewhudson/device.js#conditional-css) based on the device's characteristics.
+Just include the script. The script then updates the `<html>` section with the [appropriate classes](https://github.com/matthewhudson/uasniffer#conditional-css) based on the device's characteristics.
 
 ``` html
-<script src="device.js"></script>
+<script src="http://unpkg.com/uasniffer"></script>
 ```
 
 ###### Bower
 
 ``` sh
-bower install devicejs
+bower install uasniffer
 ```
 
 ### CONDITIONAL CSS
@@ -135,7 +135,7 @@ The following tables map which CSS classes are added based on device and orienta
 
 ### CONDITIONAL JAVASCRIPT
 
-Device.js _also_ includes support for conditional JavaScript, allowing you to write checks on the following device characteristics:
+This module _also_ includes support for conditional JavaScript, allowing you to write checks on the following device characteristics:
 
 #### Device JavaScript Methods
 
@@ -146,87 +146,87 @@ Device.js _also_ includes support for conditional JavaScript, allowing you to wr
 	</tr>
 	<tr>
 		<td>Mobile</td>
-		<td>device.mobile()</td>
+		<td>uasniffer.mobile()</td>
 	</tr>
 	<tr>
 		<td>Tablet</td>
-		<td>device.tablet()</td>
+		<td>uasniffer.tablet()</td>
 	</tr>
 	<tr>
 		<td>Desktop</td>
-		<td>device.desktop()</td>
+		<td>uasniffer.desktop()</td>
 	</tr>
 	<tr>
 		<td>iOS</td>
-		<td>device.ios()</td>
+		<td>uasniffer.ios()</td>
 	</tr>
 	<tr>
 		<td>iPad</td>
-		<td>device.ipad()</td>
+		<td>uasniffer.ipad()</td>
 	</tr>
 	<tr>
 		<td>iPhone</td>
-		<td>device.iphone()</td>
+		<td>uasniffer.iphone()</td>
 	</tr>
 	<tr>
 		<td>iPod</td>
-		<td>device.ipod()</td>
+		<td>uasniffer.ipod()</td>
 	</tr>
 	<tr>
 		<td>Android</td>
-		<td>device.android()</td>
+		<td>uasniffer.android()</td>
 	</tr>
 	<tr>
 		<td>Android Phone</td>
-		<td>device.androidPhone()</td>
+		<td>uasniffer.androidPhone()</td>
 	</tr>
 	<tr>
 		<td>Android Tablet</td>
-		<td>device.androidTablet()</td>
+		<td>uasniffer.androidTablet()</td>
 	</tr>
 	<tr>
 		<td>BlackBerry</td>
-		<td>device.blackberry()</td>
+		<td>uasniffer.blackberry()</td>
 	</tr>
 	<tr>
 		<td>BlackBerry Phone</td>
-		<td>device.blackberryPhone()</td>
+		<td>uasniffer.blackberryPhone()</td>
 	</tr>
 	<tr>
 		<td>BlackBerry Tablet</td>
-		<td>device.blackberryTablet()</td>
+		<td>uasniffer.blackberryTablet()</td>
 	</tr>
 	<tr>
 		<td>Windows</td>
-		<td>device.windows()</td>
+		<td>uasniffer.windows()</td>
 	</tr>
 	<tr>
 		<td>Windows Phone</td>
-		<td>device.windowsPhone()</td>
+		<td>uasniffer.windowsPhone()</td>
 	</tr>
 	<tr>
 		<td>Windows Tablet</td>
-		<td>device.windowsTablet()</td>
+		<td>uasniffer.windowsTablet()</td>
 	</tr>
 	<tr>
 		<td>Firefox OS</td>
-		<td>device.fxos()</td>
+		<td>uasniffer.fxos()</td>
 	</tr>
 	<tr>
 		<td>Firefox OS Phone</td>
-		<td>device.fxosPhone()</td>
+		<td>uasniffer.fxosPhone()</td>
 	</tr>
 	<tr>
 		<td>Firefox OS Tablet</td>
-		<td>device.fxosTablet()</td>
+		<td>uasniffer.fxosTablet()</td>
 	</tr>
 	<tr>
 		<td>MeeGo</td>
-		<td>device.meego()</td>
+		<td>uasniffer.meego()</td>
 	</tr>
 	<tr>
 		<td>Television</td>
-		<td>device.television()</td>
+		<td>uasniffer.television()</td>
 	</tr>
 </table>
 
@@ -239,30 +239,30 @@ Device.js _also_ includes support for conditional JavaScript, allowing you to wr
 	</tr>
 	<tr>
 		<td>Landscape</td>
-		<td>device.landscape()</td>
+		<td>uasniffer.landscape()</td>
 	</tr>
 	<tr>
 		<td>Portrait</td>
-		<td>device.portrait()</td>
+		<td>uasniffer.portrait()</td>
 	</tr>
 </table>
 
 ### Utility Methods
 
-#### device.noConflict()
+#### uasniffer.noConflict()
 
-Run device.js in noConflict mode, returning the device variable to its previous owner.
+Run `uasniffer` in noConflict mode, returning the device variable to its previous owner.
 Returns a reference to the device object.
 
 ``` javascript
-var devicejs = device.noConflict();
+const sniffer = uasniffer.noConflict();
 ```
 
 ### BEST PRACTICES
 
 Environment detection has a high rate of misuse. Often times, folks will attempt to work around browser feature support problems by checking for the affected browser and doing something different in response. The preferred solution for those kinds of problems, of course, is to check for the feature, not the browser (ala [Modernizr](http://modernizr.com/)).
 
-However, that common misuse of device detection doesn't mean it should never be done. For example, device.js could be employed to change the interface of your web app such that it uses interaction patterns and UI elements common to the device it's being presented on. Android devices might get a slightly different treatment than Windows or iOS, for instance. Another valid use-case is guiding users to different app stores depending on the device they're using.
+However, that common misuse of device detection doesn't mean it should never be done. For example, `uasniffer` could be employed to change the interface of your web app such that it uses interaction patterns and UI elements common to the device it's being presented on. Android devices might get a slightly different treatment than Windows or iOS, for instance. Another valid use-case is guiding users to different app stores depending on the device they're using.
 
 In short, check for features when you need features, and check for the browser when you need the browser.
 
@@ -277,4 +277,4 @@ In short, check for features when you need features, and check for the browser w
 
 ### SUPPORT ON BEERPAY
 
-[![Beerpay](https://beerpay.io/matthewhudson/device.js/badge.svg?style=beer-square)](https://beerpay.io/matthewhudson/device.js)  [![Beerpay](https://beerpay.io/matthewhudson/device.js/make-wish.svg?style=flat-square)](https://beerpay.io/matthewhudson/device.js?focus=wish)
+[![Beerpay](https://beerpay.io/matthewhudson/uasniffer/badge.svg?style=beer-square)](https://beerpay.io/matthewhudson/uasniffer)  [![Beerpay](https://beerpay.io/matthewhudson/uasniffer/make-wish.svg?style=flat-square)](https://beerpay.io/matthewhudson/uasniffer?focus=wish)
