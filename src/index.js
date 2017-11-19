@@ -1,8 +1,8 @@
-// Device.js
-// (c) 2014 Matthew Hudson
-// Device.js is freely distributable under the MIT license.
+// current-device
+// (c) 2012-present Matthew Hudson
+// current-device is freely distributable under the MIT license.
 // For all details and documentation:
-// http://matthewhudson.me/projects/device.js/
+// http://github.com/matthewhudson/current-device
 
 (function() {
 

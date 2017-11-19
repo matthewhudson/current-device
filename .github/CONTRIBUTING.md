@@ -1,8 +1,8 @@
-# Contributing to device.js
+# Contributing to `current-device`
 
 :+1::tada: First off, thanks for taking the time to contribute! :tada::+1:
 
-The following is a set of guidelines for contributing to `device.js`. These are mostly guidelines, not rules. Use your best judgment, and feel free to propose changes to this document in a Pull Request.
+The following is a set of guidelines for contributing to `current-device`. These are mostly guidelines, not rules. Use your best judgment, and feel free to propose changes to this document in a Pull Request.
 
 ## Contributing Code
 
