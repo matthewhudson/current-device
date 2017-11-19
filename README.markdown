@@ -33,13 +33,13 @@ This module inserts CSS classes into the `<html>` element.
 Just include the script. The script then updates the `<html>` section with the [appropriate classes](https://github.com/matthewhudson/current-device#conditional-css) based on the device's characteristics.
 
 ``` html
-<script src="http://unpkg.com/current-device"></script>
+<script src="https://unpkg.com/current-device"></script>
 ```
 
-###### Bower
+Or use w/ Node.js
 
 ``` sh
-bower install devicejs
+npm install current-device --save
 ```
 
 ### CONDITIONAL CSS

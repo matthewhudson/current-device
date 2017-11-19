@@ -1,6 +1,6 @@
 {
   "name": "current-device",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "homepage": "https://github.com/matthewhudson/current-device",
   "description": "The easiest way to write conditional CSS and/or JavaScript based on device operating system (iOS, Android, Blackberry, Windows, Firefox OS, MeeGo, AppleTV, etc), orientation (Portrait vs. Landscape), and type (Tablet vs. Mobile).",
   "author": {
