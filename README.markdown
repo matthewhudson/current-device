@@ -1,4 +1,4 @@
-# [DEVICE.JS](http://thematthewhudson.com/current-device/)
+# [CURRENT-DEVICE](http://thematthewhudson.com/current-device/)
 
 [![Join the chat at https://gitter.im/matthewhudson/current-device](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/matthewhudson/current-device?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Greenkeeper badge](https://badges.greenkeeper.io/matthewhudson/current-device.svg)](https://greenkeeper.io/)
@@ -11,19 +11,19 @@ This module makes it easy to write conditional CSS _and/or_ JavaScript based on 
 
 ### EXAMPLES
 
-Device.js inserts CSS classes into the `<html>` element.
+This module inserts CSS classes into the `<html>` element.
 
 #### iPhone
 
-<img src="http://matthewhudson.me/projects/device.js/screenshots/iphone.png" />
+<img src="https://raw.githubusercontent.com/matthewhudson/current-device/master/docs/iphone.png" />
 
 #### Android Tablet
 
-<img src="http://matthewhudson.me/projects/device.js/screenshots/android.png" />
+<img src="https://raw.githubusercontent.com/matthewhudson/current-device/master/docs/android.png" />
 
 #### Blackberry Tablet
 
-<img src="http://matthewhudson.me/projects/device.js/screenshots/blackberry.png" />
+<img src="https://raw.githubusercontent.com/matthewhudson/current-device/master/docs/blackberry.png" />
 
 ### DEVICE SUPPORT
 

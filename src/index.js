@@ -2,7 +2,7 @@
 // (c) 2012-present Matthew Hudson
 // current-device is freely distributable under the MIT license.
 // For all details and documentation:
-// http://github.com/matthewhudson/current-device
+// http://thematthewhudson.com/current-device/
 
 (function() {
 
