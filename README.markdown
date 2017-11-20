@@ -267,11 +267,11 @@ This module _also_ includes support for conditional JavaScript, allowing you to 
 
 #### device.noConflict()
 
-Run device.js in noConflict mode, returning the device variable to its previous owner.
-Returns a reference to the device object.
+Run `current-device` in noConflict mode, returning the device variable to its previous owner.
+Returns a reference to the `device` object.
 
-``` javascript
-var devicejs = device.noConflict();
+``` js
+const currentDevice = device.noConflict()
 ```
 
 ### BEST PRACTICES
