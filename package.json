@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "nwb": "0.19.x"
-  }
+  },
   "author": {
     "name": "Matthew Hudson",
     "email": "matthud@gmail.com",
