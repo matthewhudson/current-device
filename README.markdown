@@ -32,14 +32,35 @@ This module inserts CSS classes into the `<html>` element.
 
 Just include the script. The script then updates the `<html>` section with the [appropriate classes](https://github.com/matthewhudson/current-device#conditional-css) based on the device's characteristics.
 
+## Installation
+
+``` sh
+npm install current-device
+```
+
+And then import it:
+
+``` js
+// using es modules
+import device from 'current-device'
+
+// common.js
+const device = require('current-device').default
+
+// AMD
+// I've forgotten but it should work.
+```
+
+Or use script tags and globals.
+
 ``` html
 <script src="https://unpkg.com/current-device"></script>
 ```
 
-Or use w/ Node.js
+And then grab it off the global like so:
 
-``` sh
-npm install current-device --save
+``` js
+const device = device.default
 ```
 
 ### CONDITIONAL CSS
@@ -246,11 +267,11 @@ This module _also_ includes support for conditional JavaScript, allowing you to 
 
 #### device.noConflict()
 
-Run device.js in noConflict mode, returning the device variable to its previous owner.
-Returns a reference to the device object.
+Run `current-device` in noConflict mode, returning the device variable to its previous owner.
+Returns a reference to the `device` object.
 
-``` javascript
-var devicejs = device.noConflict();
+``` js
+const currentDevice = device.noConflict()
 ```
 
 ### BEST PRACTICES
