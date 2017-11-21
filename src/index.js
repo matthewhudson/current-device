@@ -33,6 +33,10 @@ userAgent = window.navigator.userAgent.toLowerCase();
 // Main functions
 // --------------
 
+device.macos = function() {
+  return find('mac');
+};
+
 device.ios = function () {
   return device.iphone() || device.ipod() || device.ipad();
 };
@@ -212,6 +216,8 @@ if (device.ios()) {
   } else if (device.ipod()) {
     addClass("ios ipod mobile");
   }
+} else if (device.macos()) {
+    addClass("macos desktop");
 } else if (device.android()) {
   if (device.androidTablet()) {
     addClass("android tablet");
@@ -230,7 +236,7 @@ if (device.ios()) {
   } else if (device.windowsPhone()) {
     addClass("windows mobile");
   } else {
-    addClass("desktop");
+    addClass("windows desktop");
   }
 } else if (device.fxos()) {
   if (device.fxosTablet()) {
