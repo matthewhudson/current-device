@@ -15,5 +15,3 @@ branches:
   only:
     - master
     - /^greenkeeper/.*$/
-
-
