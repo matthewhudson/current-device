@@ -54,7 +54,7 @@ const device = require('current-device').default
 Or use script tags and globals.
 
 ``` html
-<script src="https://unpkg.com/current-device"></script>
+<script src="https://unpkg.com/current-device/umd/current-device.min.js"></script>
 ```
 
 And then grab it off the global like so:
