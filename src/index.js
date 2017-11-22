@@ -13,12 +13,15 @@ var device,
   hasClass,
   orientationEvent,
   removeClass,
-  userAgent;
+  userAgent,
+  changeOrientationList;
 
 // Save the previous value of the device variable.
 previousDevice = window.device;
 
 device = {};
+
+changeOrientationList = [];
 
 // Add device as a global object.
 window.device = device;
@@ -273,8 +276,6 @@ handleOrientation = function () {
     walkOnChangeOrientationList("portrait");
   }
 };
-
-changeOrientationList = [];
 
 walkOnChangeOrientationList = function (newOrientation) {
   for (var index in changeOrientationList) {
