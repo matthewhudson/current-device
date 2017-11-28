@@ -270,6 +270,7 @@ handleOrientation = function () {
     removeClass("landscape");
     addClass("portrait");
   }
+  setOrientationCache();
 };
 
 // Detect whether device supports orientationchange event,
@@ -290,5 +291,25 @@ if (window.addEventListener) {
 }
 
 handleOrientation();
+
+
+// Public functions to get the current value of type, os, or orientation
+// ---------------------------------------------------------------------
+
+function findMatch(arr){
+  for (var i = 0; i < arr.length; i++){
+    if (device[arr[i]]()){
+      return arr[i];
+    }
+  }
+  return 'unknown';
+}
+
+device.type = findMatch(['mobile', 'tablet', 'desktop']);
+device.os = findMatch(['ios', 'iphone', 'ipad', 'ipod', 'android', 'blackberry', 'windows', 'fxos', 'meego', 'television']);
+function setOrientationCache(){
+  device.orientation = findMatch(['portrait', 'landscape']);
+}
+setOrientationCache();
 
 export default device;
