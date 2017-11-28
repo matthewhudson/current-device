@@ -1,12 +1,29 @@
 {
-  "name": "device.js",
-  "version": "0.2.7",
-  "homepage": "https://github.com/matthewhudson/device.js",
-  "description": "Device.js makes it easy to write conditional CSS _and/or_ JavaScript based on device operating system (iOS, Android, Blackberry, Windows, Firefox OS, MeeGo, AppleTV, etc), orientation (Portrait vs. Landscape), and type (Tablet vs. Mobile).",
+  "name": "current-device",
+  "version": "0.6.3",
+  "homepage": "https://github.com/matthewhudson/current-device",
+  "description": "The easiest way to write conditional CSS and/or JavaScript based on device operating system (iOS, Android, Blackberry, Windows, Firefox OS, MeeGo, AppleTV, etc), orientation (Portrait vs. Landscape), and type (Tablet vs. Mobile).",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "files": [
+    "es",
+    "lib",
+    "umd"
+  ],
+  "scripts": {
+    "build": "nwb build-web-module",
+    "clean": "nwb clean-module",
+    "test": "nwb test",
+    "test:coverage": "nwb test --coverage",
+    "test:watch": "nwb test --server"
+  },
+  "devDependencies": {
+    "nwb": "0.19.x"
+  },
   "author": {
     "name": "Matthew Hudson",
     "email": "matthud@gmail.com",
-    "url": "https://matthewhudson.me"
+    "url": "http://thematthewhudson.com"
   },
   "contributors": [
     {
@@ -72,20 +89,12 @@
       "url": "http://eswat.ca"
     }
   ],
-  "main": "lib/device.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/matthewhudson/device.js.git"
+    "url": "git://github.com/matthewhudson/current-device.git"
   },
   "bugs": {
-    "url": "https://github.com/matthewhudson/device.js/issues"
-  },
-  "devDependencies": {
-    "grunt": "latest",
-    "grunt-contrib-jshint": "~0.11.0",
-    "grunt-contrib-nodeunit": "~0.4.1",
-    "grunt-bumpup": "~0.6.2",
-    "grunt-contrib-uglify": "~0.7.0"
+    "url": "https://github.com/matthewhudson/current-device/issues"
   },
   "license": "MIT"
 }

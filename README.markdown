@@ -1,26 +1,24 @@
-# [DEVICE.JS](http://matthewhudson.me/projects/device.js/)
+# [CURRENT-DEVICE](http://thematthewhudson.com/current-device/)
 
-[![Join the chat at https://gitter.im/matthewhudson/device.js](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/matthewhudson/device.js?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+This module makes it easy to write conditional CSS _and/or_ JavaScript based on device operating system (iOS, Android, Blackberry, Windows, Firefox OS, MeeGo, AppleTV, etc), orientation (Portrait vs. Landscape), and type (Tablet vs. Mobile).
 
-Device.js makes it easy to write conditional CSS _and/or_ JavaScript based on device operating system (iOS, Android, Blackberry, Windows, Firefox OS, MeeGo, AppleTV, etc), orientation (Portrait vs. Landscape), and type (Tablet vs. Mobile).
-
-[View the Demo &rarr;](http://matthewhudson.me/projects/device.js/)
+[View the Demo &rarr;](http://thematthewhudson.com/current-device/)
 
 ### EXAMPLES
 
-Device.js inserts CSS classes into the `<html>` element.
+This module inserts CSS classes into the `<html>` element.
 
 #### iPhone
 
-<img src="http://matthewhudson.me/projects/device.js/screenshots/iphone.png" />
+<img src="https://raw.githubusercontent.com/matthewhudson/current-device/master/docs/iphone.png" />
 
 #### Android Tablet
 
-<img src="http://matthewhudson.me/projects/device.js/screenshots/android.png" />
+<img src="https://raw.githubusercontent.com/matthewhudson/current-device/master/docs/android.png" />
 
 #### Blackberry Tablet
 
-<img src="http://matthewhudson.me/projects/device.js/screenshots/blackberry.png" />
+<img src="https://raw.githubusercontent.com/matthewhudson/current-device/master/docs/blackberry.png" />
 
 ### DEVICE SUPPORT
 
@@ -32,16 +30,37 @@ Device.js inserts CSS classes into the `<html>` element.
 
 ### USAGE
 
-Just include the script. The script then updates the `<html>` section with the [appropriate classes](https://github.com/matthewhudson/device.js#conditional-css) based on the device's characteristics.
+Just include the script. The script then updates the `<html>` section with the [appropriate classes](https://github.com/matthewhudson/current-device#conditional-css) based on the device's characteristics.
 
-``` html
-<script src="device.js"></script>
-```
-
-###### Bower
+## Installation
 
 ``` sh
-bower install devicejs
+npm install current-device
+```
+
+And then import it:
+
+``` js
+// using es modules
+import device from 'current-device'
+
+// common.js
+const device = require('current-device').default
+
+// AMD
+// I've forgotten but it should work.
+```
+
+Or use script tags and globals.
+
+``` html
+<script src="https://unpkg.com/current-device/umd/current-device.min.js"></script>
+```
+
+And then grab it off the global like so:
+
+``` js
+const device = device.default
 ```
 
 ### CONDITIONAL CSS
@@ -132,7 +151,7 @@ The following tables map which CSS classes are added based on device and orienta
 
 ### CONDITIONAL JAVASCRIPT
 
-Device.js _also_ includes support for conditional JavaScript, allowing you to write checks on the following device characteristics:
+This module _also_ includes support for conditional JavaScript, allowing you to write checks on the following device characteristics:
 
 #### Device JavaScript Methods
 
@@ -248,11 +267,11 @@ Device.js _also_ includes support for conditional JavaScript, allowing you to wr
 
 #### device.noConflict()
 
-Run device.js in noConflict mode, returning the device variable to its previous owner.
-Returns a reference to the device object.
+Run `current-device` in noConflict mode, returning the device variable to its previous owner.
+Returns a reference to the `device` object.
 
-``` javascript
-var devicejs = device.noConflict();
+``` js
+const currentDevice = device.noConflict()
 ```
 
 ### Useful Properties
@@ -282,7 +301,7 @@ Access these properties on the `device` object to get the first match on that at
 
 Environment detection has a high rate of misuse. Often times, folks will attempt to work around browser feature support problems by checking for the affected browser and doing something different in response. The preferred solution for those kinds of problems, of course, is to check for the feature, not the browser (ala [Modernizr](http://modernizr.com/)).
 
-However, that common misuse of device detection doesn't mean it should never be done. For example, device.js could be employed to change the interface of your web app such that it uses interaction patterns and UI elements common to the device it's being presented on. Android devices might get a slightly different treatment than Windows or iOS, for instance. Another valid use-case is guiding users to different app stores depending on the device they're using.
+However, that common misuse of device detection doesn't mean it should never be done. For example, `current-device` could be employed to change the interface of your web app such that it uses interaction patterns and UI elements common to the device it's being presented on. Android devices might get a slightly different treatment than Windows or iOS, for instance. Another valid use-case is guiding users to different app stores depending on the device they're using.
 
 In short, check for features when you need features, and check for the browser when you need the browser.
 
@@ -294,3 +313,7 @@ In short, check for features when you need features, and check for the browser w
 4. Commit your changes (`git commit -am 'Added some feature'`)
 5. Push to the branch (`git push origin my-new-feature`)
 6. Create new Pull Request
+
+### SUPPORT ON BEERPAY
+
+[![Beerpay](https://beerpay.io/matthewhudson/device.js/badge.svg?style=beer-square)](https://beerpay.io/matthewhudson/device.js)  [![Beerpay](https://beerpay.io/matthewhudson/device.js/make-wish.svg?style=flat-square)](https://beerpay.io/matthewhudson/device.js?focus=wish)
