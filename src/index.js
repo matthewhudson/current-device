@@ -14,7 +14,8 @@ var device,
   orientationEvent,
   removeClass,
   userAgent,
-  changeOrientationList;
+  changeOrientationList,
+  walkOnChangeOrientationList;
 
 // Save the previous value of the device variable.
 previousDevice = window.device;
