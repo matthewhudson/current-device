@@ -1,6 +1,6 @@
 # [CURRENT-DEVICE](http://thematthewhudson.com/current-device/)
 [![Build Status](https://travis-ci.org/matthewhudson/current-device.svg?branch=master)](https://travis-ci.org/matthewhudson/current-device)
-[![Code Coverage](https://img.shields.io/codecov/c/github/matthewhudson/current-device.svg)](https://img.shields.io/codecov/c/github/matthewhudson/current-device.svg)
+[![Coverage Status](https://coveralls.io/repos/github/matthewhudson/current-device/badge.svg?branch=master)](https://coveralls.io/github/matthewhudson/current-device?branch=master)
 [![Greenkeeper badge](https://badges.greenkeeper.io/matthewhudson/current-device.svg)](https://greenkeeper.io/)
 [![NPM version](https://badge.fury.io/js/current-device.svg)](http://badge.fury.io/js/current-device)
 
