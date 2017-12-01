@@ -265,10 +265,10 @@ This module _also_ includes support for conditional JavaScript, allowing you to 
 
 #### Orientation JavaScript Callback
 
-``` javascript
-device.onChangeOrientation(function (newOrientation) {
-	console.log("New orientation is " + newOrientation);
-});
+``` js
+device.onChangeOrientation((newOrientation) => {
+  console.log(`New orientation is ${newOrientation}`)
+})
 ```
 
 ### Utility Methods
