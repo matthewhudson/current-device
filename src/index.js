@@ -41,112 +41,127 @@ device.macos = function() {
   return find('mac');
 };
 
-device.ios = function () {
+device.ios = function() {
   return device.iphone() || device.ipod() || device.ipad();
 };
 
-device.iphone = function () {
+device.iphone = function() {
   return !device.windows() && find('iphone');
 };
 
-device.ipod = function () {
+device.ipod = function() {
   return find('ipod');
 };
 
-device.ipad = function () {
+device.ipad = function() {
   return find('ipad');
 };
 
-device.android = function () {
+device.android = function() {
   return !device.windows() && find('android');
 };
 
-device.androidPhone = function () {
+device.androidPhone = function() {
   return device.android() && find('mobile');
 };
 
-device.androidTablet = function () {
+device.androidTablet = function() {
   return device.android() && !find('mobile');
 };
 
-device.blackberry = function () {
+device.blackberry = function() {
   return find('blackberry') || find('bb10') || find('rim');
 };
 
-device.blackberryPhone = function () {
+device.blackberryPhone = function() {
   return device.blackberry() && !find('tablet');
 };
 
-device.blackberryTablet = function () {
+device.blackberryTablet = function() {
   return device.blackberry() && find('tablet');
 };
 
-device.windows = function () {
+device.windows = function() {
   return find('windows');
 };
 
-device.windowsPhone = function () {
+device.windowsPhone = function() {
   return device.windows() && find('phone');
 };
 
-device.windowsTablet = function () {
+device.windowsTablet = function() {
   return device.windows() && (find('touch') && !device.windowsPhone());
 };
 
-device.fxos = function () {
+device.fxos = function() {
   return (find('(mobile;') || find('(tablet;')) && find('; rv:');
 };
 
-device.fxosPhone = function () {
+device.fxosPhone = function() {
   return device.fxos() && find('mobile');
 };
 
-device.fxosTablet = function () {
+device.fxosTablet = function() {
   return device.fxos() && find('tablet');
 };
 
-device.meego = function () {
+device.meego = function() {
   return find('meego');
 };
 
-device.cordova = function () {
+device.cordova = function() {
   return window.cordova && location.protocol === 'file:';
 };
 
-device.nodeWebkit = function () {
+device.nodeWebkit = function() {
   return typeof window.process === 'object';
 };
 
-device.mobile = function () {
-  return device.androidPhone() || device.iphone() || device.ipod() || device.windowsPhone() || device.blackberryPhone() || device.fxosPhone() || device.meego();
+device.mobile = function() {
+  return (
+    device.androidPhone() ||
+    device.iphone() ||
+    device.ipod() ||
+    device.windowsPhone() ||
+    device.blackberryPhone() ||
+    device.fxosPhone() ||
+    device.meego()
+  );
 };
 
-device.tablet = function () {
-  return device.ipad() || device.androidTablet() || device.blackberryTablet() || device.windowsTablet() || device.fxosTablet();
+device.tablet = function() {
+  return (
+    device.ipad() ||
+    device.androidTablet() ||
+    device.blackberryTablet() ||
+    device.windowsTablet() ||
+    device.fxosTablet()
+  );
 };
 
-device.desktop = function () {
+device.desktop = function() {
   return !device.tablet() && !device.mobile();
 };
 
 device.television = function() {
-  var i, television = [
-    "googletv",
-    "viera",
-    "smarttv",
-    "internet.tv",
-    "netcast",
-    "nettv",
-    "appletv",
-    "boxee",
-    "kylo",
-    "roku",
-    "dlnadoc",
-    "roku",
-    "pov_tv",
-    "hbbtv",
-    "ce-html"
-  ];
+  var i,
+    television = [
+      'googletv',
+      'viera',
+      'smarttv',
+      'internet.tv',
+      'netcast',
+      'nettv',
+      'appletv',
+      'boxee',
+      'kylo',
+      'roku',
+      'dlnadoc',
+      'roku',
+      'pov_tv',
+      'hbbtv',
+      'ce-html'
+    ];
 
   i = 0;
   while (i < television.length) {
@@ -158,12 +173,12 @@ device.television = function() {
   return false;
 };
 
-device.portrait = function () {
-  return (window.innerHeight / window.innerWidth) > 1;
+device.portrait = function() {
+  return window.innerHeight / window.innerWidth > 1;
 };
 
-device.landscape = function () {
-  return (window.innerHeight / window.innerWidth) < 1;
+device.landscape = function() {
+  return window.innerHeight / window.innerWidth < 1;
 };
 
 // Public Utility Functions
@@ -171,7 +186,7 @@ device.landscape = function () {
 
 // Run device.js in noConflict mode,
 // returning the device variable to its previous owner.
-device.noConflict = function () {
+device.noConflict = function() {
   window.device = previousDevice;
   return this;
 };
@@ -180,30 +195,33 @@ device.noConflict = function () {
 // -------------------------
 
 // Simple UA string search
-find = function (needle) {
+find = function(needle) {
   return userAgent.indexOf(needle) !== -1;
 };
 
 // Check if documentElement already has a given class.
-hasClass = function (className) {
+hasClass = function(className) {
   var regex;
   regex = new RegExp(className, 'i');
   return documentElement.className.match(regex);
 };
 
 // Add one or more CSS classes to the <html> element.
-addClass = function (className) {
+addClass = function(className) {
   var currentClassNames = null;
   if (!hasClass(className)) {
     currentClassNames = documentElement.className.replace(/^\s+|\s+$/g, '');
-    documentElement.className = currentClassNames + " " + className;
+    documentElement.className = currentClassNames + ' ' + className;
   }
 };
 
 // Remove single CSS class from the <html> element.
-removeClass = function (className) {
+removeClass = function(className) {
   if (hasClass(className)) {
-    documentElement.className = documentElement.className.replace(" " + className, "");
+    documentElement.className = documentElement.className.replace(
+      ' ' + className,
+      ''
+    );
   }
 };
 
@@ -214,89 +232,89 @@ removeClass = function (className) {
 
 if (device.ios()) {
   if (device.ipad()) {
-    addClass("ios ipad tablet");
+    addClass('ios ipad tablet');
   } else if (device.iphone()) {
-    addClass("ios iphone mobile");
+    addClass('ios iphone mobile');
   } else if (device.ipod()) {
-    addClass("ios ipod mobile");
+    addClass('ios ipod mobile');
   }
 } else if (device.macos()) {
-    addClass("macos desktop");
+  addClass('macos desktop');
 } else if (device.android()) {
   if (device.androidTablet()) {
-    addClass("android tablet");
+    addClass('android tablet');
   } else {
-    addClass("android mobile");
+    addClass('android mobile');
   }
 } else if (device.blackberry()) {
   if (device.blackberryTablet()) {
-    addClass("blackberry tablet");
+    addClass('blackberry tablet');
   } else {
-    addClass("blackberry mobile");
+    addClass('blackberry mobile');
   }
 } else if (device.windows()) {
   if (device.windowsTablet()) {
-    addClass("windows tablet");
+    addClass('windows tablet');
   } else if (device.windowsPhone()) {
-    addClass("windows mobile");
+    addClass('windows mobile');
   } else {
-    addClass("windows desktop");
+    addClass('windows desktop');
   }
 } else if (device.fxos()) {
   if (device.fxosTablet()) {
-    addClass("fxos tablet");
+    addClass('fxos tablet');
   } else {
-    addClass("fxos mobile");
+    addClass('fxos mobile');
   }
 } else if (device.meego()) {
-  addClass("meego mobile");
+  addClass('meego mobile');
 } else if (device.nodeWebkit()) {
-  addClass("node-webkit");
+  addClass('node-webkit');
 } else if (device.television()) {
-  addClass("television");
+  addClass('television');
 } else if (device.desktop()) {
-  addClass("desktop");
+  addClass('desktop');
 }
 
 if (device.cordova()) {
-  addClass("cordova");
+  addClass('cordova');
 }
 
 // Orientation Handling
 // --------------------
 
 // Handle device orientation changes.
-handleOrientation = function () {
+handleOrientation = function() {
   if (device.landscape()) {
-    removeClass("portrait");
-    addClass("landscape");
-    walkOnChangeOrientationList("landscape");
+    removeClass('portrait');
+    addClass('landscape');
+    walkOnChangeOrientationList('landscape');
   } else {
-    removeClass("landscape");
-    addClass("portrait");
-    walkOnChangeOrientationList("portrait");
+    removeClass('landscape');
+    addClass('portrait');
+    walkOnChangeOrientationList('portrait');
   }
   setOrientationCache();
 };
 
-walkOnChangeOrientationList = function (newOrientation) {
+walkOnChangeOrientationList = function(newOrientation) {
   for (var index in changeOrientationList) {
     changeOrientationList[index](newOrientation);
   }
-}
+};
 
-device.onChangeOrientation = function (func) {
+device.onChangeOrientation = function(func) {
   if (typeof func == 'function') {
     changeOrientationList.push(func);
   }
-}
+};
 
 // Detect whether device supports orientationchange event,
 // otherwise fall back to the resize event.
-if (Object.prototype.hasOwnProperty.call(window, "onorientationchange")) {
-  orientationEvent = "onorientationchange";
+if (Object.prototype.hasOwnProperty.call(window, 'onorientationchange')) {
+  orientationEvent = 'onorientationchange';
 } else {
-  orientationEvent = "resize";
+  orientationEvent = 'resize';
 }
 
 // Listen for changes in orientation.
@@ -310,13 +328,12 @@ if (window.addEventListener) {
 
 handleOrientation();
 
-
 // Public functions to get the current value of type, os, or orientation
 // ---------------------------------------------------------------------
 
-function findMatch(arr){
-  for (var i = 0; i < arr.length; i++){
-    if (device[arr[i]]()){
+function findMatch(arr) {
+  for (var i = 0; i < arr.length; i++) {
+    if (device[arr[i]]()) {
       return arr[i];
     }
   }
@@ -324,8 +341,19 @@ function findMatch(arr){
 }
 
 device.type = findMatch(['mobile', 'tablet', 'desktop']);
-device.os = findMatch(['ios', 'iphone', 'ipad', 'ipod', 'android', 'blackberry', 'windows', 'fxos', 'meego', 'television']);
-function setOrientationCache(){
+device.os = findMatch([
+  'ios',
+  'iphone',
+  'ipad',
+  'ipod',
+  'android',
+  'blackberry',
+  'windows',
+  'fxos',
+  'meego',
+  'television'
+]);
+function setOrientationCache() {
   device.orientation = findMatch(['portrait', 'landscape']);
 }
 setOrientationCache();
