@@ -263,6 +263,14 @@ This module _also_ includes support for conditional JavaScript, allowing you to 
 	</tr>
 </table>
 
+#### Orientation JavaScript Callback
+
+``` javascript
+device.onChangeOrientation(function (newOrientation) {
+	console.log("New orientation is " + newOrientation);
+});
+```
+
 ### Utility Methods
 
 #### device.noConflict()

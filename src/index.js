@@ -13,12 +13,15 @@ var device,
   hasClass,
   orientationEvent,
   removeClass,
-  userAgent;
+  userAgent,
+  changeOrientationList;
 
 // Save the previous value of the device variable.
 previousDevice = window.device;
 
 device = {};
+
+changeOrientationList = [];
 
 // Add device as a global object.
 window.device = device;
@@ -266,11 +269,25 @@ handleOrientation = function () {
   if (device.landscape()) {
     removeClass("portrait");
     addClass("landscape");
+    walkOnChangeOrientationList("landscape");
   } else {
     removeClass("landscape");
     addClass("portrait");
+    walkOnChangeOrientationList("portrait");
   }
 };
+
+walkOnChangeOrientationList = function (newOrientation) {
+  for (var index in changeOrientationList) {
+    changeOrientationList[index](newOrientation);
+  }
+}
+
+device.onChangeOrientation = function (func) {
+  if (typeof func == 'function') {
+    changeOrientationList.push(func);
+  }
+}
 
 // Detect whether device supports orientationchange event,
 // otherwise fall back to the resize event.
