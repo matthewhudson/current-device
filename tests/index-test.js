@@ -18,7 +18,7 @@ describe('current-device', () => {
     })
   })
 
-  describe('Exposes functions for detecting various devices', () => {
+  describe('Exposes functions for detecting device `os`', () => {
     describe('Apple (iOS, macOS)', () => {
       it('Exposes a `macos` function', () => {
         expect(device.macos).toBeA('function');
@@ -95,6 +95,39 @@ describe('current-device', () => {
       it('Exposes a `nodeWebkit` function', () => {
         expect(device.nodeWebkit).toBeA('function');
       })
+    })
+  })
+
+  describe('Exposes functions for detecting device `type`', () => {
+    it('Exposes a `desktop` function', () => {
+      expect(device.desktop).toBeA('function');
+    })
+    it('Exposes a `tablet` function', () => {
+      expect(device.tablet).toBeA('function');
+    })
+    it('Exposes a `mobile` function', () => {
+      expect(device.mobile).toBeA('function');
+    })
+    it('Exposes a `television` function', () => {
+      expect(device.television).toBeA('function');
+    })
+  })
+
+  describe('Exposes functions for detecting device `orientation`', () => {
+    it('Exposes a `portrait` function', () => {
+      expect(device.portrait).toBeA('function');
+    })
+    it('Exposes a `landscape` function', () => {
+      expect(device.landscape).toBeA('function');
+    })
+  })
+
+  describe('Exposes helper functions', () => {
+    it('Exposes a `noConflict` function', () => {
+      expect(device.noConflict).toBeA('function');
+    })
+    it('Exposes a `onChangeOrientation` function', () => {
+      expect(device.onChangeOrientation).toBeA('function');
     })
   })
 })
