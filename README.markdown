@@ -1,5 +1,8 @@
 # [CURRENT-DEVICE](http://thematthewhudson.com/current-device/)
-
+[![NPM version](https://badge.fury.io/js/current-device.svg)](http://badge.fury.io/js/current-device)
+[![Build Status](https://travis-ci.org/matthewhudson/current-device.svg?branch=master)](https://travis-ci.org/matthewhudson/current-device)
+[![Code Coverage](https://img.shields.io/codecov/c/github/matthewhudson/current-device.svg)](https://img.shields.io/codecov/c/github/matthewhudson/current-device.svg)
+[![Downloads](https://img.shields.io/npm/dt/current-device.svg)](https://img.shields.io/npm/dt/current-device.svg)
 [![Greenkeeper badge](https://badges.greenkeeper.io/matthewhudson/current-device.svg)](https://greenkeeper.io/)
 
 This module makes it easy to write conditional CSS _and/or_ JavaScript based on device operating system (iOS, Android, Blackberry, Windows, Firefox OS, MeeGo, AppleTV, etc), orientation (Portrait vs. Landscape), and type (Tablet vs. Mobile).
