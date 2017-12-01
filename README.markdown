@@ -1,5 +1,7 @@
 # [CURRENT-DEVICE](http://thematthewhudson.com/current-device/)
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/matthewhudson/current-device.svg)](https://greenkeeper.io/)
+
 This module makes it easy to write conditional CSS _and/or_ JavaScript based on device operating system (iOS, Android, Blackberry, Windows, Firefox OS, MeeGo, AppleTV, etc), orientation (Portrait vs. Landscape), and type (Tablet vs. Mobile).
 
 [View the Demo &rarr;](http://thematthewhudson.com/current-device/)
