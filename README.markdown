@@ -282,6 +282,29 @@ Returns a reference to the `device` object.
 const currentDevice = device.noConflict()
 ```
 
+### Useful Properties
+
+Access these properties on the `device` object to get the first match on that attribute without looping through all of its getter methods.
+
+<table>
+	<tr>
+		<th>JS Property</th>
+		<th>Returns</th>
+	</tr>
+	<tr>
+		<td>device.type</td>
+		<td>'mobile', 'tablet', 'desktop', or 'unknown'</td>
+	</tr>
+	<tr>
+		<td>device.orientation</td>
+		<td>'landscape', 'portrait', or 'unknown'</td>
+	</tr>
+	<tr>
+		<td>device.os</td>
+		<td>'ios', 'iphone', 'ipad', 'ipod', 'android', 'blackberry', 'windows', 'fxos', 'meego', 'television', or 'unknown'</td>
+	</tr>
+</table>
+
 ### BEST PRACTICES
 
 Environment detection has a high rate of misuse. Often times, folks will attempt to work around browser feature support problems by checking for the affected browser and doing something different in response. The preferred solution for those kinds of problems, of course, is to check for the feature, not the browser (ala [Modernizr](http://modernizr.com/)).
