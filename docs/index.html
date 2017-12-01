@@ -174,14 +174,11 @@
       </div>
     </div>
 
-    <script type="text/javascript">
-      // Dummy value for demonstrating device.noConflict()
-      window.device = "Hello World!";
-    </script>
-
     <script src="https://unpkg.com/current-device/umd/current-device.min.js"></script>
 
     <script type="text/javascript">
+      var device = device.default;
+
       console.log("device.portrait() === %s", device.portrait());
       console.log("device.landscape() === %s", device.landscape());
       console.log("device.mobile() === %s", device.mobile());
@@ -201,11 +198,6 @@
       device.onChangeOrientation(function (newOrientation) {
         console.log("New orientation is " + newOrientation);
       });
-
-      var devicejs = device.noConflict();
-
-      console.log ("device.noConflict() [previous]", window.device);
-      console.log ("device.noConflict() [device.js]", devicejs.iphone());
     </script>
 
   </body>
