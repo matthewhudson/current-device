@@ -1,10 +1,14 @@
 # [CURRENT-DEVICE](http://thematthewhudson.com/current-device/)
+
 [![Build Status](https://travis-ci.org/matthewhudson/current-device.svg?branch=master)](https://travis-ci.org/matthewhudson/current-device)
 [![Coverage Status](https://coveralls.io/repos/github/matthewhudson/current-device/badge.svg?branch=master)](https://coveralls.io/github/matthewhudson/current-device?branch=master)
 [![Greenkeeper badge](https://badges.greenkeeper.io/matthewhudson/current-device.svg)](https://greenkeeper.io/)
 [![NPM version](https://badge.fury.io/js/current-device.svg)](http://badge.fury.io/js/current-device)
 
-This module makes it easy to write conditional CSS _and/or_ JavaScript based on device operating system (iOS, Android, Blackberry, Windows, Firefox OS, MeeGo, AppleTV, etc), orientation (Portrait vs. Landscape), and type (Tablet vs. Mobile).
+This module makes it easy to write conditional CSS _and/or_ JavaScript based on
+device operating system (iOS, Android, Blackberry, Windows, Firefox OS, MeeGo,
+AppleTV, etc), orientation (Portrait vs. Landscape), and type (Tablet vs.
+Mobile).
 
 [View the Demo &rarr;](http://thematthewhudson.com/current-device/)
 
@@ -34,17 +38,19 @@ This module inserts CSS classes into the `<html>` element.
 
 ### USAGE
 
-Just include the script. The script then updates the `<html>` section with the [appropriate classes](https://github.com/matthewhudson/current-device#conditional-css) based on the device's characteristics.
+Just include the script. The script then updates the `<html>` section with the
+[appropriate classes](https://github.com/matthewhudson/current-device#conditional-css)
+based on the device's characteristics.
 
 ## Installation
 
-``` sh
+```sh
 npm install current-device
 ```
 
 And then import it:
 
-``` js
+```js
 // using es modules
 import device from 'current-device'
 
@@ -57,19 +63,20 @@ const device = require('current-device').default
 
 Or use script tags and globals.
 
-``` html
+```html
 <script src="https://unpkg.com/current-device/umd/current-device.min.js"></script>
 ```
 
 And then grab it off the global like so:
 
-``` js
+```js
 const device = device.default
 ```
 
 ### CONDITIONAL CSS
 
-The following tables map which CSS classes are added based on device and orientation.
+The following tables map which CSS classes are added based on device and
+orientation.
 
 #### Device CSS Class Names
 
@@ -155,7 +162,8 @@ The following tables map which CSS classes are added based on device and orienta
 
 ### CONDITIONAL JAVASCRIPT
 
-This module _also_ includes support for conditional JavaScript, allowing you to write checks on the following device characteristics:
+This module _also_ includes support for conditional JavaScript, allowing you to
+write checks on the following device characteristics:
 
 #### Device JavaScript Methods
 
@@ -269,8 +277,8 @@ This module _also_ includes support for conditional JavaScript, allowing you to 
 
 #### Orientation JavaScript Callback
 
-``` js
-device.onChangeOrientation((newOrientation) => {
+```js
+device.onChangeOrientation(newOrientation => {
   console.log(`New orientation is ${newOrientation}`)
 })
 ```
@@ -279,16 +287,17 @@ device.onChangeOrientation((newOrientation) => {
 
 #### device.noConflict()
 
-Run `current-device` in noConflict mode, returning the device variable to its previous owner.
-Returns a reference to the `device` object.
+Run `current-device` in noConflict mode, returning the device variable to its
+previous owner. Returns a reference to the `device` object.
 
-``` js
+```js
 const currentDevice = device.noConflict()
 ```
 
 ### Useful Properties
 
-Access these properties on the `device` object to get the first match on that attribute without looping through all of its getter methods.
+Access these properties on the `device` object to get the first match on that
+attribute without looping through all of its getter methods.
 
 <table>
 	<tr>
@@ -311,11 +320,21 @@ Access these properties on the `device` object to get the first match on that at
 
 ### BEST PRACTICES
 
-Environment detection has a high rate of misuse. Often times, folks will attempt to work around browser feature support problems by checking for the affected browser and doing something different in response. The preferred solution for those kinds of problems, of course, is to check for the feature, not the browser (ala [Modernizr](http://modernizr.com/)).
+Environment detection has a high rate of misuse. Often times, folks will attempt
+to work around browser feature support problems by checking for the affected
+browser and doing something different in response. The preferred solution for
+those kinds of problems, of course, is to check for the feature, not the browser
+(ala [Modernizr](http://modernizr.com/)).
 
-However, that common misuse of device detection doesn't mean it should never be done. For example, `current-device` could be employed to change the interface of your web app such that it uses interaction patterns and UI elements common to the device it's being presented on. Android devices might get a slightly different treatment than Windows or iOS, for instance. Another valid use-case is guiding users to different app stores depending on the device they're using.
+However, that common misuse of device detection doesn't mean it should never be
+done. For example, `current-device` could be employed to change the interface of
+your web app such that it uses interaction patterns and UI elements common to
+the device it's being presented on. Android devices might get a slightly
+different treatment than Windows or iOS, for instance. Another valid use-case is
+guiding users to different app stores depending on the device they're using.
 
-In short, check for features when you need features, and check for the browser when you need the browser.
+In short, check for features when you need features, and check for the browser
+when you need the browser.
 
 ### CONTRIBUTING
 
@@ -328,4 +347,5 @@ In short, check for features when you need features, and check for the browser w
 
 ### SUPPORT ON BEERPAY
 
-[![Beerpay](https://beerpay.io/matthewhudson/device.js/badge.svg?style=beer-square)](https://beerpay.io/matthewhudson/device.js)  [![Beerpay](https://beerpay.io/matthewhudson/device.js/make-wish.svg?style=flat-square)](https://beerpay.io/matthewhudson/device.js?focus=wish)
+[![Beerpay](https://beerpay.io/matthewhudson/device.js/badge.svg?style=beer-square)](https://beerpay.io/matthewhudson/device.js)
+[![Beerpay](https://beerpay.io/matthewhudson/device.js/make-wish.svg?style=flat-square)](https://beerpay.io/matthewhudson/device.js?focus=wish)
