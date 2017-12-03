@@ -1,121 +1,121 @@
-// current-device
-// (c) 2012-present Matthew Hudson
-// current-device is freely distributable under the MIT license.
-// For all details and documentation:
-// http://thematthewhudson.com/current-device/
-
-var device,
-  previousDevice,
-  addClass,
-  documentElement,
-  find,
-  handleOrientation,
-  hasClass,
-  orientationEvent,
-  removeClass,
-  userAgent,
-  changeOrientationList,
-  walkOnChangeOrientationList;
-
 // Save the previous value of the device variable.
-previousDevice = window.device;
+const previousDevice = window.device
 
-device = {};
+const device = {}
 
-changeOrientationList = [];
+const changeOrientationList = []
 
 // Add device as a global object.
-window.device = device;
+window.device = device
 
 // The <html> element.
-documentElement = window.document.documentElement;
+const documentElement = window.document.documentElement
 
 // The client user agent string.
 // Lowercase, so we can use the more efficient indexOf(), instead of Regex
-userAgent = window.navigator.userAgent.toLowerCase();
+const userAgent = window.navigator.userAgent.toLowerCase()
+
+// Detectable television devices.
+const television = [
+  'googletv',
+  'viera',
+  'smarttv',
+  'internet.tv',
+  'netcast',
+  'nettv',
+  'appletv',
+  'boxee',
+  'kylo',
+  'roku',
+  'dlnadoc',
+  'roku',
+  'pov_tv',
+  'hbbtv',
+  'ce-html'
+]
 
 // Main functions
 // --------------
 
 device.macos = function() {
-  return find('mac');
-};
+  return find('mac')
+}
 
 device.ios = function() {
-  return device.iphone() || device.ipod() || device.ipad();
-};
+  return device.iphone() || device.ipod() || device.ipad()
+}
 
 device.iphone = function() {
-  return !device.windows() && find('iphone');
-};
+  return !device.windows() && find('iphone')
+}
 
 device.ipod = function() {
-  return find('ipod');
-};
+  return find('ipod')
+}
 
 device.ipad = function() {
-  return find('ipad');
-};
+  return find('ipad')
+}
 
 device.android = function() {
-  return !device.windows() && find('android');
-};
+  return !device.windows() && find('android')
+}
 
 device.androidPhone = function() {
-  return device.android() && find('mobile');
-};
+  return device.android() && find('mobile')
+}
 
 device.androidTablet = function() {
-  return device.android() && !find('mobile');
-};
+  return device.android() && !find('mobile')
+}
 
 device.blackberry = function() {
-  return find('blackberry') || find('bb10') || find('rim');
-};
+  return find('blackberry') || find('bb10') || find('rim')
+}
 
 device.blackberryPhone = function() {
-  return device.blackberry() && !find('tablet');
-};
+  return device.blackberry() && !find('tablet')
+}
 
 device.blackberryTablet = function() {
-  return device.blackberry() && find('tablet');
-};
+  return device.blackberry() && find('tablet')
+}
 
 device.windows = function() {
-  return find('windows');
-};
+  return find('windows')
+}
 
 device.windowsPhone = function() {
-  return device.windows() && find('phone');
-};
+  return device.windows() && find('phone')
+}
 
 device.windowsTablet = function() {
-  return device.windows() && (find('touch') && !device.windowsPhone());
-};
+  return device.windows() && (find('touch') && !device.windowsPhone())
+}
 
 device.fxos = function() {
-  return (find('(mobile;') || find('(tablet;')) && find('; rv:');
-};
+  return (find('(mobile') || find('(tablet')) && find(' rv:')
+}
 
 device.fxosPhone = function() {
-  return device.fxos() && find('mobile');
-};
+  return device.fxos() && find('mobile')
+}
 
 device.fxosTablet = function() {
-  return device.fxos() && find('tablet');
-};
+  return device.fxos() && find('tablet')
+}
 
 device.meego = function() {
-  return find('meego');
-};
+  return find('meego')
+}
 
 device.cordova = function() {
-  return window.cordova && location.protocol === 'file:';
-};
+  return window.cordova && location.protocol === 'file:'
+}
 
 device.nodeWebkit = function() {
-  return typeof window.process === 'object';
-};
+  return typeof window.process === 'object'
+}
 
 device.mobile = function() {
   return (
@@ -126,8 +126,8 @@ device.mobile = function() {
     device.blackberryPhone() ||
     device.fxosPhone() ||
     device.meego()
-  );
-};
+  )
+}
 
 device.tablet = function() {
   return (
@@ -136,50 +136,31 @@ device.tablet = function() {
     device.blackberryTablet() ||
     device.windowsTablet() ||
     device.fxosTablet()
-  );
-};
+  )
+}
 
 device.desktop = function() {
-  return !device.tablet() && !device.mobile();
-};
+  return !device.tablet() && !device.mobile()
+}
 
 device.television = function() {
-  var i,
-    television = [
-      'googletv',
-      'viera',
-      'smarttv',
-      'internet.tv',
-      'netcast',
-      'nettv',
-      'appletv',
-      'boxee',
-      'kylo',
-      'roku',
-      'dlnadoc',
-      'roku',
-      'pov_tv',
-      'hbbtv',
-      'ce-html'
-    ];
-
-  i = 0;
+  let i = 0
   while (i < television.length) {
     if (find(television[i])) {
-      return true;
+      return true
     }
-    i++;
+    i++
   }
-  return false;
-};
+  return false
+}
 
 device.portrait = function() {
-  return window.innerHeight / window.innerWidth > 1;
-};
+  return window.innerHeight / window.innerWidth > 1
+}
 
 device.landscape = function() {
-  return window.innerHeight / window.innerWidth < 1;
-};
+  return window.innerHeight / window.innerWidth < 1
+}
 
 // Public Utility Functions
 // ------------------------
@@ -187,43 +168,41 @@ device.landscape = function() {
 // Run device.js in noConflict mode,
 // returning the device variable to its previous owner.
 device.noConflict = function() {
-  window.device = previousDevice;
-  return this;
-};
+  window.device = previousDevice
+  return this
+}
 
 // Private Utility Functions
 // -------------------------
 
 // Simple UA string search
-find = function(needle) {
-  return userAgent.indexOf(needle) !== -1;
-};
+function find(needle) {
+  return userAgent.indexOf(needle) !== -1
+}
 
 // Check if documentElement already has a given class.
-hasClass = function(className) {
-  var regex;
-  regex = new RegExp(className, 'i');
-  return documentElement.className.match(regex);
-};
+function hasClass(className) {
+  return documentElement.className.match(new RegExp(className, 'i'))
+}
 
 // Add one or more CSS classes to the <html> element.
-addClass = function(className) {
-  var currentClassNames = null;
+function addClass(className) {
+  let currentClassNames = null
   if (!hasClass(className)) {
-    currentClassNames = documentElement.className.replace(/^\s+|\s+$/g, '');
-    documentElement.className = currentClassNames + ' ' + className;
+    currentClassNames = documentElement.className.replace(/^\s+|\s+$/g, '')
+    documentElement.className = `${currentClassNames} ${className}`
   }
-};
+}
 
 // Remove single CSS class from the <html> element.
-removeClass = function(className) {
+function removeClass(className) {
   if (hasClass(className)) {
     documentElement.className = documentElement.className.replace(
-      ' ' + className,
+      ` ${className}`,
       ''
-    );
+    )
   }
-};
+}
 
 // HTML Element Handling
 // ---------------------
@@ -232,115 +211,114 @@ removeClass = function(className) {
 
 if (device.ios()) {
   if (device.ipad()) {
-    addClass('ios ipad tablet');
+    addClass('ios ipad tablet')
   } else if (device.iphone()) {
-    addClass('ios iphone mobile');
+    addClass('ios iphone mobile')
   } else if (device.ipod()) {
-    addClass('ios ipod mobile');
+    addClass('ios ipod mobile')
   }
 } else if (device.macos()) {
-  addClass('macos desktop');
+  addClass('macos desktop')
 } else if (device.android()) {
   if (device.androidTablet()) {
-    addClass('android tablet');
+    addClass('android tablet')
   } else {
-    addClass('android mobile');
+    addClass('android mobile')
   }
 } else if (device.blackberry()) {
   if (device.blackberryTablet()) {
-    addClass('blackberry tablet');
+    addClass('blackberry tablet')
   } else {
-    addClass('blackberry mobile');
+    addClass('blackberry mobile')
   }
 } else if (device.windows()) {
   if (device.windowsTablet()) {
-    addClass('windows tablet');
+    addClass('windows tablet')
   } else if (device.windowsPhone()) {
-    addClass('windows mobile');
+    addClass('windows mobile')
   } else {
-    addClass('windows desktop');
+    addClass('windows desktop')
   }
 } else if (device.fxos()) {
   if (device.fxosTablet()) {
-    addClass('fxos tablet');
+    addClass('fxos tablet')
   } else {
-    addClass('fxos mobile');
+    addClass('fxos mobile')
   }
 } else if (device.meego()) {
-  addClass('meego mobile');
+  addClass('meego mobile')
 } else if (device.nodeWebkit()) {
-  addClass('node-webkit');
+  addClass('node-webkit')
 } else if (device.television()) {
-  addClass('television');
+  addClass('television')
 } else if (device.desktop()) {
-  addClass('desktop');
+  addClass('desktop')
 }
 
 if (device.cordova()) {
-  addClass('cordova');
+  addClass('cordova')
 }
 
 // Orientation Handling
 // --------------------
 
 // Handle device orientation changes.
-handleOrientation = function() {
+function handleOrientation() {
   if (device.landscape()) {
-    removeClass('portrait');
-    addClass('landscape');
-    walkOnChangeOrientationList('landscape');
+    removeClass('portrait')
+    addClass('landscape')
+    walkOnChangeOrientationList('landscape')
   } else {
-    removeClass('landscape');
-    addClass('portrait');
-    walkOnChangeOrientationList('portrait');
+    removeClass('landscape')
+    addClass('portrait')
+    walkOnChangeOrientationList('portrait')
   }
-  setOrientationCache();
-};
+  setOrientationCache()
+}
 
-walkOnChangeOrientationList = function(newOrientation) {
-  for (var index in changeOrientationList) {
-    changeOrientationList[index](newOrientation);
+function walkOnChangeOrientationList(newOrientation) {
+  for (const index in changeOrientationList) {
+    changeOrientationList[index](newOrientation)
   }
-};
+}
 
-device.onChangeOrientation = function(func) {
-  if (typeof func == 'function') {
-    changeOrientationList.push(func);
+device.onChangeOrientation = function(cb) {
+  if (typeof cb == 'function') {
+    changeOrientationList.push(cb)
   }
-};
+}
 
 // Detect whether device supports orientationchange event,
 // otherwise fall back to the resize event.
+let orientationEvent = 'resize'
 if (Object.prototype.hasOwnProperty.call(window, 'onorientationchange')) {
-  orientationEvent = 'onorientationchange';
-} else {
-  orientationEvent = 'resize';
+  orientationEvent = 'onorientationchange'
 }
 
 // Listen for changes in orientation.
 if (window.addEventListener) {
-  window.addEventListener(orientationEvent, handleOrientation, false);
+  window.addEventListener(orientationEvent, handleOrientation, false)
 } else if (window.attachEvent) {
-  window.attachEvent(orientationEvent, handleOrientation);
+  window.attachEvent(orientationEvent, handleOrientation)
 } else {
-  window[orientationEvent] = handleOrientation;
+  window[orientationEvent] = handleOrientation
 }
 
-handleOrientation();
+handleOrientation()
 
 // Public functions to get the current value of type, os, or orientation
 // ---------------------------------------------------------------------
 
 function findMatch(arr) {
-  for (var i = 0; i < arr.length; i++) {
+  for (let i = 0; i < arr.length; i++) {
     if (device[arr[i]]()) {
-      return arr[i];
+      return arr[i]
     }
   }
-  return 'unknown';
+  return 'unknown'
 }
 
-device.type = findMatch(['mobile', 'tablet', 'desktop']);
+device.type = findMatch(['mobile', 'tablet', 'desktop'])
 device.os = findMatch([
   'ios',
   'iphone',
@@ -352,10 +330,12 @@ device.os = findMatch([
   'fxos',
   'meego',
   'television'
-]);
-function setOrientationCache() {
-  device.orientation = findMatch(['portrait', 'landscape']);
-}
-setOrientationCache();
+])
 
-export default device;
+function setOrientationCache() {
+  device.orientation = findMatch(['portrait', 'landscape'])
+}
+
+setOrientationCache()
+
+export default device

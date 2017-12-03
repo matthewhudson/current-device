@@ -13,11 +13,14 @@
   "scripts": {
     "build": "nwb build-web-module",
     "clean": "nwb clean-module",
+    "style": "eslint src/*.js",
     "test": "nwb test",
     "test:coverage": "nwb test --coverage",
     "test:watch": "nwb test --server"
   },
   "devDependencies": {
+    "eslint": "4.12.1",
+    "eslint-plugin-import": "2.8.0",
     "nwb": "0.20.0",
     "prettier": "1.8.2"
   },
