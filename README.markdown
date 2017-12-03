@@ -336,15 +336,6 @@ guiding users to different app stores depending on the device they're using.
 In short, check for features when you need features, and check for the browser
 when you need the browser.
 
-### CONTRIBUTING
-
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Make change(s)
-4. Commit your changes (`git commit -am 'Added some feature'`)
-5. Push to the branch (`git push origin my-new-feature`)
-6. Create new Pull Request
-
 ### SUPPORT ON BEERPAY
 
 [![Beerpay](https://beerpay.io/matthewhudson/device.js/badge.svg?style=beer-square)](https://beerpay.io/matthewhudson/device.js)
