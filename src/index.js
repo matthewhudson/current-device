@@ -155,11 +155,19 @@ device.television = function() {
 }
 
 device.portrait = function() {
-  return window.innerHeight / window.innerWidth > 1
+  if (Object.prototype.hasOwnProperty.call(window, 'onorientationchange')) {
+    return screen.orientation.type.includes('portrait')
+  } else {
+    return window.innerHeight / window.innerWidth > 1
+  }
 }
 
 device.landscape = function() {
-  return window.innerHeight / window.innerWidth < 1
+  if (Object.prototype.hasOwnProperty.call(window, 'onorientationchange')) {
+    return screen.orientation.type.includes('landscape')
+  } else {
+    return window.innerHeight / window.innerWidth < 1
+  }
 }
 
 // Public Utility Functions
