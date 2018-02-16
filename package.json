@@ -17,7 +17,7 @@
     "validate": "npm run style && npm run test"
   },
   "devDependencies": {
-    "eslint": "4.17.0",
+    "eslint": "4.18.0",
     "eslint-plugin-import": "2.8.0",
     "nwb": "0.21.5",
     "prettier": "1.10.2"
