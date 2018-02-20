@@ -292,7 +292,7 @@ device.onChangeOrientation = function(cb) {
 // otherwise fall back to the resize event.
 let orientationEvent = 'resize'
 if (Object.prototype.hasOwnProperty.call(window, 'onorientationchange')) {
-  orientationEvent = 'onorientationchange'
+  orientationEvent = 'orientationchange'
 }
 
 // Listen for changes in orientation.
