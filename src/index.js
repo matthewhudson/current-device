@@ -155,11 +155,19 @@ device.television = function() {
 }
 
 device.portrait = function() {
-  return window.innerHeight / window.innerWidth > 1
+  if (Object.prototype.hasOwnProperty.call(window, 'onorientationchange')) {
+    return screen.orientation.type.includes('portrait')
+  } else {
+    return window.innerHeight / window.innerWidth > 1
+  }
 }
 
 device.landscape = function() {
-  return window.innerHeight / window.innerWidth < 1
+  if (Object.prototype.hasOwnProperty.call(window, 'onorientationchange')) {
+    return screen.orientation.type.includes('landscape')
+  } else {
+    return window.innerHeight / window.innerWidth < 1
+  }
 }
 
 // Public Utility Functions
@@ -292,7 +300,7 @@ device.onChangeOrientation = function(cb) {
 // otherwise fall back to the resize event.
 let orientationEvent = 'resize'
 if (Object.prototype.hasOwnProperty.call(window, 'onorientationchange')) {
-  orientationEvent = 'onorientationchange'
+  orientationEvent = 'orientationchange'
 }
 
 // Listen for changes in orientation.
