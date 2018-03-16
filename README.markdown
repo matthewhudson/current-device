@@ -4,6 +4,8 @@
 [![Coverage Status](https://coveralls.io/repos/github/matthewhudson/current-device/badge.svg?branch=master)](https://coveralls.io/github/matthewhudson/current-device?branch=master)
 [![Greenkeeper badge](https://badges.greenkeeper.io/matthewhudson/current-device.svg)](https://greenkeeper.io/)
 [![NPM version](https://badge.fury.io/js/current-device.svg)](http://badge.fury.io/js/current-device)
+[![NPM downloads](https://img.shields.io/npm/dm/current-device.svg)](https://www.npmjs.com/package/current-device)
+
 
 This module makes it easy to write conditional CSS _and/or_ JavaScript based on
 device operating system (iOS, Android, Blackberry, Windows, Firefox OS, MeeGo,
