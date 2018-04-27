@@ -157,17 +157,15 @@ device.television = function() {
 device.portrait = function() {
   if (Object.prototype.hasOwnProperty.call(window, 'onorientationchange')) {
     return screen.orientation.type.includes('portrait')
-  } else {
-    return window.innerHeight / window.innerWidth > 1
   }
+  return window.innerHeight / window.innerWidth > 1
 }
 
 device.landscape = function() {
   if (Object.prototype.hasOwnProperty.call(window, 'onorientationchange')) {
     return screen.orientation.type.includes('landscape')
-  } else {
-    return window.innerHeight / window.innerWidth < 1
   }
+  return window.innerHeight / window.innerWidth < 1
 }
 
 // Public Utility Functions

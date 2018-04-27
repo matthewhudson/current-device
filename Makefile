@@ -1,6 +1,10 @@
 PATH := node_modules/.bin:$(PATH)
 SHELL := /bin/bash
 
+lint:
+	# Run ESLint guidelines against codebase
+	eslint src/*.js
+
 clean:
 	# Deletes node_modules, docs, and builds
 	nwb clean-module
