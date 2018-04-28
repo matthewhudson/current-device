@@ -19,12 +19,12 @@ build:
 
 publish:
 	# Prepares and publishes the module to NPM
-	$(MAKE) build
-	$(MAKE) test
-
-	# Bumps package.json version, git commits, tags, and pushes
+	# Bumps package.json version, git commits, and tags
 	npm version $(filter-out $@,$(MAKECMDGOALS)) -m "Releasing v%s"
 	git push origin master --follow-tags
+
+	$(MAKE) build
+	$(MAKE) test
 
 	# Publishes to NPM
 	npm publish
