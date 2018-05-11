@@ -3,6 +3,7 @@ sudo: false
 language: node_js
 node_js:
   - 6.11.5
+  - 10
 
 before_install:
   - npm install codecov.io coveralls
