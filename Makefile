@@ -17,6 +17,10 @@ build:
 	# 	- UMD development and production builds in umd/
 	nwb build-web-module
 
+authors:
+	# Generate a file of all contributors based on git log
+	git log --format='%aN <%aE>' | sort -f | uniq > AUTHORS
+
 publish:
 	# Prepares and publishes the module to NPM
 	# Bumps package.json version, git commits, and tags
