@@ -28,7 +28,6 @@ const television = [
   'kylo',
   'roku',
   'dlnadoc',
-  'roku',
   'pov_tv',
   'hbbtv',
   'ce-html'
@@ -155,14 +154,20 @@ device.television = function() {
 }
 
 device.portrait = function() {
-  if (screen.orientation && Object.prototype.hasOwnProperty.call(window, 'onorientationchange')) {
+  if (
+    screen.orientation &&
+    Object.prototype.hasOwnProperty.call(window, 'onorientationchange')
+  ) {
     return screen.orientation.type.includes('portrait')
   }
   return window.innerHeight / window.innerWidth > 1
 }
 
 device.landscape = function() {
-  if (screen.orientation && Object.prototype.hasOwnProperty.call(window, 'onorientationchange')) {
+  if (
+    screen.orientation &&
+    Object.prototype.hasOwnProperty.call(window, 'onorientationchange')
+  ) {
     return screen.orientation.type.includes('landscape')
   }
   return window.innerHeight / window.innerWidth < 1
