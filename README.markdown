@@ -6,7 +6,6 @@
 [![NPM version](https://badge.fury.io/js/current-device.svg)](http://badge.fury.io/js/current-device)
 [![NPM downloads](https://img.shields.io/npm/dm/current-device.svg)](https://www.npmjs.com/package/current-device)
 
-
 This module makes it easy to write conditional CSS _and/or_ JavaScript based on
 device operating system (iOS, Android, Blackberry, Windows, Firefox OS, MeeGo,
 AppleTV, etc), orientation (Portrait vs. Landscape), and type (Tablet vs.
@@ -32,11 +31,11 @@ This module inserts CSS classes into the `<html>` element.
 
 ### DEVICE SUPPORT
 
-* iOS: iPhone, iPod, iPad
-* Android: Phones & Tablets
-* Blackberry: Phones & Tablets
-* Windows: Phones & Tablets
-* Firefox OS: Phones & Tablets
+- iOS: iPhone, iPod, iPad
+- Android: Phones & Tablets
+- Blackberry: Phones & Tablets
+- Windows: Phones & Tablets
+- Firefox OS: Phones & Tablets
 
 ### USAGE
 
@@ -58,9 +57,6 @@ import device from 'current-device'
 
 // common.js
 const device = require('current-device').default
-
-// AMD
-// I've forgotten but it should work.
 ```
 
 Or use script tags and globals.
@@ -69,10 +65,10 @@ Or use script tags and globals.
 <script src="https://unpkg.com/current-device/umd/current-device.min.js"></script>
 ```
 
-And then grab it off the global like so:
+And then access it off the global like so:
 
 ```js
-const device = device.default
+console.log('device.mobile() === %s', device.mobile())
 ```
 
 ### CONDITIONAL CSS
@@ -280,7 +276,7 @@ write checks on the following device characteristics:
 #### Orientation JavaScript Callback
 
 ```js
-device.onChangeOrientation(newOrientation => {
+device.onChangeOrientation((newOrientation) => {
   console.log(`New orientation is ${newOrientation}`)
 })
 ```
