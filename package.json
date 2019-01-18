@@ -1,6 +1,6 @@
 {
   "name": "current-device",
-  "version": "0.7.8",
+  "version": "0.8.0",
   "homepage": "https://github.com/matthewhudson/current-device",
   "description": "The easiest way to write conditional CSS and/or JavaScript based on device operating system (iOS, Android, Blackberry, Windows, Firefox OS, MeeGo, AppleTV, etc), orientation (Portrait vs. Landscape), and type (Tablet vs. Mobile).",
   "main": "lib/index.js",
@@ -11,9 +11,9 @@
     "umd"
   ],
   "devDependencies": {
-    "eslint": "4.19.1",
+    "eslint": "5.0.0",
     "eslint-plugin-import": "2.13.0",
-    "nwb": "0.22.0",
+    "nwb": "0.23.0",
     "prettier": "1.13.5"
   },
   "author": {
