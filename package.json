@@ -11,7 +11,7 @@
     "umd"
   ],
   "devDependencies": {
-    "eslint": "5.0.0",
+    "eslint": "5.12.1",
     "eslint-plugin-import": "2.13.0",
     "nwb": "0.23.0",
     "prettier": "1.13.6"
