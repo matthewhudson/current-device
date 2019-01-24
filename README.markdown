@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/matthewhudson/current-device.svg?branch=master)](https://travis-ci.org/matthewhudson/current-device)
 [![Coverage Status](https://coveralls.io/repos/github/matthewhudson/current-device/badge.svg?branch=master)](https://coveralls.io/github/matthewhudson/current-device?branch=master)
-[![Greenkeeper badge](https://badges.greenkeeper.io/matthewhudson/current-device.svg)](https://greenkeeper.io/)
+[![Renovate badge](https://badges.renovateapi.com/github/matthewhudson/current-device)](https://renovatebot.com/)
 [![NPM version](https://badge.fury.io/js/current-device.svg)](http://badge.fury.io/js/current-device)
 [![NPM downloads](https://img.shields.io/npm/dm/current-device.svg)](https://www.npmjs.com/package/current-device)
 
@@ -333,8 +333,3 @@ guiding users to different app stores depending on the device they're using.
 
 In short, check for features when you need features, and check for the browser
 when you need the browser.
-
-### SUPPORT ON BEERPAY
-
-[![Beerpay](https://beerpay.io/matthewhudson/device.js/badge.svg?style=beer-square)](https://beerpay.io/matthewhudson/device.js)
-[![Beerpay](https://beerpay.io/matthewhudson/device.js/make-wish.svg?style=flat-square)](https://beerpay.io/matthewhudson/device.js?focus=wish)
