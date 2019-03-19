@@ -7,7 +7,7 @@
 [![NPM downloads](https://img.shields.io/npm/dm/current-device.svg)](https://www.npmjs.com/package/current-device)
 
 This module makes it easy to write conditional CSS _and/or_ JavaScript based on
-device operating system (iOS, Android, Blackberry, Windows, Firefox OS, MeeGo,
+device operating system (iOS, Android, Blackberry, Windows, MacOs, Firefox OS, MeeGo,
 AppleTV, etc), orientation (Portrait vs. Landscape), and type (Tablet vs.
 Mobile).
 
@@ -312,7 +312,7 @@ attribute without looping through all of its getter methods.
 	</tr>
 	<tr>
 		<td>device.os</td>
-		<td>'ios', 'iphone', 'ipad', 'ipod', 'android', 'blackberry', 'windows', 'fxos', 'meego', 'television', or 'unknown'</td>
+		<td>'ios', 'iphone', 'ipad', 'ipod', 'android', 'blackberry', 'windows', 'macos', 'fxos', 'meego', 'television', or 'unknown'</td>
 	</tr>
 </table>
 

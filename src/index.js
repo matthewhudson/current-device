@@ -337,6 +337,7 @@ device.os = findMatch([
   'ipod',
   'android',
   'blackberry',
+  'macos',
   'windows',
   'fxos',
   'meego',
