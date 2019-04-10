@@ -158,7 +158,7 @@ device.portrait = function() {
     screen.orientation &&
     Object.prototype.hasOwnProperty.call(window, 'onorientationchange')
   ) {
-    return screen.orientation.type.includes('portrait')
+    return includes(screen.orientation.type, 'portrait')
   }
   return window.innerHeight / window.innerWidth > 1
 }
@@ -168,7 +168,7 @@ device.landscape = function() {
     screen.orientation &&
     Object.prototype.hasOwnProperty.call(window, 'onorientationchange')
   ) {
-    return screen.orientation.type.includes('landscape')
+    return includes(screen.orientation.type, 'landscape')
   }
   return window.innerHeight / window.innerWidth < 1
 }
@@ -186,9 +186,14 @@ device.noConflict = function() {
 // Private Utility Functions
 // -------------------------
 
+// Check if element exists
+function includes(haystack, needle) {
+  return haystack.indexOf(needle) !== -1
+}
+
 // Simple UA string search
 function find(needle) {
-  return userAgent.indexOf(needle) !== -1
+  return includes(userAgent, needle)
 }
 
 // Check if documentElement already has a given class.
