@@ -28,5 +28,6 @@
   "bugs": {
     "url": "https://github.com/matthewhudson/current-device/issues"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "types": "lib/types/index.d.ts"
 }
