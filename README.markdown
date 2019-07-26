@@ -1,6 +1,7 @@
 # [CURRENT-DEVICE](http://thematthewhudson.com/current-device/)
 
 [![Build Status](https://travis-ci.com/matthewhudson/current-device.svg?branch=master)](https://www.travis-ci.com/matthewhudson/current-device)
+[![Bundle size](https://badgen.net/bundlephobia/minzip/current-device)](https://bundlephobia.com/result?p=current-device@0.8.2)
 [![Coverage Status](https://coveralls.io/repos/github/matthewhudson/current-device/badge.svg?branch=master)](https://coveralls.io/github/matthewhudson/current-device?branch=master)
 [![Renovate badge](https://badges.renovateapi.com/github/matthewhudson/current-device)](https://renovatebot.com/)
 [![NPM version](https://badge.fury.io/js/current-device.svg)](http://badge.fury.io/js/current-device)
