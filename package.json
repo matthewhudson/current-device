@@ -11,6 +11,7 @@
     "umd"
   ],
   "scripts": {
+    "build": "nwb build-web-module",
     "test": "nwb test"
   },
   "devDependencies": {
