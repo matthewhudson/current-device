@@ -10,6 +10,9 @@
     "lib",
     "umd"
   ],
+  "scripts": {
+    "test": "nwb test"
+  },
   "devDependencies": {
     "eslint": "6.4.0",
     "eslint-plugin-import": "2.18.2",
@@ -19,7 +22,7 @@
   "author": {
     "name": "Matthew Hudson",
     "email": "matthud@gmail.com",
-    "url": "http://thematthewhudson.com"
+    "url": "https://hudson.dev"
   },
   "repository": {
     "type": "git",
