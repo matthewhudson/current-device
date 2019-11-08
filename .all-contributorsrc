@@ -1,0 +1,24 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "matthewhudson",
+      "name": "Matthew Hudson",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/320194?v=4",
+      "profile": "http://hudson.dev",
+      "contributions": [
+        "code",
+        "maintenance"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "current-device",
+  "projectOwner": "matthewhudson",
+  "repoType": "github",
+  "repoHost": "https://github.com"
+}
