@@ -53,8 +53,10 @@ device.ipod = function() {
 }
 
 device.ipad = function() {
-  return find('ipad')
-}
+  const iPadOS13Up =
+    navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1
+  return find('ipad') || iPadOS13Up
+};
 
 device.android = function() {
   return !device.windows() && find('android')
