@@ -1,4 +1,5 @@
 # [CURRENT-DEVICE](http://thematthewhudson.com/current-device/)
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
 [![Build Status](https://travis-ci.com/matthewhudson/current-device.svg?branch=master)](https://www.travis-ci.com/matthewhudson/current-device)
 [![Bundle size](https://badgen.net/bundlephobia/minzip/current-device)](https://bundlephobia.com/result?p=current-device@0.8.2)
@@ -54,10 +55,10 @@ And then import it:
 
 ```js
 // using es modules
-import device from 'current-device'
+import device from "current-device";
 
 // common.js
-const device = require('current-device').default
+const device = require("current-device").default;
 ```
 
 Or use script tags and globals.
@@ -69,7 +70,7 @@ Or use script tags and globals.
 And then access it off the global like so:
 
 ```js
-console.log('device.mobile() === %s', device.mobile())
+console.log("device.mobile() === %s", device.mobile());
 ```
 
 ### CONDITIONAL CSS
@@ -277,9 +278,9 @@ write checks on the following device characteristics:
 #### Orientation JavaScript Callback
 
 ```js
-device.onChangeOrientation((newOrientation) => {
-  console.log(`New orientation is ${newOrientation}`)
-})
+device.onChangeOrientation(newOrientation => {
+  console.log(`New orientation is ${newOrientation}`);
+});
 ```
 
 ### Utility Methods
@@ -290,7 +291,7 @@ Run `current-device` in noConflict mode, returning the device variable to its
 previous owner. Returns a reference to the `device` object.
 
 ```js
-const currentDevice = device.noConflict()
+const currentDevice = device.noConflict();
 ```
 
 ### Useful Properties
@@ -345,6 +346,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="http://hudson.dev"><img src="https://avatars2.githubusercontent.com/u/320194?v=4" width="100px;" alt="Matthew Hudson"/><br /><sub><b>Matthew Hudson</b></sub></a><br /><a href="https://github.com/matthewhudson/current-device/commits?author=matthewhudson" title="Code">💻</a> <a href="#maintenance-matthewhudson" title="Maintenance">🚧</a></td>
     <td align="center"><a href="http://rteran.com/"><img src="https://avatars3.githubusercontent.com/u/6477537?v=4" width="100px;" alt="Rafael Terán"/><br /><sub><b>Rafael Terán</b></sub></a><br /><a href="https://github.com/matthewhudson/current-device/commits?author=RTeran" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/winternet-studio"><img src="https://avatars1.githubusercontent.com/u/5200270?v=4" width="100px;" alt="Allan"/><br /><sub><b>Allan</b></sub></a><br /><a href="#review-winternet-studio" title="Reviewed Pull Requests">👀</a></td>
   </tr>
 </table>
 
