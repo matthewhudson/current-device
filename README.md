@@ -1,5 +1,5 @@
 # [CURRENT-DEVICE](http://thematthewhudson.com/current-device/)
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
 [![Build Status](https://travis-ci.com/matthewhudson/current-device.svg?branch=master)](https://www.travis-ci.com/matthewhudson/current-device)
 [![Bundle size](https://badgen.net/bundlephobia/minzip/current-device)](https://bundlephobia.com/result?p=current-device@0.8.2)
 [![Coverage Status](https://coveralls.io/repos/github/matthewhudson/current-device/badge.svg?branch=master)](https://coveralls.io/github/matthewhudson/current-device?branch=master)
@@ -344,6 +344,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="http://hudson.dev"><img src="https://avatars2.githubusercontent.com/u/320194?v=4" width="100px;" alt="Matthew Hudson"/><br /><sub><b>Matthew Hudson</b></sub></a><br /><a href="https://github.com/matthewhudson/current-device/commits?author=matthewhudson" title="Code">💻</a> <a href="#maintenance-matthewhudson" title="Maintenance">🚧</a></td>
+    <td align="center"><a href="http://rteran.com/"><img src="https://avatars3.githubusercontent.com/u/6477537?v=4" width="100px;" alt="Rafael Terán"/><br /><sub><b>Rafael Terán</b></sub></a><br /><a href="https://github.com/matthewhudson/current-device/commits?author=RTeran" title="Code">💻</a></td>
   </tr>
 </table>
 

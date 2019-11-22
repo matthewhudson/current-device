@@ -14,6 +14,15 @@
         "code",
         "maintenance"
       ]
+    },
+    {
+      "login": "RTeran",
+      "name": "Rafael Terán",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/6477537?v=4",
+      "profile": "http://rteran.com/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
