@@ -15,7 +15,7 @@
     "test": "nwb test"
   },
   "devDependencies": {
-    "eslint": "6.6.0",
+    "eslint": "6.7.1",
     "eslint-plugin-import": "2.18.2",
     "nwb": "0.23.0",
     "prettier": "1.19.1"
