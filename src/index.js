@@ -71,7 +71,7 @@ device.androidTablet = function() {
 }
 
 device.blackberry = function() {
-  return find('blackberry') || find('bb10') || find('rim')
+  return find('blackberry') || find('bb10')
 }
 
 device.blackberryPhone = function() {
