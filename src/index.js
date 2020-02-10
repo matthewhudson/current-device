@@ -307,7 +307,7 @@ function handleOrientation() {
 }
 
 function walkOnChangeOrientationList(newOrientation) {
-  for (const index = 0; index < changeOrientationList.length; index++) {
+  for (let index = 0; index < changeOrientationList.length; index++) {
     changeOrientationList[index](newOrientation)
   }
 }
