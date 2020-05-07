@@ -32,11 +32,21 @@
       "contributions": [
         "review"
       ]
+    },
+    {
+      "login": "martinwepner",
+      "name": "martinwepner",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/12143284?v=4",
+      "profile": "https://martin-wepner.de",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
   "projectName": "current-device",
   "projectOwner": "matthewhudson",
   "repoType": "github",
-  "repoHost": "https://github.com"
+  "repoHost": "https://github.com",
+  "skipCi": true
 }
