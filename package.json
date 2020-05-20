@@ -17,7 +17,7 @@
   "devDependencies": {
     "eslint": "7.0.0",
     "eslint-plugin-import": "2.20.2",
-    "nwb": "0.23.0",
+    "nwb": "0.25.2",
     "prettier": "2.0.5"
   },
   "author": {
