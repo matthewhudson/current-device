@@ -25,7 +25,7 @@ declare module 'current-device' {
     // Orientation
     landscape: () => boolean;
     portrait: () => boolean;
-    onChangeOrientation: (newOrientation: DeviceOrientation) => void;
+    onChangeOrientation: (cb: (newOrientation: DeviceOrientation) => void) => void;
 
     // Utility
     noConflict: (currentDevice: CurrentDeviceInterface) => void;
