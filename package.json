@@ -18,7 +18,7 @@
     "eslint": "7.4.0",
     "eslint-plugin-import": "2.20.2",
     "nwb": "0.23.0",
-    "prettier": "2.0.5"
+    "prettier": "2.1.1"
   },
   "author": {
     "name": "Matthew Hudson",
