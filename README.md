@@ -1,4 +1,4 @@
-# [CURRENT-DEVICE](http://thematthewhudson.com/current-device/)
+# [CURRENT-DEVICE](https://matthewhudson.github.io/current-device/)
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
 [![Build Status](https://travis-ci.com/matthewhudson/current-device.svg?branch=master)](https://www.travis-ci.com/matthewhudson/current-device)
@@ -13,7 +13,7 @@ device operating system (iOS, Android, Blackberry, Windows, MacOs, Firefox OS, M
 AppleTV, etc), orientation (Portrait vs. Landscape), and type (Tablet vs.
 Mobile).
 
-[View the Demo &rarr;](http://thematthewhudson.com/current-device/)
+[View the Demo &rarr;](https://matthewhudson.github.io/current-device/)
 
 ### EXAMPLES
 
