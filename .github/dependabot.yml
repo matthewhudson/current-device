@@ -1,0 +1,23 @@
+# Basic set up for three package managers
+
+version: 2
+
+updates:
+  # Maintain dependencies for GitHub Actions
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'daily'
+    labels:
+      - 'dependencies'
+
+  # Maintain dependencies for Yarn
+  # @NOTE: Though the `package-ecosystem` is set to NPM, the GH CI env will
+  # correctly use Yarn.
+  # See: https://docs.github.com/en/free-pro-team@latest/github/administering-a-repository/configuration-options-for-dependency-updates#package-ecosystem
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'daily'
+    labels:
+      - 'dependencies'
