@@ -15,7 +15,8 @@ build:
 	# 	- A CommonJS build in lib/
 	# 	- An ES6 modules build in es/
 	# 	- UMD development and production builds in umd/
-	nwb build-web-module
+  # ALso, copy index.d.ts to ./lib folder.
+	nwb build-web-module && cp -R src/types ./lib
 
 authors:
 	# Generate a file of all contributors based on git log
