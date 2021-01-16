@@ -6,10 +6,7 @@
   "bugs": {
     "url": "https://github.com/matthewhudson/current-device/issues"
   },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/matthewhudson/current-device.git"
-  },
+  "repository": "matthewhudson/current-device",
   "license": "MIT",
   "author": {
     "name": "Matthew Hudson",
@@ -26,26 +23,38 @@
   ],
   "scripts": {
     "build": "nwb build-web-module && cp -R src/types ./lib",
+    "cm": "cz",
+    "dumpconf": "env | grep npm | sort | uniq",
+    "licenses": "legally --show reports",
     "lint": "yarn lint:js && yarn lint:package",
     "lint:js": "cross-env NODE_ENV=production eslint --cache --cache-location=.cache/eslint --ext .js,.jsx,.html,.ts,.tsx,.mjs --report-unused-disable-directives",
     "lint:package": "sort-package-json",
-    "prerelease": "npm run build",
-    "release": "auto shipit",
+    "prerelease": "yarn build",
+    "release": "./scripts/release.sh",
     "test": "nwb test"
   },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
       "post-merge": "pull-lock"
     }
   },
   "lint-staged": {
     "*.{js,ts}": [
-      "yarn lint:js"
+      "yarn lint:js",
+      "git add"
     ],
     "package.json": [
-      "yarn lint:package"
+      "yarn lint:package",
+      "git add"
     ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   },
   "prettier": {
     "arrowParens": "avoid",
@@ -61,11 +70,14 @@
     "@auto-it/npm": "^10.2.3",
     "@auto-it/pr-body-labels": "^10.2.3",
     "@auto-it/released": "^10.2.3",
+    "@commitlint/cli": "false11.0.0",
     "auto": "10.9.1",
     "cross-env": "7.0.3",
+    "cz-conventional-changelog": "3.3.0",
     "eslint": "7.12.1",
     "eslint-plugin-import": "2.22.1",
     "husky": "4.3.7",
+    "legally": "3.5.9",
     "lint-staged": "10.5.3",
     "nwb": "0.23.0",
     "prettier": "2.2.1",
@@ -78,6 +90,10 @@
     "node": "12.x",
     "npm": "6.1.x",
     "yarn": "1.x"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "auto": {
     "plugins": [
