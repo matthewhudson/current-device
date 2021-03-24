@@ -4,6 +4,7 @@ declare module 'current-device' {
     tablet: () => boolean;
     desktop: () => boolean;
     ios: () => boolean;
+    macos: () => boolean;
     ipad: () => boolean;
     iphone: () => boolean;
     ipod: () => boolean;
@@ -40,6 +41,7 @@ declare module 'current-device' {
   export type DeviceOrientation = 'landscape' | 'portrait' | 'unknown';
   export type DeviceOs =
     | 'ios'
+    | 'macos'
     | 'iphone'
     | 'ipad'
     | 'ipod'
