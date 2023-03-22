@@ -126,8 +126,37 @@ describe('current-device', () => {
     it('Exposes a `noConflict` function', () => {
       expect(device.noConflict).toBeA('function')
     })
+    it('Restores the previous value of the `device` global object when `noConflict` is called', () => {
+      const originalDevice = window.device;
+      const deviceInstance = device.noConflict();
+      expect(window.device).toEqual(originalDevice);
+      expect(deviceInstance).toEqual(device);
+    });
     it('Exposes a `onChangeOrientation` function', () => {
       expect(device.onChangeOrientation).toBeA('function')
     })
-  })
+    it('Calls the provided callback when orientation changes using `onChangeOrientation`', (done) => {
+      const callback = (newOrientation) => {
+        expect(newOrientation).toBeA('string');
+        done();
+      };
+      device.onChangeOrientation(callback);
+    });
+  });
+
+  describe('HTML Element Handling', () => {
+    it('Adds the correct CSS classes to the <html> element based on the user agent', () => {
+      const classNames = document.documentElement.className.split(' ');
+
+      if (device.os !== 'unknown') {
+        expect(classNames).toContain(device.os);
+      }
+      if (device.type !== 'unknown') {
+        expect(classNames).toContain(device.type);
+      }
+      if (device.orientation !== 'unknown') {
+        expect(classNames).toContain(device.orientation);
+      }
+    });
+  });
 })
