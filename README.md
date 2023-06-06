@@ -8,7 +8,7 @@
 [![NPM downloads](https://img.shields.io/npm/dm/current-device.svg)](https://www.npmjs.com/package/current-device)
 
 This module makes it easy to write conditional CSS _and/or_ JavaScript based on
-device operating system (iOS, Android, Blackberry, Windows, MacOs, Firefox OS, MeeGo,
+device operating system (iOS, Android, Blackberry, Windows, macOS, Firefox OS, MeeGo,
 AppleTV, etc), orientation (Portrait vs. Landscape), and type (Tablet vs.
 Mobile).
 
@@ -33,9 +33,10 @@ This module inserts CSS classes into the `<html>` element.
 ### DEVICE SUPPORT
 
 - iOS: iPhone, iPod, iPad
+- macOS
 - Android: Phones & Tablets
 - Blackberry: Phones & Tablets
-- Windows: Phones & Tablets
+- Windows: Phones, Tablets, Desktops
 - Firefox OS: Phones & Tablets
 
 ### USAGE
@@ -97,6 +98,10 @@ orientation.
 		<td>ios ipod mobile</td>
 	</tr>
 	<tr>
+		<td>Mac</td>
+		<td>macos desktop</td>
+	</tr>
+	<tr>
 		<td>Android Phone</td>
 		<td>android mobile</td>
 	</tr>
@@ -119,6 +124,10 @@ orientation.
 	<tr>
 		<td>Windows Tablet</td>
 		<td>windows tablet</td>
+	</tr>
+	<tr>
+		<td>Windows Desktop</td>
+		<td>windows desktop</td>
 	</tr>
 	<tr>
 		<td>Firefox OS Phone</td>
@@ -198,6 +207,10 @@ write checks on the following device characteristics:
 	<tr>
 		<td>iPod</td>
 		<td>device.ipod()</td>
+	</tr>
+	<tr>
+		<td>Mac</td>
+		<td>device.macos()</td>
 	</tr>
 	<tr>
 		<td>Android</td>
