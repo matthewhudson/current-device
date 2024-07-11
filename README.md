@@ -78,6 +78,8 @@ console.log("device.mobile() === %s", device.mobile());
 The following tables map which CSS classes are added based on device and
 orientation.
 
+You can also call the `device.initInsertCssClassName` method to re detect the device and add a class
+
 #### Device CSS Class Names
 
 <table>
