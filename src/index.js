@@ -238,57 +238,68 @@ function removeClass(className) {
 // ---------------------
 
 // Insert the appropriate CSS class based on the _user_agent.
+device.initInsertCssClassName = function() {
+  const classList = [
+    'ios', 'ipad', 'tablet', 'iphone',
+    'mobile', 'ipod', 'macos', 'desktop',
+    'android', 'blackberry', 'windows',
+    'fxos', 'meego', 'node-webkit', 'television', 'cordova'
+  ]
 
-if (device.ios()) {
-  if (device.ipad()) {
-    addClass('ios ipad tablet')
-  } else if (device.iphone()) {
-    addClass('ios iphone mobile')
-  } else if (device.ipod()) {
-    addClass('ios ipod mobile')
+  classList.forEach(removeClass)
+
+  if (device.ios()) {
+    if (device.ipad()) {
+      addClass('ios ipad tablet')
+    } else if (device.iphone()) {
+      addClass('ios iphone mobile')
+    } else if (device.ipod()) {
+      addClass('ios ipod mobile')
+    }
+  } else if (device.macos()) {
+    addClass('macos desktop')
+  } else if (device.android()) {
+    if (device.androidTablet()) {
+      addClass('android tablet')
+    } else {
+      addClass('android mobile')
+    }
+  } else if (device.blackberry()) {
+    if (device.blackberryTablet()) {
+      addClass('blackberry tablet')
+    } else {
+      addClass('blackberry mobile')
+    }
+  } else if (device.windows()) {
+    if (device.windowsTablet()) {
+      addClass('windows tablet')
+    } else if (device.windowsPhone()) {
+      addClass('windows mobile')
+    } else {
+      addClass('windows desktop')
+    }
+  } else if (device.fxos()) {
+    if (device.fxosTablet()) {
+      addClass('fxos tablet')
+    } else {
+      addClass('fxos mobile')
+    }
+  } else if (device.meego()) {
+    addClass('meego mobile')
+  } else if (device.nodeWebkit()) {
+    addClass('node-webkit')
+  } else if (device.television()) {
+    addClass('television')
+  } else if (device.desktop()) {
+    addClass('desktop')
   }
-} else if (device.macos()) {
-  addClass('macos desktop')
-} else if (device.android()) {
-  if (device.androidTablet()) {
-    addClass('android tablet')
-  } else {
-    addClass('android mobile')
+
+  if (device.cordova()) {
+    addClass('cordova')
   }
-} else if (device.blackberry()) {
-  if (device.blackberryTablet()) {
-    addClass('blackberry tablet')
-  } else {
-    addClass('blackberry mobile')
-  }
-} else if (device.windows()) {
-  if (device.windowsTablet()) {
-    addClass('windows tablet')
-  } else if (device.windowsPhone()) {
-    addClass('windows mobile')
-  } else {
-    addClass('windows desktop')
-  }
-} else if (device.fxos()) {
-  if (device.fxosTablet()) {
-    addClass('fxos tablet')
-  } else {
-    addClass('fxos mobile')
-  }
-} else if (device.meego()) {
-  addClass('meego mobile')
-} else if (device.nodeWebkit()) {
-  addClass('node-webkit')
-} else if (device.television()) {
-  addClass('television')
-} else if (device.desktop()) {
-  addClass('desktop')
 }
 
-if (device.cordova()) {
-  addClass('cordova')
-}
-
+device.initInsertCssClassName()
 // Orientation Handling
 // --------------------
 
