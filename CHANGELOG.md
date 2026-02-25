@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.2
+
+### Patch Changes
+
+- [#388](https://github.com/matthewhudson/current-device/pull/388) [`5253319`](https://github.com/matthewhudson/current-device/commit/52533192b45da80c26dfb6e35b1b6fa6fed8babf) Thanks [@matthewhudson](https://github.com/matthewhudson)! - Remove Node.js >= 22 requirement for consumers (lowered to >= 16). Add CDN script tag usage docs to README.
+
 ## 2.0.1
 
 ### Patch Changes
