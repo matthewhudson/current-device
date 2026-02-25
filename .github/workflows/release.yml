@@ -16,6 +16,8 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
@@ -24,11 +26,26 @@ jobs:
       - run: npm install -g npm@latest
       - run: pnpm install
       - name: Create Release Pull Request or Publish
+        id: changesets
         uses: changesets/action@v1
         with:
           publish: pnpm run release
           commit: "chore: version packages"
           title: "chore: version packages"
+          createGithubReleases: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
+      - name: Create GitHub Release (fallback)
+        if: steps.changesets.outputs.published == 'true'
+        run: |
+          VERSION="v$(jq -r '.version' package.json)"
+          if ! gh release view "$VERSION" > /dev/null 2>&1; then
+            CHANGELOG=$(sed -n "/^## ${VERSION#v}/,/^## /p" CHANGELOG.md | sed '1d;$d')
+            gh release create "$VERSION" --title "$VERSION" --notes "$CHANGELOG" --target "$GITHUB_SHA"
+            echo "Created GitHub release $VERSION"
+          else
+            echo "GitHub release $VERSION already exists"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
