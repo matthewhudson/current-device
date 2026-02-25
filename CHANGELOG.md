@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.1
+
+### Patch Changes
+
+- [`f44779e`](https://github.com/matthewhudson/current-device/commit/f44779e3493ab64412eb434bae73459b8fa51fee) Thanks [@matthewhudson](https://github.com/matthewhudson)! - Add IIFE build output for browser `<script>` tag usage via CDN (unpkg, jsdelivr). Fixes #385 where the UMD build was removed in v2.0.0, breaking `<script src="https://unpkg.com/current-device">` imports.
+
 ## 2.0.0
 
 ### Major Changes
