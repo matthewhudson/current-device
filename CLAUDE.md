@@ -25,7 +25,7 @@ This is a widely-used public package. Follow semver strictly: breaking changes r
 
 - TypeScript strict mode — no `any` types
 - pnpm as package manager (esbuild must be in pnpm.onlyBuiltDependencies)
-- Node.js >= 22
+- Node.js >= 16 (for consumers; development requires Node 22)
 - Dual CJS/ESM via package.json exports field
 - CI: GitHub Actions (.github/workflows/ci.yml)
 - Releases: Changesets (.changeset/) — run `pnpm changeset` to describe changes, the release.yml workflow handles versioning and npm publish on merge to main

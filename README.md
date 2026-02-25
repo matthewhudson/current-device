@@ -44,14 +44,6 @@ Just include the script. The script then updates the `<html>` section with the
 
 ## Installation
 
-Requires **Node.js >= 22**.
-
-```sh
-pnpm add current-device
-```
-
-Or with npm:
-
 ```sh
 npm install current-device
 ```
@@ -64,6 +56,17 @@ import device from "current-device";
 
 // CommonJS
 const device = require("current-device").default;
+```
+
+### CDN / Script Tag
+
+You can also include current-device directly via a `<script>` tag using a CDN:
+
+```html
+<script src="https://unpkg.com/current-device/dist/index.global.js"></script>
+<script>
+  console.log(device.type); // 'mobile', 'tablet', or 'desktop'
+</script>
 ```
 
 ### TypeScript
