@@ -1,9 +1,67 @@
+export type DeviceType = 'mobile' | 'tablet' | 'desktop' | 'unknown'
+export type DeviceOrientation = 'landscape' | 'portrait' | 'unknown'
+export type DeviceOs =
+  | 'ios'
+  | 'iphone'
+  | 'ipad'
+  | 'ipod'
+  | 'android'
+  | 'blackberry'
+  | 'macos'
+  | 'windows'
+  | 'fxos'
+  | 'meego'
+  | 'television'
+  | 'unknown'
+
+export type OrientationChangeCallback = (newOrientation: 'landscape' | 'portrait') => void
+
+export interface Device {
+  macos(): boolean
+  ios(): boolean
+  iphone(): boolean
+  ipod(): boolean
+  ipad(): boolean
+  android(): boolean
+  androidPhone(): boolean
+  androidTablet(): boolean
+  blackberry(): boolean
+  blackberryPhone(): boolean
+  blackberryTablet(): boolean
+  windows(): boolean
+  windowsPhone(): boolean
+  windowsTablet(): boolean
+  fxos(): boolean
+  fxosPhone(): boolean
+  fxosTablet(): boolean
+  meego(): boolean
+  television(): boolean
+  cordova(): boolean
+  nodeWebkit(): boolean
+  mobile(): boolean
+  tablet(): boolean
+  desktop(): boolean
+  portrait(): boolean
+  landscape(): boolean
+  onChangeOrientation(cb: OrientationChangeCallback): void
+  noConflict(): Device
+  type: DeviceType
+  os: DeviceOs
+  orientation: DeviceOrientation
+}
+
+declare global {
+  interface Window {
+    device: Device
+  }
+}
+
 // Save the previous value of the device variable.
 const previousDevice = window.device
 
-const device = {}
+const device = {} as Device
 
-const changeOrientationList = []
+const changeOrientationList: OrientationChangeCallback[] = []
 
 // Add device as a global object.
 window.device = device
@@ -16,7 +74,7 @@ const documentElement = window.document.documentElement
 const userAgent = window.navigator.userAgent.toLowerCase()
 
 // Detectable television devices.
-const television = [
+const televisionDevices: string[] = [
   'googletv',
   'viera',
   'smarttv',
@@ -33,92 +91,129 @@ const television = [
   'ce-html'
 ]
 
+// Private Utility Functions
+// -------------------------
+
+// Check if element exists
+function includes(haystack: string, needle: string): boolean {
+  return haystack.indexOf(needle) !== -1
+}
+
+// Simple UA string search
+function find(needle: string): boolean {
+  return includes(userAgent, needle)
+}
+
+// Check if documentElement already has a given class.
+function hasClass(className: string): RegExpMatchArray | null {
+  return documentElement.className.match(new RegExp(className, 'i'))
+}
+
+// Add one or more CSS classes to the <html> element.
+function addClass(className: string): void {
+  let currentClassNames: string | null = null
+  if (!hasClass(className)) {
+    currentClassNames = documentElement.className.replace(/^\s+|\s+$/g, '')
+    documentElement.className = `${currentClassNames} ${className}`
+  }
+}
+
+// Remove single CSS class from the <html> element.
+function removeClass(className: string): void {
+  if (hasClass(className)) {
+    documentElement.className = documentElement.className.replace(
+      ` ${className}`,
+      ''
+    )
+  }
+}
+
 // Main functions
 // --------------
 
-device.macos = function() {
+device.macos = function (): boolean {
   return find('mac')
 }
 
-device.ios = function() {
+device.ios = function (): boolean {
   return device.iphone() || device.ipod() || device.ipad()
 }
 
-device.iphone = function() {
+device.iphone = function (): boolean {
   return !device.windows() && find('iphone')
 }
 
-device.ipod = function() {
+device.ipod = function (): boolean {
   return find('ipod')
 }
 
-device.ipad = function() {
+device.ipad = function (): boolean {
   const iPadOS13Up =
     navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1
   return find('ipad') || iPadOS13Up
-};
+}
 
-device.android = function() {
+device.android = function (): boolean {
   return !device.windows() && find('android')
 }
 
-device.androidPhone = function() {
+device.androidPhone = function (): boolean {
   return device.android() && find('mobile')
 }
 
-device.androidTablet = function() {
+device.androidTablet = function (): boolean {
   return device.android() && !find('mobile')
 }
 
-device.blackberry = function() {
+device.blackberry = function (): boolean {
   return find('blackberry') || find('bb10')
 }
 
-device.blackberryPhone = function() {
+device.blackberryPhone = function (): boolean {
   return device.blackberry() && !find('tablet')
 }
 
-device.blackberryTablet = function() {
+device.blackberryTablet = function (): boolean {
   return device.blackberry() && find('tablet')
 }
 
-device.windows = function() {
+device.windows = function (): boolean {
   return find('windows')
 }
 
-device.windowsPhone = function() {
+device.windowsPhone = function (): boolean {
   return device.windows() && find('phone')
 }
 
-device.windowsTablet = function() {
+device.windowsTablet = function (): boolean {
   return device.windows() && (find('touch') && !device.windowsPhone())
 }
 
-device.fxos = function() {
+device.fxos = function (): boolean {
   return (find('(mobile') || find('(tablet')) && find(' rv:')
 }
 
-device.fxosPhone = function() {
+device.fxosPhone = function (): boolean {
   return device.fxos() && find('mobile')
 }
 
-device.fxosTablet = function() {
+device.fxosTablet = function (): boolean {
   return device.fxos() && find('tablet')
 }
 
-device.meego = function() {
+device.meego = function (): boolean {
   return find('meego')
 }
 
-device.cordova = function() {
-  return window.cordova && location.protocol === 'file:'
+device.cordova = function (): boolean {
+  return !!(window as Window & { cordova?: unknown }).cordova && location.protocol === 'file:'
 }
 
-device.nodeWebkit = function() {
-  return typeof window.process === 'object'
+device.nodeWebkit = function (): boolean {
+  return typeof (window as Window & { process?: unknown }).process === 'object'
 }
 
-device.mobile = function() {
+device.mobile = function (): boolean {
   return (
     device.androidPhone() ||
     device.iphone() ||
@@ -130,7 +225,7 @@ device.mobile = function() {
   )
 }
 
-device.tablet = function() {
+device.tablet = function (): boolean {
   return (
     device.ipad() ||
     device.androidTablet() ||
@@ -140,14 +235,14 @@ device.tablet = function() {
   )
 }
 
-device.desktop = function() {
+device.desktop = function (): boolean {
   return !device.tablet() && !device.mobile()
 }
 
-device.television = function() {
+device.television = function (): boolean {
   let i = 0
-  while (i < television.length) {
-    if (find(television[i])) {
+  while (i < televisionDevices.length) {
+    if (find(televisionDevices[i])) {
       return true
     }
     i++
@@ -155,7 +250,7 @@ device.television = function() {
   return false
 }
 
-device.portrait = function() {
+device.portrait = function (): boolean {
   if (
     screen.orientation &&
     Object.prototype.hasOwnProperty.call(window, 'onorientationchange')
@@ -166,12 +261,12 @@ device.portrait = function() {
     device.ios() &&
     Object.prototype.hasOwnProperty.call(window, 'orientation')
   ) {
-    return Math.abs(window.orientation) !== 90
+    return Math.abs(window.orientation as number) !== 90
   }
   return window.innerHeight / window.innerWidth > 1
 }
 
-device.landscape = function() {
+device.landscape = function (): boolean {
   if (
     screen.orientation &&
     Object.prototype.hasOwnProperty.call(window, 'onorientationchange')
@@ -182,7 +277,7 @@ device.landscape = function() {
     device.ios() &&
     Object.prototype.hasOwnProperty.call(window, 'orientation')
   ) {
-    return Math.abs(window.orientation) === 90
+    return Math.abs(window.orientation as number) === 90
   }
   return window.innerHeight / window.innerWidth < 1
 }
@@ -192,52 +287,15 @@ device.landscape = function() {
 
 // Run device.js in noConflict mode,
 // returning the device variable to its previous owner.
-device.noConflict = function() {
+device.noConflict = function (): Device {
   window.device = previousDevice
   return this
-}
-
-// Private Utility Functions
-// -------------------------
-
-// Check if element exists
-function includes(haystack, needle) {
-  return haystack.indexOf(needle) !== -1
-}
-
-// Simple UA string search
-function find(needle) {
-  return includes(userAgent, needle)
-}
-
-// Check if documentElement already has a given class.
-function hasClass(className) {
-  return documentElement.className.match(new RegExp(className, 'i'))
-}
-
-// Add one or more CSS classes to the <html> element.
-function addClass(className) {
-  let currentClassNames = null
-  if (!hasClass(className)) {
-    currentClassNames = documentElement.className.replace(/^\s+|\s+$/g, '')
-    documentElement.className = `${currentClassNames} ${className}`
-  }
-}
-
-// Remove single CSS class from the <html> element.
-function removeClass(className) {
-  if (hasClass(className)) {
-    documentElement.className = documentElement.className.replace(
-      ` ${className}`,
-      ''
-    )
-  }
 }
 
 // HTML Element Handling
 // ---------------------
 
-// Insert the appropriate CSS class based on the _user_agent.
+// Insert the appropriate CSS class based on the user agent.
 
 if (device.ios()) {
   if (device.ipad()) {
@@ -293,7 +351,7 @@ if (device.cordova()) {
 // --------------------
 
 // Handle device orientation changes.
-function handleOrientation() {
+function handleOrientation(): void {
   if (device.landscape()) {
     removeClass('portrait')
     addClass('landscape')
@@ -306,14 +364,14 @@ function handleOrientation() {
   setOrientationCache()
 }
 
-function walkOnChangeOrientationList(newOrientation) {
+function walkOnChangeOrientationList(newOrientation: 'landscape' | 'portrait'): void {
   for (let index = 0; index < changeOrientationList.length; index++) {
     changeOrientationList[index](newOrientation)
   }
 }
 
-device.onChangeOrientation = function(cb) {
-  if (typeof cb == 'function') {
+device.onChangeOrientation = function (cb: OrientationChangeCallback): void {
+  if (typeof cb === 'function') {
     changeOrientationList.push(cb)
   }
 }
@@ -326,29 +384,23 @@ if (Object.prototype.hasOwnProperty.call(window, 'onorientationchange')) {
 }
 
 // Listen for changes in orientation.
-if (window.addEventListener) {
-  window.addEventListener(orientationEvent, handleOrientation, false)
-} else if (window.attachEvent) {
-  window.attachEvent(orientationEvent, handleOrientation)
-} else {
-  window[orientationEvent] = handleOrientation
-}
+window.addEventListener(orientationEvent, handleOrientation, false)
 
 handleOrientation()
 
 // Public functions to get the current value of type, os, or orientation
 // ---------------------------------------------------------------------
 
-function findMatch(arr) {
+function findMatch<T extends string>(arr: T[]): T | 'unknown' {
   for (let i = 0; i < arr.length; i++) {
-    if (device[arr[i]]()) {
+    if (device[arr[i] as keyof Device] && typeof device[arr[i] as keyof Device] === 'function' && (device[arr[i] as keyof Device] as () => boolean)()) {
       return arr[i]
     }
   }
   return 'unknown'
 }
 
-device.type = findMatch(['mobile', 'tablet', 'desktop'])
+device.type = findMatch(['mobile', 'tablet', 'desktop']) as DeviceType
 device.os = findMatch([
   'ios',
   'iphone',
@@ -361,10 +413,10 @@ device.os = findMatch([
   'fxos',
   'meego',
   'television'
-])
+]) as DeviceOs
 
-function setOrientationCache() {
-  device.orientation = findMatch(['portrait', 'landscape'])
+function setOrientationCache(): void {
+  device.orientation = findMatch(['portrait', 'landscape']) as DeviceOrientation
 }
 
 setOrientationCache()

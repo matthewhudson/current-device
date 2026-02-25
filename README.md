@@ -1,9 +1,7 @@
 # [CURRENT-DEVICE](https://matthewhudson.github.io/current-device/)
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
-[![Build Status](https://travis-ci.com/matthewhudson/current-device.svg?branch=master)](https://www.travis-ci.com/matthewhudson/current-device)
-[![Bundle size](https://badgen.net/bundlephobia/minzip/current-device)](https://bundlephobia.com/result?p=current-device@0.8.2)
-[![Coverage Status](https://codecov.io/gh/matthewhudson/current-device/branch/master/graph/badge.svg?token=88TRoAbpd7)](https://codecov.io/gh/matthewhudson/current-device)
+[![CI](https://github.com/matthewhudson/current-device/actions/workflows/ci.yml/badge.svg)](https://github.com/matthewhudson/current-device/actions/workflows/ci.yml)
+[![Bundle size](https://badgen.net/bundlephobia/minzip/current-device)](https://bundlephobia.com/result?p=current-device)
 [![NPM version](https://badge.fury.io/js/current-device.svg)](http://badge.fury.io/js/current-device)
 [![NPM downloads](https://img.shields.io/npm/dm/current-device.svg)](https://www.npmjs.com/package/current-device)
 
@@ -42,10 +40,17 @@ This module inserts CSS classes into the `<html>` element.
 ### USAGE
 
 Just include the script. The script then updates the `<html>` section with the
-[appropriate classes](https://github.com/matthewhudson/current-device#conditional-css)
-based on the device's characteristics.
+[appropriate classes](#conditional-css) based on the device's characteristics.
 
 ## Installation
+
+Requires **Node.js >= 22**.
+
+```sh
+pnpm add current-device
+```
+
+Or with npm:
 
 ```sh
 npm install current-device
@@ -53,24 +58,25 @@ npm install current-device
 
 And then import it:
 
-```js
-// using es modules
+```ts
+// ES modules (recommended)
 import device from "current-device";
 
-// common.js
+// CommonJS
 const device = require("current-device").default;
 ```
 
-Or use script tags and globals.
+### TypeScript
 
-```html
-<script src="https://unpkg.com/current-device/umd/current-device.min.js"></script>
-```
+This package ships with built-in TypeScript types. You can import the types directly:
 
-And then access it off the global like so:
+```ts
+import device from "current-device";
+import type { Device, DeviceType, DeviceOs, DeviceOrientation } from "current-device";
 
-```js
-console.log("device.mobile() === %s", device.mobile());
+const os: DeviceOs = device.os;
+const type: DeviceType = device.type;
+const isPhone: boolean = device.mobile();
 ```
 
 ### CONDITIONAL CSS
@@ -289,8 +295,8 @@ write checks on the following device characteristics:
 
 #### Orientation JavaScript Callback
 
-```js
-device.onChangeOrientation(newOrientation => {
+```ts
+device.onChangeOrientation((newOrientation: "landscape" | "portrait") => {
   console.log(`New orientation is ${newOrientation}`);
 });
 ```
@@ -302,8 +308,8 @@ device.onChangeOrientation(newOrientation => {
 Run `current-device` in noConflict mode, returning the device variable to its
 previous owner. Returns a reference to the `device` object.
 
-```js
-const currentDevice = device.noConflict();
+```ts
+const currentDevice: Device = device.noConflict();
 ```
 
 ### Useful Properties
@@ -314,18 +320,22 @@ attribute without looping through all of its getter methods.
 <table>
 	<tr>
 		<th>JS Property</th>
+		<th>Type</th>
 		<th>Returns</th>
 	</tr>
 	<tr>
 		<td>device.type</td>
+		<td>DeviceType</td>
 		<td>'mobile', 'tablet', 'desktop', or 'unknown'</td>
 	</tr>
 	<tr>
 		<td>device.orientation</td>
+		<td>DeviceOrientation</td>
 		<td>'landscape', 'portrait', or 'unknown'</td>
 	</tr>
 	<tr>
 		<td>device.os</td>
+		<td>DeviceOs</td>
 		<td>'ios', 'iphone', 'ipad', 'ipod', 'android', 'blackberry', 'windows', 'macos', 'fxos', 'meego', 'television', or 'unknown'</td>
 	</tr>
 </table>
@@ -348,7 +358,7 @@ guiding users to different app stores depending on the device they're using.
 In short, check for features when you need features, and check for the browser
 when you need the browser.
 
-## Contributors ✨
+## Contributors
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
