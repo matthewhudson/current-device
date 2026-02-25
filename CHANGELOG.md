@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.0
+
+### Major Changes
+
+- [`e78a749`](https://github.com/matthewhudson/current-device/commit/e78a74932146f172a1db264591dc72c4dae03744) Thanks [@matthewhudson](https://github.com/matthewhudson)! - Migrated source code from JavaScript to TypeScript with strict type checking. Minimum Node.js version is now 22. Build output moved from lib/, es/, umd/ to dist/. See CHANGELOG.md for full migration guide.
+
 ## 1.0.0 (2026-02-24) - BREAKING
 
 ### Changed
