@@ -132,7 +132,7 @@ function removeClass(className: string): void {
 // --------------
 
 device.macos = function (): boolean {
-  return find('mac')
+  return find('mac') && !device.ios()
 }
 
 device.ios = function (): boolean {
