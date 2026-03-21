@@ -12,6 +12,7 @@ export type DeviceOs =
   | 'fxos'
   | 'meego'
   | 'television'
+  | 'harmonyos'
   | 'unknown'
 
 export type OrientationChangeCallback = (newOrientation: 'landscape' | 'portrait') => void
@@ -35,6 +36,7 @@ export interface Device {
   fxosPhone(): boolean
   fxosTablet(): boolean
   meego(): boolean
+  harmonyos(): boolean
   television(): boolean
   cordova(): boolean
   nodeWebkit(): boolean
@@ -205,6 +207,10 @@ device.meego = function (): boolean {
   return find('meego')
 }
 
+device.harmonyos = function (): boolean {
+  return find('harmonyos')
+}
+
 device.cordova = function (): boolean {
   return !!(window as Window & { cordova?: unknown }).cordova && location.protocol === 'file:'
 }
@@ -307,6 +313,12 @@ if (device.ios()) {
   }
 } else if (device.macos()) {
   addClass('macos desktop')
+} else if (device.harmonyos()) {
+  if (find('mobile')) {
+    addClass('harmonyos mobile')
+  } else {
+    addClass('harmonyos tablet')
+  }
 } else if (device.android()) {
   if (device.androidTablet()) {
     addClass('android tablet')
@@ -406,6 +418,7 @@ device.os = findMatch([
   'iphone',
   'ipad',
   'ipod',
+  'harmonyos',
   'android',
   'blackberry',
   'macos',
