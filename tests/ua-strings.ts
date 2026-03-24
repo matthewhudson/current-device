@@ -216,6 +216,26 @@ export const uaFixtures: UAFixture[] = [
     },
   },
 
+  // === HarmonyOS ===
+  {
+    name: 'HarmonyOS phone (Huawei Browser)',
+    ua: 'Mozilla/5.0 (Linux; Android 10; HarmonyOS; ELS-AN10; HMSCore 6.0.0.306) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.93 HuaweiBrowser/11.1.2.301 Mobile Safari/537.36',
+    expected: {
+      os: 'harmonyos',
+      type: 'mobile',
+      methods: { harmonyos: true, android: true, androidPhone: true, mobile: true, tablet: false, desktop: false },
+    },
+  },
+  {
+    name: 'HarmonyOS tablet (Huawei Browser)',
+    ua: 'Mozilla/5.0 (Linux; Android 12; HarmonyOS; BRT-W09; HMSCore 6.14.0.322) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.5735.196 HuaweiBrowser/15.0.9.300 Safari/537.36',
+    expected: {
+      os: 'harmonyos',
+      type: 'tablet',
+      methods: { harmonyos: true, android: true, androidTablet: true, tablet: true, mobile: false, desktop: false },
+    },
+  },
+
   // === Edge cases ===
   {
     name: 'Windows Phone',

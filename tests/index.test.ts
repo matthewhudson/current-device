@@ -90,6 +90,9 @@ describe('current-device', () => {
       it('Exposes a `meego` function', () => {
         expect(typeof device.meego).toBe('function')
       })
+      it('Exposes a `harmonyos` function', () => {
+        expect(typeof device.harmonyos).toBe('function')
+      })
       it('Exposes a `cordova` function', () => {
         expect(typeof device.cordova).toBe('function')
       })
