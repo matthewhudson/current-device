@@ -76,6 +76,18 @@ export const uaFixtures: UAFixture[] = [
     },
   },
 
+  // === visionOS ===
+  {
+    name: 'Apple Vision Pro (Safari)',
+    ua: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.2 Safari/605.1.15',
+    navigatorOverrides: { platform: 'MacIntel', maxTouchPoints: 6 },
+    expected: {
+      os: 'visionos',
+      type: 'tablet',
+      methods: { visionos: true, tablet: true, macos: false, ipad: false, ios: false },
+    },
+  },
+
   // === Android: Phones ===
   {
     name: 'Android Chrome phone',
@@ -172,18 +184,29 @@ export const uaFixtures: UAFixture[] = [
     name: 'Linux Chrome',
     ua: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36',
     expected: {
-      os: 'unknown',
+      os: 'linux',
       type: 'desktop',
-      methods: { desktop: true, mobile: false, tablet: false, windows: false, macos: false, android: false },
+      methods: { linux: true, desktop: true, mobile: false, tablet: false, windows: false, macos: false, android: false },
     },
   },
   {
     name: 'Linux Firefox',
     ua: 'Mozilla/5.0 (X11; Linux x86_64; rv:135.0) Gecko/20100101 Firefox/135.0',
     expected: {
-      os: 'unknown',
+      os: 'linux',
       type: 'desktop',
-      methods: { desktop: true, mobile: false, tablet: false },
+      methods: { linux: true, desktop: true, mobile: false, tablet: false },
+    },
+  },
+
+  // === ChromeOS ===
+  {
+    name: 'ChromeOS (CrOS)',
+    ua: 'Mozilla/5.0 (X11; CrOS x86_64 14541.0.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
+    expected: {
+      os: 'chromeos',
+      type: 'desktop',
+      methods: { chromeos: true, desktop: true, linux: false, android: false },
     },
   },
 
@@ -191,6 +214,42 @@ export const uaFixtures: UAFixture[] = [
   {
     name: 'Smart TV (generic)',
     ua: 'Mozilla/5.0 (SMART-TV; Linux; Tizen 5.0) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/2.2 Chrome/63.0.3239.84 TV Safari/537.36 SmartTV',
+    expected: {
+      os: 'television',
+      type: 'desktop',
+      methods: { television: true },
+    },
+  },
+  {
+    name: 'Samsung Tizen TV',
+    ua: 'Mozilla/5.0 (SMART-TV; Linux; Tizen 5.0) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/2.2 Chrome/63.0.3239.84 TV Safari/537.36',
+    expected: {
+      os: 'television',
+      type: 'desktop',
+      methods: { television: true },
+    },
+  },
+  {
+    name: 'LG webOS TV',
+    ua: 'Mozilla/5.0 (Web0S; Linux/SmartTV) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.79 Safari/537.36 WebAppManager',
+    expected: {
+      os: 'television',
+      type: 'desktop',
+      methods: { television: true },
+    },
+  },
+  {
+    name: 'PlayStation 5',
+    ua: 'Mozilla/5.0 (PlayStation; PlayStation 5/2.26) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0 Safari/605.1.15',
+    expected: {
+      os: 'television',
+      type: 'desktop',
+      methods: { television: true },
+    },
+  },
+  {
+    name: 'Xbox Series X',
+    ua: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; Xbox; Xbox Series X) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.82 Safari/537.36 Edge/20.02',
     expected: {
       os: 'television',
       type: 'desktop',
