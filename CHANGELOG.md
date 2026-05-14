@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.1.0
+
+### Minor Changes
+
+- [#390](https://github.com/matthewhudson/current-device/pull/390) [`4b860a1`](https://github.com/matthewhudson/current-device/commit/4b860a1ad5b159ed55967c25aefb77c1c7faa723) Thanks [@matthewhudson](https://github.com/matthewhudson)! - Add HarmonyOS device detection via `device.harmonyos()`. HarmonyOS devices now get the `harmonyos` CSS class on `<html>` instead of `android`. Closes #375.
+
+### Patch Changes
+
+- [#390](https://github.com/matthewhudson/current-device/pull/390) [`4b860a1`](https://github.com/matthewhudson/current-device/commit/4b860a1ad5b159ed55967c25aefb77c1c7faa723) Thanks [@matthewhudson](https://github.com/matthewhudson)! - Add real-world UA string test suite with 24 device fixtures covering iPhone, iPad, iPod, Android phones/tablets, macOS, Windows, Linux, Television, and edge cases. Fix `device.macos()` false positive on iOS devices (UA strings contain "Mac OS X").
+
 ## 2.0.2
 
 ### Patch Changes
