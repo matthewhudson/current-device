@@ -23,7 +23,6 @@ jobs:
         with:
           node-version: 22
           cache: pnpm
-      - run: npm install -g npm@latest
       - run: pnpm install
       - name: Create Release Pull Request or Publish
         id: changesets
@@ -35,6 +34,7 @@ jobs:
           createGithubReleases: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
       - name: Create GitHub Release (fallback)
         if: steps.changesets.outputs.published == 'true'
