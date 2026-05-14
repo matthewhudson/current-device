@@ -32,9 +32,12 @@ This module inserts CSS classes into the `<html>` element.
 
 - iOS: iPhone, iPod, iPad
 - macOS
+- visionOS (Apple Vision Pro)
 - Android: Phones & Tablets
 - Blackberry: Phones & Tablets
 - Windows: Phones, Tablets, Desktops
+- ChromeOS
+- Linux
 - Firefox OS: Phones & Tablets
 
 ### USAGE
@@ -137,6 +140,18 @@ orientation.
 	<tr>
 		<td>Windows Desktop</td>
 		<td>windows desktop</td>
+	</tr>
+	<tr>
+		<td>visionOS</td>
+		<td>visionos tablet</td>
+	</tr>
+	<tr>
+		<td>ChromeOS</td>
+		<td>chromeos desktop</td>
+	</tr>
+	<tr>
+		<td>Linux</td>
+		<td>linux desktop</td>
 	</tr>
 	<tr>
 		<td>Firefox OS Phone</td>
@@ -274,6 +289,18 @@ write checks on the following device characteristics:
 		<td>device.meego()</td>
 	</tr>
 	<tr>
+		<td>visionOS</td>
+		<td>device.visionos()</td>
+	</tr>
+	<tr>
+		<td>ChromeOS</td>
+		<td>device.chromeos()</td>
+	</tr>
+	<tr>
+		<td>Linux</td>
+		<td>device.linux()</td>
+	</tr>
+	<tr>
 		<td>Television</td>
 		<td>device.television()</td>
 	</tr>
@@ -339,7 +366,7 @@ attribute without looping through all of its getter methods.
 	<tr>
 		<td>device.os</td>
 		<td>DeviceOs</td>
-		<td>'ios', 'iphone', 'ipad', 'ipod', 'android', 'blackberry', 'windows', 'macos', 'fxos', 'meego', 'television', or 'unknown'</td>
+		<td>'ios', 'iphone', 'ipad', 'ipod', 'visionos', 'harmonyos', 'chromeos', 'android', 'blackberry', 'macos', 'windows', 'fxos', 'meego', 'linux', 'television', or 'unknown'</td>
 	</tr>
 </table>
 
