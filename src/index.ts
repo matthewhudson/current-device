@@ -13,6 +13,9 @@ export type DeviceOs =
   | 'meego'
   | 'television'
   | 'harmonyos'
+  | 'visionos'
+  | 'chromeos'
+  | 'linux'
   | 'unknown'
 
 export type OrientationChangeCallback = (newOrientation: 'landscape' | 'portrait') => void
@@ -37,6 +40,9 @@ export interface Device {
   fxosTablet(): boolean
   meego(): boolean
   harmonyos(): boolean
+  visionos(): boolean
+  chromeos(): boolean
+  linux(): boolean
   television(): boolean
   cordova(): boolean
   nodeWebkit(): boolean
@@ -90,7 +96,12 @@ const televisionDevices: string[] = [
   'dlnadoc',
   'pov_tv',
   'hbbtv',
-  'ce-html'
+  'ce-html',
+  'tizen',
+  'webos',
+  'playstation',
+  'xbox',
+  'nintendo'
 ]
 
 // Private Utility Functions
@@ -107,34 +118,30 @@ function find(needle: string): boolean {
 }
 
 // Check if documentElement already has a given class.
-function hasClass(className: string): RegExpMatchArray | null {
-  return documentElement.className.match(new RegExp(className, 'i'))
+function hasClass(className: string): boolean {
+  return documentElement.classList.contains(className)
 }
 
 // Add one or more CSS classes to the <html> element.
 function addClass(className: string): void {
-  let currentClassNames: string | null = null
-  if (!hasClass(className)) {
-    currentClassNames = documentElement.className.replace(/^\s+|\s+$/g, '')
-    documentElement.className = `${currentClassNames} ${className}`
-  }
+  const classNames = className.split(' ')
+  classNames.forEach((name) => {
+    if (name) {
+      documentElement.classList.add(name)
+    }
+  })
 }
 
 // Remove single CSS class from the <html> element.
 function removeClass(className: string): void {
-  if (hasClass(className)) {
-    documentElement.className = documentElement.className.replace(
-      ` ${className}`,
-      ''
-    )
-  }
+  documentElement.classList.remove(className)
 }
 
 // Main functions
 // --------------
 
 device.macos = function (): boolean {
-  return find('mac') && !device.ios()
+  return find('mac') && !device.ios() && !device.visionos()
 }
 
 device.ios = function (): boolean {
@@ -152,7 +159,7 @@ device.ipod = function (): boolean {
 device.ipad = function (): boolean {
   const iPadOS13Up =
     navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1
-  return find('ipad') || iPadOS13Up
+  return (find('ipad') || iPadOS13Up) && !device.visionos()
 }
 
 device.android = function (): boolean {
@@ -211,6 +218,23 @@ device.harmonyos = function (): boolean {
   return find('harmonyos')
 }
 
+device.visionos = function (): boolean {
+  return find('xros') || (find('macintosh') && navigator.maxTouchPoints > 5)
+}
+
+device.chromeos = function (): boolean {
+  return find('cros')
+}
+
+device.linux = function (): boolean {
+  return (
+    find('linux') &&
+    !device.android() &&
+    !device.chromeos() &&
+    !device.television()
+  )
+}
+
 device.cordova = function (): boolean {
   return !!(window as Window & { cordova?: unknown }).cordova && location.protocol === 'file:'
 }
@@ -237,7 +261,8 @@ device.tablet = function (): boolean {
     device.androidTablet() ||
     device.blackberryTablet() ||
     device.windowsTablet() ||
-    device.fxosTablet()
+    device.fxosTablet() ||
+    device.visionos()
   )
 }
 
@@ -303,7 +328,11 @@ device.noConflict = function (): Device {
 
 // Insert the appropriate CSS class based on the user agent.
 
-if (device.ios()) {
+if (device.nodeWebkit()) {
+  addClass('node-webkit')
+} else if (device.television()) {
+  addClass('television')
+} else if (device.ios()) {
   if (device.ipad()) {
     addClass('ios ipad tablet')
   } else if (device.iphone()) {
@@ -313,6 +342,12 @@ if (device.ios()) {
   }
 } else if (device.macos()) {
   addClass('macos desktop')
+} else if (device.visionos()) {
+  addClass('visionos tablet')
+} else if (device.chromeos()) {
+  addClass('chromeos desktop')
+} else if (device.linux()) {
+  addClass('linux desktop')
 } else if (device.harmonyos()) {
   if (find('mobile')) {
     addClass('harmonyos mobile')
@@ -347,10 +382,6 @@ if (device.ios()) {
   }
 } else if (device.meego()) {
   addClass('meego mobile')
-} else if (device.nodeWebkit()) {
-  addClass('node-webkit')
-} else if (device.television()) {
-  addClass('television')
 } else if (device.desktop()) {
   addClass('desktop')
 }
@@ -414,18 +445,21 @@ function findMatch<T extends string>(arr: T[]): T | 'unknown' {
 
 device.type = findMatch(['mobile', 'tablet', 'desktop']) as DeviceType
 device.os = findMatch([
+  'television',
   'ios',
   'iphone',
   'ipad',
   'ipod',
+  'visionos',
   'harmonyos',
   'android',
   'blackberry',
   'macos',
   'windows',
+  'chromeos',
   'fxos',
   'meego',
-  'television'
+  'linux'
 ]) as DeviceOs
 
 function setOrientationCache(): void {
