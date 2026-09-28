@@ -11,6 +11,7 @@ This is a widely-used public package. Follow semver strictly: breaking changes r
 - `pnpm run test:watch` — run tests in watch mode
 - `pnpm run test:coverage` — run tests with coverage report
 - `pnpm run test:dist` — test the built files in dist/ (run `pnpm run build` first)
+- `pnpm run test:browser` — load the <script> build in real Chromium/Firefox/WebKit with Playwright device profiles (run `pnpm run build` and `pnpm exec playwright install` first)
 - `pnpm run check:es2015` — verify dist/ has no syntax or built-ins newer than ES2015
 - `pnpm run check:package` — validate package.json exports and types (publint + attw)
 - `pnpm changeset` — create a changeset describing your changes (run before committing)
@@ -19,7 +20,7 @@ This is a widely-used public package. Follow semver strictly: breaking changes r
 ## Architecture
 
 - Single source file: `src/index.ts` — all detection logic
-- Tests: `tests/*.test.ts` run against src/ (Vitest + jsdom); `tests/built/` runs against the built files with its own config (`vitest.built.config.ts`)
+- Tests: `tests/*.test.ts` run against src/ (Vitest + jsdom); `tests/built/` runs against the built files with its own config (`vitest.built.config.ts`); `tests/browser/` is Playwright (`playwright.config.ts`)
 - Build output: `dist/` (index.js=CJS, index.mjs=ESM, index.d.ts/index.d.mts=types)
 - Browser-only library: uses window, navigator, document, screen at module scope
 - Module has side effects on import (adds CSS classes to <html>, attaches orientation listener)
@@ -42,4 +43,5 @@ This is a widely-used public package. Follow semver strictly: breaking changes r
 - dist tests load the <script> build via a real `<script>` element, not `window.eval()`: the build is strict mode, and strict eval keeps top-level `var`s local, which would hide leaked globals
 - Never add `"sideEffects": false` (publint suggests it): importing the module adds <html> classes and a listener, so bundlers would drop the import
 - `check:package` ignores attw's `missing-export-equals`: fixing it would change what `require('current-device')` returns (README documents `.default`), a breaking change
+- Playwright's WebKit exposes `onorientationchange` even on desktop, so there the library follows screen (not window) orientation; the desktop rotate test is skipped for engines with that event
 - `pnpm approve-builds` is interactive — use `pnpm.onlyBuiltDependencies` in package.json instead

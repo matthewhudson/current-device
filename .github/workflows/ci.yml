@@ -23,3 +23,17 @@ jobs:
       - run: pnpm run check:es2015
       - run: pnpm run test:dist
       - run: pnpm run check:package
+
+  browsers:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install
+      - run: pnpm run build
+      - run: pnpm exec playwright install --with-deps chromium firefox webkit
+      - run: pnpm run test:browser
