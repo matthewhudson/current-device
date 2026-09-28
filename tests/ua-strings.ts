@@ -10,6 +10,11 @@ export interface UAFixture {
     platform?: string
     maxTouchPoints?: number
   }
+  /** screen.width and screen.height in CSS pixels (0 in jsdom, which the library treats as unknown) */
+  screenOverrides?: {
+    width: number
+    height: number
+  }
   /** Where the UA string was taken from (copied verbatim) */
   source?: string
   /**
@@ -69,6 +74,42 @@ export const uaFixtures: UAFixture[] = [
       os: 'ios',
       type: 'tablet',
       methods: { ipad: true, ios: true, tablet: true, mobile: false, desktop: false },
+    },
+  },
+  {
+    name: 'iPad Pro Safari (desktop mode, with its screen size)',
+    ua: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.10 Safari/605.1.15',
+    navigatorOverrides: { platform: 'MacIntel', maxTouchPoints: 5 },
+    screenOverrides: { width: 1024, height: 1366 },
+    expected: {
+      os: 'ios',
+      type: 'tablet',
+      methods: { ipad: true, iphone: false, ios: true, tablet: true, mobile: false, desktop: false },
+    },
+  },
+  // "Request Desktop Website" on an iPhone sends the same Mac user agent as an
+  // iPad; only the screen size tells them apart (#363)
+  {
+    name: 'iPhone Safari (desktop mode, "Request Desktop Website")',
+    ua: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.10 Safari/605.1.15',
+    navigatorOverrides: { platform: 'MacIntel', maxTouchPoints: 5 },
+    screenOverrides: { width: 390, height: 844 },
+    expected: {
+      os: 'ios',
+      type: 'mobile',
+      methods: { iphone: true, ipad: false, ios: true, mobile: true, tablet: false, desktop: false, macos: false },
+    },
+  },
+  // Inside a Cordova app an iPad Pro can report an iPhone user agent; the
+  // screen is still iPad-sized (#106)
+  {
+    name: 'iPad in a Cordova app reporting an iPhone user agent',
+    ua: 'Mozilla/5.0 (iPhone; CPU iPhone OS 15_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.5 Mobile/15E148 Safari/604.1',
+    screenOverrides: { width: 1024, height: 1366 },
+    expected: {
+      os: 'ios',
+      type: 'tablet',
+      methods: { ipad: true, iphone: false, ios: true, tablet: true, mobile: false, desktop: false },
     },
   },
 
@@ -264,6 +305,28 @@ export const uaFixtures: UAFixture[] = [
   },
 
   // === Edge cases ===
+  // Internet Explorer said "Touch" on touch-screen laptops too (#64); only a
+  // Windows RT device ("ARM") is a tablet (#89)
+  {
+    name: 'Windows 8 touch-screen laptop (IE10, x64, "Touch")',
+    ua: 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Win64; x64; Trident/6.0; Touch; MALNJS)',
+    source: 'https://github.com/matthewhudson/current-device/issues/64',
+    expected: {
+      os: 'windows',
+      type: 'desktop',
+      methods: { windows: true, windowsTablet: false, windowsPhone: false, desktop: true, tablet: false, mobile: false },
+    },
+  },
+  {
+    name: 'Microsoft Surface RT (Windows RT, IE10, "ARM; ... Touch")',
+    ua: 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; ARM; Trident/6.0; Touch; ARMBJS)',
+    source: 'https://github.com/matomo-org/device-detector/blob/master/Tests/fixtures/tablet.yml',
+    expected: {
+      os: 'windows',
+      type: 'tablet',
+      methods: { windows: true, windowsTablet: true, windowsPhone: false, tablet: true, desktop: false, mobile: false },
+    },
+  },
   {
     name: 'Windows Phone',
     ua: 'Mozilla/5.0 (Windows Phone 10.0; Android 6.0.1; Microsoft; Lumia 950) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Mobile Safari/537.36 Edge/15.15254',
@@ -507,15 +570,16 @@ export const uaFixtures: UAFixture[] = [
       methods: { television: true },
     },
   },
-  // television() is true, but os reports the platform: television is checked last
+  // An Android TV: os reports the platform (television is checked last) and,
+  // like every television, it is neither a phone nor a tablet
   {
     name: 'POV TV stick (Android)',
     ua: 'Mozilla/5.0 (Linux; U; Android 4.1.1; en-gb; POV_TV-HDMI-KB-01 Build/JRO03H) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30',
     source: 'https://github.com/matomo-org/device-detector/tree/master/Tests/fixtures',
     expected: {
       os: 'android',
-      type: 'tablet',
-      methods: { television: true, android: true },
+      type: 'desktop',
+      methods: { television: true, android: true, androidTablet: false, androidPhone: false, tablet: false, mobile: false },
     },
   },
   // television() is true, but os reports the platform: television is checked last
@@ -572,6 +636,329 @@ export const uaFixtures: UAFixture[] = [
       os: 'android',
       type: 'tablet',
       methods: { android: true, androidTablet: true, tablet: true, ios: false, ipad: false, mobile: false },
+    },
+  },
+
+  // === Android TV, Google TV, Fire TV and Android set-top boxes ===
+  // Android TVs are televisions, not tablets: television() is true, the
+  // android phone/tablet methods are false, and the type is 'desktop' as for
+  // every television
+  {
+    name: 'Android TV (Yandex Browser "(lite) TV" token)',
+    ua: 'Mozilla/5.0 (Linux; Android 11; 43F690TS Build/RP1A.200720.011; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/113.0.5672.163 YaBrowser/24.12.0.453 (lite) TV Safari/537.36',
+    source: 'https://github.com/matomo-org/device-detector/blob/master/Tests/fixtures/tv-5.yml',
+    expected: {
+      os: 'android',
+      type: 'desktop',
+      methods: { television: true, android: true, androidTablet: false, androidPhone: false, tablet: false, mobile: false, desktop: true, linux: false },
+    },
+  },
+  {
+    name: 'Android TV ("Android TV" in the model name, with "Mobile")',
+    ua: 'Mozilla/5.0 (Linux; Android 9; KIVI 4K Android TV Build/PTO6.200910.002; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/94.0.4606.85 Mobile Safari/537.36',
+    source: 'https://github.com/matomo-org/device-detector/blob/master/Tests/fixtures/tv-1.yml',
+    expected: {
+      os: 'android',
+      type: 'desktop',
+      methods: { television: true, android: true, androidTablet: false, androidPhone: false, tablet: false, mobile: false, desktop: true, linux: false },
+    },
+  },
+  {
+    name: 'Amazon Fire TV (Silk)',
+    ua: 'Mozilla/5.0 (Linux; Android 7.1.2; AFTA Build/NS6223) AppleWebKit/537.36 (KHTML, like Gecko) Silk/68.3.1 like Chrome/68.0.3440.85 Safari/537.36',
+    source: 'https://github.com/matomo-org/device-detector/blob/master/Tests/fixtures/tv.yml',
+    expected: {
+      os: 'android',
+      type: 'desktop',
+      methods: { television: true, android: true, androidTablet: false, androidPhone: false, tablet: false, mobile: false, desktop: true, linux: false },
+    },
+  },
+  {
+    name: 'Chromecast with Google TV',
+    ua: 'Mozilla/5.0 (Linux; Android 12; Chromecast HD Build/STTE.220920.012.H1) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/110.0.5481.65 Mobile Safari/537.36',
+    source: 'https://github.com/matomo-org/device-detector/blob/master/Tests/fixtures/tv-2.yml',
+    expected: {
+      os: 'android',
+      type: 'desktop',
+      methods: { television: true, android: true, androidTablet: false, androidPhone: false, tablet: false, mobile: false, desktop: true, linux: false },
+    },
+  },
+  {
+    name: 'Sony Bravia (Android TV)',
+    ua: 'Mozilla/5.0 (Linux; Android 7.0; BRAVIA 4K 2015 Build/NRD91N.S34) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Mobile Safari/537.36',
+    source: 'https://github.com/matomo-org/device-detector/blob/master/Tests/fixtures/tv.yml',
+    expected: {
+      os: 'android',
+      type: 'desktop',
+      methods: { television: true, android: true, androidTablet: false, androidPhone: false, tablet: false, mobile: false, desktop: true, linux: false },
+    },
+  },
+  {
+    name: 'Xiaomi Mi TV',
+    ua: 'Mozilla/5.0 (Linux; Android 6.0.1; MiTV4-ANSM0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.93 Mobile Safari/537.36',
+    source: 'https://github.com/matomo-org/device-detector/blob/master/Tests/fixtures/tv.yml',
+    expected: {
+      os: 'android',
+      type: 'desktop',
+      methods: { television: true, android: true, androidTablet: false, androidPhone: false, tablet: false, mobile: false, desktop: true, linux: false },
+    },
+  },
+
+  // === Other televisions and set-top boxes ===
+  // Opera's TV browser (OMI) writes "Andr0id" with a zero, so android() is false
+  {
+    name: 'Sony Bravia with Opera TV browser ("Andr0id")',
+    ua: 'Mozilla/5.0 (Linux; Andr0id 10; BRAVIA VH1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36 OPR/46.0.2207.0 OMI/4.21.0.273.DIA6.199 Model/Sony-BRAVIA-VH1',
+    source: 'https://github.com/matomo-org/device-detector/blob/master/Tests/fixtures/tv-1.yml',
+    expected: {
+      os: 'television',
+      type: 'desktop',
+      methods: { television: true, android: false, linux: false },
+    },
+  },
+  {
+    name: 'Vizio SmartCast TV',
+    ua: 'Mozilla/5.0 (X11; Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.5359.124 Safari/537.36 CrKey/1.0.999999 VIZIO SmartCast(Conjure/MTKC-108.710.14 FW/1.710.30.2-1 Model/M43Q6-J04) CrKey/1.56.500000',
+    source: 'https://github.com/matomo-org/device-detector/blob/master/Tests/fixtures/tv-4.yml',
+    expected: {
+      os: 'television',
+      type: 'desktop',
+      methods: { television: true, linux: false },
+    },
+  },
+  {
+    name: 'Opera TV (Presto)',
+    ua: 'Opera/9.80 (Linux mips; Opera TV/39) Presto/2.11.355 Version/12.11',
+    source: 'https://github.com/matomo-org/device-detector/blob/master/Tests/fixtures/tv-1.yml',
+    expected: {
+      os: 'television',
+      type: 'desktop',
+      methods: { television: true, linux: false },
+    },
+  },
+
+  // === Feature phones and phones on platforms without their own method ===
+  // They are mobile with os 'unknown'
+  {
+    name: 'Java ME feature phone (MIDP)',
+    ua: 'SonyEricssonJ20i/R1x Browser/NetFront/3.5 Profile/MIDP-2.1 Configuration/CLDC-1.1 JavaPlatform/JP-8.5',
+    source: 'https://github.com/matomo-org/device-detector/blob/master/Tests/fixtures/feature_phone.yml',
+    expected: {
+      os: 'unknown',
+      type: 'mobile',
+      methods: { mobile: true, tablet: false, desktop: false, android: false, ios: false },
+    },
+  },
+  {
+    name: 'MediaTek feature phone (MAUI browser)',
+    ua: 'Micromax X458/Q03C MAUI-Browser Profile/MIDP-2.0 Configuration/CLDC-1.1',
+    source: 'https://github.com/matomo-org/device-detector/blob/master/Tests/fixtures/feature_phone.yml',
+    expected: {
+      os: 'unknown',
+      type: 'mobile',
+      methods: { mobile: true, desktop: false },
+    },
+  },
+  {
+    name: 'Symbian S60 (Nokia Browser)',
+    ua: 'Mozilla/5.0 (SymbianOS/9.4; Series60/5.0 Nokia5233/51.1.002; Profile/MIDP-2.1 Configuration/CLDC-1.1 ) AppleWebKit/533.4 (KHTML, like Gecko) NokiaBrowser/7.3.1.33 Mobile Safari/533.4',
+    source: 'https://github.com/matomo-org/device-detector/blob/master/Tests/fixtures/smartphone-13.yml',
+    expected: {
+      os: 'unknown',
+      type: 'mobile',
+      methods: { mobile: true, desktop: false, ios: false, macos: false },
+    },
+  },
+  // KaiOS descends from Firefox OS and keeps its user agent shape
+  {
+    name: 'KaiOS feature phone',
+    ua: 'Mozilla/5.0 (Mobile; Fise_32433_3G; rv:48.0) Gecko/48.0 Firefox/48.0 KAIOS/2.5.1.1',
+    source: 'https://github.com/matomo-org/device-detector/blob/master/Tests/fixtures/feature_phone.yml',
+    expected: {
+      os: 'fxos',
+      type: 'mobile',
+      methods: { fxos: true, fxosPhone: true, mobile: true, desktop: false },
+    },
+  },
+  {
+    name: 'Tizen phone (Samsung Z3)',
+    ua: 'Mozilla/5.0 (Linux; Tizen 2.4; SAMSUNG SM-Z300H) AppleWebKit/537.3 (KHTML, like Gecko) SamsungBrowser/1.1 Mobile Safari/537.3',
+    source: 'https://github.com/matomo-org/device-detector/blob/master/Tests/fixtures/smartphone-13.yml',
+    expected: {
+      os: 'unknown',
+      type: 'mobile',
+      methods: { mobile: true, linux: false, android: false, desktop: false },
+    },
+  },
+  {
+    name: 'Sailfish OS phone (Jolla)',
+    ua: 'Mozilla/5.0 (Maemo; Linux; U; Jolla; Sailfish; Mobile; rv:26.0) Gecko/26.0 Firefox/26.0 SailfishBrowser/1.0 like Safari/538.1',
+    source: 'https://github.com/matomo-org/device-detector/blob/master/Tests/fixtures/smartphone-7.yml',
+    expected: {
+      os: 'unknown',
+      type: 'mobile',
+      methods: { mobile: true, linux: false, fxos: false, desktop: false },
+    },
+  },
+  // "Web0S" LG TVs are televisions; Palm's webOS phones say "webOS/"
+  {
+    name: 'Palm webOS phone (HP Veer)',
+    ua: 'Mozilla/5.0 (webOS/2.1.1; U; xx) AppleWebKit/532.2 (KHTML, like Gecko) Version/1.0 Safari/532.2 P160U/1.0',
+    source: 'https://github.com/matomo-org/device-detector/blob/master/Tests/fixtures/smartphone-19.yml',
+    expected: {
+      os: 'unknown',
+      type: 'mobile',
+      methods: { mobile: true, television: false, desktop: false },
+    },
+  },
+  // UC Browser's own user agent format doesn't say "Android"
+  {
+    name: 'UC Browser on Android (UCWEB user agent)',
+    ua: 'UCWEB/2.0 (MIDP-2.0; U; Adr 7.1.2; ru; MI_5X) U2/1.0.0 UCBrowser/11.1.0.1041 U2/1.0.0 Mobile',
+    source: 'https://github.com/matomo-org/device-detector/blob/master/Tests/fixtures/smartphone-21.yml',
+    expected: {
+      os: 'unknown',
+      type: 'mobile',
+      methods: { mobile: true, android: false, desktop: false },
+    },
+  },
+
+  // === Windows Mobile and Windows Phone ===
+  {
+    name: 'Windows Mobile (IE Mobile on Windows CE)',
+    ua: 'Mozilla/4.0 (compatible; MSIE 6.0; Windows CE; IEMobile 8.12; MSIEMobile 6.0) acer_F900',
+    source: 'https://github.com/matomo-org/device-detector/blob/master/Tests/fixtures/smartphone-1.yml',
+    expected: {
+      os: 'windows',
+      type: 'mobile',
+      methods: { windows: true, windowsPhone: true, windowsTablet: false, mobile: true, desktop: false },
+    },
+  },
+  // Internet Explorer 11 on Windows Phone 8.1 in desktop mode: "Touch" alone
+  // would make it a Windows tablet
+  {
+    name: 'Windows Phone 8.1 in desktop mode (WPDesktop)',
+    ua: 'Mozilla/5.0 (Windows NT 6.2; ARM; Trident/7.0; Touch; rv:11.0; WPDesktop; Lumia 640 Dual SIM) like Gecko',
+    source: 'https://github.com/matomo-org/device-detector/blob/master/Tests/fixtures/smartphone-9.yml',
+    expected: {
+      os: 'windows',
+      type: 'mobile',
+      methods: { windows: true, windowsPhone: true, windowsTablet: false, mobile: true, tablet: false },
+    },
+  },
+
+  // === Android apps on Chromebooks ===
+  // An Android browser app on a Chromebook sends an Android UA that names the
+  // Chromebook. The device is a ChromeOS desktop, so chromeos() and android()
+  // are both true and the android phone/tablet methods are false
+  {
+    name: 'Android app on a Chromebook (Opera)',
+    ua: 'Mozilla/5.0 (Linux; Android 9; HP Chromebook x2 Build/R76-12239.44.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36 OPR/53.0.2569.141117',
+    source: 'https://github.com/matomo-org/device-detector/blob/master/Tests/fixtures/desktop.yml',
+    expected: {
+      os: 'chromeos',
+      type: 'desktop',
+      methods: { chromeos: true, android: true, androidTablet: false, androidPhone: false, desktop: true, tablet: false, mobile: false, linux: false },
+    },
+  },
+  {
+    name: 'Android app on a Chromebook (mobile UA)',
+    ua: 'Mozilla/5.0 (Linux; Android 10; Samsung Chromebook Plus Build/R74-11895.118.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.62 Mobile Safari/537.36',
+    source: 'https://github.com/matomo-org/device-detector/blob/master/Tests/fixtures/desktop.yml',
+    expected: {
+      os: 'chromeos',
+      type: 'desktop',
+      methods: { chromeos: true, android: true, androidPhone: false, desktop: true, mobile: false, linux: false },
+    },
+  },
+
+  // === Android tablets whose browser says "Mobile" ===
+  // Chrome adds "Mobile" on screens narrower than 600dp, which includes many
+  // 7" and 8" tablets. Well-known tablet model names still win
+  // Huawei and Honor tablets have Wi-Fi model codes ending in -W09; the
+  // model code is often all the user agent says (#362)
+  {
+    name: 'Huawei MediaPad M6 (VRD-W09) with "Mobile" in its UA',
+    ua: 'Mozilla/5.0 (Linux; Android 9; VRD-W09 Build/HUAWEIVRD-W09) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/70.0.3538.64 HuaweiBrowser/10.0.1.333 Mobile Safari/537.36',
+    source: 'https://github.com/matomo-org/device-detector/blob/master/Tests/fixtures/tablet-2.yml',
+    expected: {
+      os: 'android',
+      type: 'tablet',
+      methods: { androidTablet: true, androidPhone: false, tablet: true, mobile: false },
+    },
+  },
+  // Unfolded, a foldable phone is wider than 600dp, so Chrome drops "Mobile"
+  // and it looks like a tablet (#332)
+  {
+    name: 'Samsung Galaxy Z Fold3 unfolded (SM-F926W, no "Mobile")',
+    ua: 'Mozilla/5.0 (Linux; Android 13; SM-F926W) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36',
+    source: 'https://github.com/matomo-org/device-detector/blob/master/Tests/fixtures/phablet-1.yml',
+    expected: {
+      os: 'android',
+      type: 'mobile',
+      methods: { androidPhone: true, androidTablet: false, mobile: true, tablet: false },
+    },
+  },
+  {
+    name: 'Google Pixel 9 Pro Fold',
+    ua: 'Mozilla/5.0 (Linux; Android 14; Pixel 9 Pro Fold) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Mobile Safari/537.36',
+    source: 'https://github.com/matomo-org/device-detector/blob/master/Tests/fixtures/phablet-1.yml',
+    expected: {
+      os: 'android',
+      type: 'mobile',
+      methods: { androidPhone: true, androidTablet: false, mobile: true, tablet: false },
+    },
+  },
+  {
+    name: 'Lenovo Tab with "Mobile" in its UA',
+    ua: 'Mozilla/5.0 (Linux; Android 6.0.1; Lenovo TB-7703X) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Mobile Safari/537.36',
+    source: 'https://github.com/matomo-org/device-detector/blob/master/Tests/fixtures/tablet-10.yml',
+    expected: {
+      os: 'android',
+      type: 'tablet',
+      methods: { androidTablet: true, androidPhone: false, tablet: true, mobile: false },
+    },
+  },
+  {
+    name: 'Samsung Galaxy Tab (SM-T) with "Mobile" in its UA',
+    ua: 'Mozilla/5.0 (Linux; arm_64; Android 11; SM-T225) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 YaApp_Android/21.80.1/apad YaSearchBrowser/21.80.1/apad BroPP/1.0 SA/3 Mobile Safari/537.36',
+    source: 'https://github.com/matomo-org/device-detector/blob/master/Tests/fixtures/tablet-6.yml',
+    expected: {
+      os: 'android',
+      type: 'tablet',
+      methods: { androidTablet: true, androidPhone: false, tablet: true, mobile: false },
+    },
+  },
+  {
+    name: 'Huawei MediaPad with "Mobile" in its UA',
+    ua: 'Mozilla/5.0 (Linux; Android 5.1.1; PLE-701L Build/HuaweiMediaPad) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.83 Mobile Safari/537.36',
+    source: 'https://github.com/matomo-org/device-detector/blob/master/Tests/fixtures/tablet-2.yml',
+    expected: {
+      os: 'android',
+      type: 'tablet',
+      methods: { androidTablet: true, androidPhone: false, tablet: true, mobile: false },
+    },
+  },
+  // Yandex apps append "/apad" on tablets
+  {
+    name: 'Honor Pad with "Mobile" in its UA (Yandex "/apad" token)',
+    ua: 'Mozilla/5.0 (Linux; arm_64; Android 13; ELN-L09) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.5993.652 YaSearchBrowser/23.111/apad BroPP/1.0 YaSearchApp/23.111/apad webOmni SA/3 Mobile Safari/537.36',
+    source: 'https://github.com/matomo-org/device-detector/blob/master/Tests/fixtures/tablet-10.yml',
+    expected: {
+      os: 'android',
+      type: 'tablet',
+      methods: { androidTablet: true, androidPhone: false, tablet: true, mobile: false },
+    },
+  },
+  {
+    name: 'Android phone with "TV" in its model name',
+    ua: 'Mozilla/5.0 (Linux; Android 4.4.2; KAZAM TV 45) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.116 Mobile Safari/537.36',
+    source: 'https://github.com/matomo-org/device-detector/blob/master/Tests/fixtures/smartphone-8.yml',
+    knownIssue: 'a phone whose model name contains "TV" as a separate word is detected as a television',
+    expected: {
+      os: 'android',
+      type: 'mobile',
+      methods: { television: false, androidPhone: true, mobile: true },
     },
   },
 ]

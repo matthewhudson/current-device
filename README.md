@@ -31,12 +31,16 @@ This module inserts CSS classes into the `<html>` element.
 
 - iOS: iPhone, iPod, iPad
 - macOS
-- Android: Phones & Tablets
+- Android: Phones, Tablets & TVs
 - Blackberry: Phones & Tablets
 - Windows: Phones, Tablets, Desktops
 - Firefox OS: Phones & Tablets
-- ChromeOS
+- ChromeOS (including Android apps running on a Chromebook)
 - Linux
+- Televisions: Android TV, Google TV, Fire TV, Chromecast, Samsung Tizen,
+  LG webOS, Roku, Apple TV, HbbTV, Vizio, Hisense VIDAA and Opera TV
+- Feature phones and other handsets (Java ME, Symbian, KaiOS, Tizen,
+  Sailfish, Palm webOS...) are reported as mobile
 
 ### BROWSER SUPPORT
 
@@ -192,6 +196,10 @@ orientation.
 		<td>android tablet</td>
 	</tr>
 	<tr>
+		<td>Android TV</td>
+		<td>android television</td>
+	</tr>
+	<tr>
 		<td>BlackBerry Phone</td>
 		<td>blackberry mobile</td>
 	</tr>
@@ -222,6 +230,10 @@ orientation.
 	<tr>
 		<td>MeeGo</td>
 		<td>meego</td>
+	</tr>
+	<tr>
+		<td>Other phone (feature phone, Symbian, Tizen...)</td>
+		<td>mobile</td>
 	</tr>
 	<tr>
 		<td>Desktop</td>
@@ -438,6 +450,35 @@ attribute without looping through all of its getter methods.
 		<td>'ios', 'iphone', 'ipad', 'ipod', 'android', 'blackberry', 'windows', 'macos', 'fxos', 'meego', 'television', 'chromeos', 'linux', or 'unknown'</td>
 	</tr>
 </table>
+
+### LIMITATIONS
+
+current-device reads the browser's user agent string once, when it is imported.
+That has consequences worth knowing before you rely on it:
+
+- **`device.type` and `device.os` do not change while the page is open.** They
+  describe the device, not the window. Resizing the browser only updates the
+  orientation (and calls `onChangeOrientation` callbacks); it never turns a
+  desktop into a mobile. Use CSS media queries for layout that should follow
+  the window size.
+- **Chrome's reduced user agent** (`Android 10; K`) hides the device model, so
+  an Android tablet narrower than 600dp, which Chrome labels `Mobile`, is
+  reported as a phone. Tablets whose user agent still names a known tablet
+  family (Galaxy Tab, Lenovo Tab, MediaPad/MatePad, Huawei `-W09` models,
+  Kindle Fire...) are tablets.
+- **iPadOS 13+ and "Request Desktop Website"** send a Mac user agent. iPads
+  are recognised by their touchscreen, and an iPhone in desktop mode is told
+  from an iPad by its screen size. An iPad inside an app that reports an
+  iPhone user agent (some Cordova apps) is an iPad for the same reason.
+- **Foldable phones** unfolded are wider than 600dp, so Chrome drops `Mobile`.
+  Known families (Galaxy Z Fold, Pixel Fold) are still phones; unknown ones
+  are tablets.
+- **Windows tablets and 2-in-1s** are `desktop`. Modern browsers on Windows
+  give no hint of a tablet; only Windows RT devices (Internet Explorer with
+  `ARM` and `Touch` in the user agent) are `windows tablet`.
+- **Televisions** are `device.type === 'desktop'` with the `television` class.
+  Wearables, consoles, car displays and VR headsets have no category of their
+  own.
 
 ### BEST PRACTICES
 

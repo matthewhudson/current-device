@@ -50,3 +50,8 @@ This is a widely-used public package. Follow semver strictly: breaking changes r
 - `dist/react.*` must import `current-device` instead of bundling `src/index.ts` (the esbuild plugin in `tsup.config.ts` does this): a second copy would add its own listener and overwrite `window.device`
 - `react/package.json` lets tools without `exports` support (TypeScript `moduleResolution: node`, webpack 4) resolve `current-device/react`; it is in `files`
 - Tests that need no DOM start with `// @vitest-environment node` (`tests/ssr.test.ts`)
+- A television is never a phone or a tablet, so `device.type` is `'desktop'` for every TV (there is no `'television'` type: adding one would change `type` for existing TV users, a breaking change). On an Android TV `android()` and `television()` are both true, `androidPhone()`/`androidTablet()` are false, `device.os` is `'android'` and the classes are `android television`
+- An Android app on a Chromebook sends an Android UA naming the Chromebook: `chromeos()` and `android()` are both true, `os` is `'chromeos'` and `type` is `'desktop'`. `tests/fixture-assertions.ts` therefore leaves `chromeos` (like `harmonyos`) out of the exclusive OS families
+- Feature phones and handsets without their own method (Symbian, Tizen, Sailfish...) are `mobile()` with `os: 'unknown'` and the class `mobile`; `linux()` excludes them
+- "TV" as a separate word in a model name means television. A phone named "... TV" is therefore a TV: a `knownIssue` fixture documents that
+- `pnpm run corpus` runs the built `<script>` bundle against the Matomo device-detector fixtures (downloaded on first run) and prints type/os accuracy per device type; use it to measure a detection change before and after

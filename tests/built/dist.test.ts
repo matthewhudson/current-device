@@ -19,7 +19,11 @@ type DeviceWindow = DOMWindow & { device?: unknown; scriptErrors: Error[] }
 const IPHONE_UA =
   'Mozilla/5.0 (iPhone; CPU iPhone OS 18_3_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.3.1 Mobile/15E148 Safari/604.1'
 
-function createWindow(ua: string, overrides?: UAFixture['navigatorOverrides']): DeviceWindow {
+function createWindow(
+  ua: string,
+  overrides?: UAFixture['navigatorOverrides'],
+  screenOverrides?: UAFixture['screenOverrides']
+): DeviceWindow {
   // jsdom reports errors thrown by <script> elements here instead of throwing
   const scriptErrors: Error[] = []
   const virtualConsole = new VirtualConsole()
@@ -37,6 +41,10 @@ function createWindow(ua: string, overrides?: UAFixture['navigatorOverrides']): 
   }
   if (overrides?.maxTouchPoints !== undefined) {
     Object.defineProperty(navigator, 'maxTouchPoints', { value: overrides.maxTouchPoints, configurable: true })
+  }
+  if (screenOverrides) {
+    Object.defineProperty(win.screen, 'width', { value: screenOverrides.width, configurable: true })
+    Object.defineProperty(win.screen, 'height', { value: screenOverrides.height, configurable: true })
   }
   return win
 }
@@ -65,7 +73,9 @@ function setViewport(win: DeviceWindow, width: number, height: number): void {
 function expectClassesMatch(win: DeviceWindow, device: Device): void {
   const classes = htmlClasses(win)
   expect(classes).toContain(device.orientation)
-  if (device.os === 'television') {
+  // Televisions get `television` instead of the type class, except a TV
+  // browser on a Windows PC (Kylo), which keeps the Windows classes
+  if (device.os === 'television' || (device.os === 'android' && device.television())) {
     expect(classes).toContain('television')
   } else {
     expect(classes).toContain(device.type)
@@ -79,7 +89,7 @@ describe('dist/index.global.js (<script> build)', () => {
   describe('UA string detection', () => {
     for (const fixture of uaFixtures) {
       const check = (): void => {
-        const win = createWindow(fixture.ua, fixture.navigatorOverrides)
+        const win = createWindow(fixture.ua, fixture.navigatorOverrides, fixture.screenOverrides)
         const device = loadScript(win)
         expectFixture(device, fixture)
         expectConsistent(device)

@@ -44,6 +44,7 @@
     "typecheck": "tsc --noEmit",
     "check:es2015": "es-check es6 dist/index.js dist/index.global.js dist/react.js --checkFeatures && es-check es6 dist/index.mjs dist/react.mjs --module --checkFeatures",
     "check:package": "publint && attw --pack . --ignore-rules missing-export-equals",
+    "corpus": "node scripts/corpus.mjs",
     "prepublishOnly": "pnpm run build && pnpm run check:es2015 && pnpm run test:dist",
     "changeset": "changeset",
     "release": "changeset publish"
