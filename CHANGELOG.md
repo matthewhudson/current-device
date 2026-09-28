@@ -1,5 +1,33 @@
 # Changelog
 
+## 2.2.0
+
+### Minor Changes
+
+- [#404](https://github.com/matthewhudson/current-device/pull/404) [`defdd9e`](https://github.com/matthewhudson/current-device/commit/defdd9e72ba14320db487c0b342637efb17bf810) Thanks [@matthewhudson](https://github.com/matthewhudson)! - Add ChromeOS and Linux detection via `device.chromeos()` and `device.linux()`. ChromeOS and desktop Linux browsers now get the `chromeos desktop` / `linux desktop` CSS classes on `<html>` (previously just `desktop`), and `device.os` reports `'chromeos'` / `'linux'` instead of `'unknown'`. Android, HarmonyOS and smart TVs, which also report "Linux" in their user agent, are unchanged. The `DeviceOs` type gains `'chromeos'` and `'linux'`.
+
+### Patch Changes
+
+- [#414](https://github.com/matthewhudson/current-device/pull/414) [`f0091b2`](https://github.com/matthewhudson/current-device/commit/f0091b2cd0cf03a5f99be52b37c31d59fd7ee927) Thanks [@matthewhudson](https://github.com/matthewhudson)! - Fix three false positives in Apple device detection:
+
+  - **iPads whose user agent says `iPad; CPU iPhone OS`** (seen on iPad mini) were detected as both iPhone and iPad, and reported `type: 'mobile'` with `ios ipad tablet` classes. `device.iphone()` and `device.mobile()` now return false for them and `device.type` is `'tablet'`.
+  - **Android devices with "mac" in their user agent**, such as a model named "Mac Audio", were given the `macos desktop` classes and `device.macos()` returned true. `device.macos()` is now false on Android.
+  - **The iPadOS 13+ check** (`navigator.platform` is `MacIntel` and the device has a touchscreen) ignored the user agent, so a Windows or Android user agent in such an environment was detected as an iPad. It now also requires a Mac user agent.
+
+- [#412](https://github.com/matthewhudson/current-device/pull/412) [`e9f780e`](https://github.com/matthewhudson/current-device/commit/e9f780ebc5faf45095d03fa6ae075ca97c50f2b6) Thanks [@matthewhudson](https://github.com/matthewhudson)! - Fix the `<html>` class handling when the page has its own classes that contain a class name current-device uses. Classes were matched as substrings, so with `<html class="landscape-hero">` the `landscape` class was never added, and with `<html class="theme portrait-gallery">` removing `portrait` rewrote the page's class to `theme-gallery`. An orientation class that was the first class on `<html>` was also never removed. Classes are now added and removed with `classList`.
+
+- [#411](https://github.com/matthewhudson/current-device/pull/411) [`952baa4`](https://github.com/matthewhudson/current-device/commit/952baa4923352c30f92def79ef7fc73d70a0956d) Thanks [@matthewhudson](https://github.com/matthewhudson)! - Fix three detection bugs found with real-world user agent strings:
+
+  - **Windows Phone 8.1** (IE Mobile 11) was detected as macOS, because its UA contains "Mac OS X". It now reports `os: 'windows'` with `windows mobile` classes, and `macos()` and `fxos()` return false.
+  - **Samsung Tizen smart TVs** were detected as Linux, because their UA says `SMART-TV` (with a hyphen). They now report `os: 'television'` with the `television` class.
+  - **BlackBerry PlayBook** was not detected, because its UA says "RIM Tablet OS" instead of BlackBerry. It now reports `os: 'blackberry'`, `type: 'tablet'` with `blackberry tablet` classes.
+
+- [#402](https://github.com/matthewhudson/current-device/pull/402) [`45809bb`](https://github.com/matthewhudson/current-device/commit/45809bbf8a989a5690e7c86a5363fbfe14e54bd4) Thanks [@matthewhudson](https://github.com/matthewhudson)! - Fix orientation detection in Safari on iOS 16.4+. `device.landscape()`, `device.portrait()`, the `landscape`/`portrait` CSS classes and `onChangeOrientation` callbacks reported the previous orientation after a rotation, because iOS updates `screen.orientation` only after the `orientationchange` event fires. iOS now uses `window.orientation`, which is updated in time. Fixes #367.
+
+- [#413](https://github.com/matthewhudson/current-device/pull/413) [`ba29fc5`](https://github.com/matthewhudson/current-device/commit/ba29fc5ccfd7e3b95268b4122094e779ffee38c7) Thanks [@matthewhudson](https://github.com/matthewhudson)! - Fix `device.onChangeOrientation()` callbacks being called when the orientation did not change. On browsers without the `orientationchange` event (all desktop browsers) current-device listens to `resize`, and it called every callback and rewrote the `<html>` classes on each resize event, so dragging a window edge called them continuously. Callbacks are now called, and the `landscape`/`portrait` classes updated, only when the orientation changes.
+
+- [#415](https://github.com/matthewhudson/current-device/pull/415) [`e363ec5`](https://github.com/matthewhudson/current-device/commit/e363ec573f98b10c849477e7fdcc4f0b88e1d20b) Thanks [@matthewhudson](https://github.com/matthewhudson)! - Fix the orientation of a square viewport. When the viewport's width and height were equal, `<html>` got the `portrait` class, but `device.portrait()` and `device.landscape()` both returned false and `device.orientation` was `'unknown'`. A square viewport is now portrait everywhere, which matches the CSS `(orientation: portrait)` media query.
+
 ## 2.1.0
 
 ### Minor Changes
