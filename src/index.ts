@@ -111,28 +111,17 @@ function find(needle: string): boolean {
   return includes(userAgent, needle)
 }
 
-// Check if documentElement already has a given class.
-function hasClass(className: string): RegExpMatchArray | null {
-  return documentElement.className.match(new RegExp(className, 'i'))
-}
-
-// Add one or more CSS classes to the <html> element.
-function addClass(className: string): void {
-  let currentClassNames: string | null = null
-  if (!hasClass(className)) {
-    currentClassNames = documentElement.className.replace(/^\s+|\s+$/g, '')
-    documentElement.className = `${currentClassNames} ${className}`
+// Add one or more CSS classes (space-separated) to the <html> element.
+function addClass(classNames: string): void {
+  const names = classNames.split(' ')
+  for (let i = 0; i < names.length; i++) {
+    documentElement.classList.add(names[i])
   }
 }
 
-// Remove single CSS class from the <html> element.
+// Remove a single CSS class from the <html> element.
 function removeClass(className: string): void {
-  if (hasClass(className)) {
-    documentElement.className = documentElement.className.replace(
-      ` ${className}`,
-      ''
-    )
-  }
+  documentElement.classList.remove(className)
 }
 
 // Main functions
