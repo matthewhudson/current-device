@@ -251,11 +251,12 @@ function removeClass(className: string): void {
 // Main functions
 // --------------
 
-// Windows Phone 8.1 UAs contain "like iPhone OS ... Mac OS X", and some
-// Android devices and TVs have "Mac" in their model or maker name
+// Every Mac browser says "Macintosh; Intel Mac OS X"; native Mac apps say
+// "Mac OS/13.7.2". A bare "mac" also matched the "Mac Audio" and "Atmaca"
+// device makers. iOS says "like Mac OS X" and Windows Phone 8.1 "Mac OS X"
 device.macos = function (): boolean {
   return (
-    find('mac') &&
+    (find('macintosh') || find('mac os')) &&
     !device.ios() &&
     !device.windows() &&
     !device.android() &&
@@ -538,11 +539,12 @@ device.landscape = function (): boolean {
 
 // Run device.js in noConflict mode,
 // returning the device variable to its previous owner.
+// Returns `device` itself, also when called unbound (`const { noConflict } = device`)
 device.noConflict = function (): Device {
   if (isBrowser) {
     window.device = previousDevice as Device
   }
-  return this
+  return device
 }
 
 // HTML Element Handling
