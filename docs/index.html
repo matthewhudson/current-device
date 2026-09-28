@@ -255,16 +255,13 @@
       margin-bottom: 24px;
     }
 
+    /* One column: the code blocks are wider than a third of the page.
+       minmax(0, 1fr) lets the column shrink below its longest line of code,
+       which then scrolls inside its <pre> instead of widening the page. */
     .columns {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: minmax(0, 1fr);
       gap: 20px;
-    }
-
-    @media (max-width: 640px) {
-      .columns {
-        grid-template-columns: 1fr;
-      }
     }
 
     .column h3 {
