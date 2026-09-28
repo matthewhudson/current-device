@@ -1,5 +1,18 @@
 # Changelog
 
+## 2.5.0
+
+### Minor Changes
+
+- [#429](https://github.com/matthewhudson/current-device/pull/429) [`ae3eb78`](https://github.com/matthewhudson/current-device/commit/ae3eb7863080222df0546babe426295595a70e27) Thanks [@matthewhudson](https://github.com/matthewhudson)! - Detect HarmonyOS NEXT. Huawei's Android-free HarmonyOS (OpenHarmony 5 and later, ArkWeb browser engine) sends `(Phone; OpenHarmony 5.0) ... Mobile`, `(Tablet; OpenHarmony 5.0)` or `(PC; OpenHarmony 5.0; HarmonyOS 5.0)`. Phones were `mobile` with `os: 'unknown'`, and tablets and PCs were `desktop` with no OS. All three now report `os: 'harmonyos'` and `device.harmonyos()` is true; phones are `mobile`, tablets `tablet`, PCs `desktop`, with the `harmonyos mobile`, `harmonyos tablet` and new `harmonyos desktop` classes. `device.android()` stays false for them; it is true only for the Android-based HarmonyOS 2 to 4.
+
+### Patch Changes
+
+- [#426](https://github.com/matthewhudson/current-device/pull/426) [`3fae889`](https://github.com/matthewhudson/current-device/commit/3fae889b9389e76a28d316d214de0f5f474d0d72) Thanks [@matthewhudson](https://github.com/matthewhudson)! - Minify the `<script>` build (`dist/index.global.js`, the file unpkg and jsDelivr serve). It was shipped unminified at 11 KB; it is now 6 KB, about 2 KB gzipped. The CommonJS and ES module builds are unchanged, since bundlers minify those themselves.
+
+- [#428](https://github.com/matthewhudson/current-device/pull/428) [`306c989`](https://github.com/matthewhudson/current-device/commit/306c98969e6f1d66425fc607bcadfd1f8536284c) Thanks [@matthewhudson](https://github.com/matthewhudson)! - - `device.noConflict()` returned `this`, so calling it unbound (`const { noConflict } = device; noConflict()`) returned `undefined` although its type says `Device`. It now always returns the `device` object.
+  - `device.macos()` matched any user agent containing "mac", which is why the "Mac Audio" and "Atmaca" device makers needed special cases. It now requires "Macintosh" or "Mac OS", which every Mac browser sends; iOS and Windows Phone user agents, which contain "Mac OS X", were already excluded.
+
 ## 2.4.0
 
 ### Minor Changes
