@@ -178,3 +178,59 @@ describe('dist/index.mjs (ES module build)', () => {
     expect(htmlClasses(win)).toEqual(expect.arrayContaining(['ios', 'iphone', 'mobile']))
   })
 })
+
+// On a server there are no browser globals at all
+describe('Without a DOM (server-side rendering)', () => {
+  it('dist/index.js can be required', () => {
+    const path = require.resolve('../../dist/index.js')
+    delete require.cache[path]
+    const mod = require(path) as { default: Device }
+
+    expect(mod.default.type).toBe('unknown')
+    expect(mod.default.os).toBe('unknown')
+    expect(mod.default.orientation).toBe('unknown')
+    expect(mod.default.desktop()).toBe(false)
+  })
+
+  it('dist/index.mjs can be imported', async () => {
+    const url = new URL('index.mjs', distUrl)
+    url.search = '?server'
+    const mod = (await import(url.href)) as { default: Device }
+
+    expect(mod.default.type).toBe('unknown')
+    expect(mod.default.orientation).toBe('unknown')
+  })
+})
+
+// `current-device/react` resolves through the package's own exports
+describe('current-device/react (React hooks)', () => {
+  type Hooks = typeof import('../../src/react')
+
+  function render(hooks: Hooks): string {
+    const { createElement } = require('react') as typeof import('react')
+    const { renderToString } = require('react-dom/server') as typeof import('react-dom/server')
+    function Probe() {
+      const { type, os } = hooks.useDevice()
+      return createElement('p', null, [type, os, hooks.useOrientation()].join(' '))
+    }
+    return renderToString(createElement(Probe))
+  }
+
+  it('dist/react.js renders on a server', () => {
+    expect(render(require('current-device/react') as Hooks)).toBe('<p>unknown unknown unknown</p>')
+  })
+
+  it('dist/react.mjs renders on a server', async () => {
+    // @ts-ignore -- resolves to dist/, which only exists after a build
+    const hooks = (await import('current-device/react')) as Hooks
+    expect(render(hooks)).toBe('<p>unknown unknown unknown</p>')
+  })
+
+  it('uses the device of the main entry point instead of its own copy', () => {
+    for (const file of ['react.js', 'react.mjs']) {
+      const source = readFileSync(new URL(file, distUrl), 'utf8')
+      expect(source, file).toMatch(/(require\(|from )"current-device"/)
+      expect(source, file).not.toContain('userAgent')
+    }
+  })
+})

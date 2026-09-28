@@ -163,6 +163,73 @@ describe('Orientation callbacks', () => {
     expect(document.documentElement.className).toContain('landscape')
     expect(document.documentElement.className).not.toContain('portrait')
   })
+
+  it('can read the new device.orientation', async () => {
+    setViewport(1200, 800)
+    const { default: device } = await import('../src/index')
+    const seen: string[] = []
+    device.onChangeOrientation(() => seen.push(device.orientation))
+
+    setViewport(800, 1200)
+    window.dispatchEvent(new Event('resize'))
+
+    expect(seen).toEqual(['portrait'])
+  })
+
+  it('are not called after the returned function unsubscribes them', async () => {
+    setViewport(1200, 800)
+    const { default: device } = await import('../src/index')
+    const removed = vi.fn()
+    const kept = vi.fn()
+    const unsubscribe = device.onChangeOrientation(removed)
+    device.onChangeOrientation(kept)
+
+    unsubscribe()
+    setViewport(800, 1200)
+    window.dispatchEvent(new Event('resize'))
+
+    expect(removed).not.toHaveBeenCalled()
+    expect(kept.mock.calls).toEqual([['portrait']])
+  })
+
+  it('unsubscribing twice does not remove another registration of the callback', async () => {
+    setViewport(1200, 800)
+    const { default: device } = await import('../src/index')
+    const callback = vi.fn()
+    const unsubscribe = device.onChangeOrientation(callback)
+    device.onChangeOrientation(callback)
+
+    unsubscribe()
+    unsubscribe()
+    setViewport(800, 1200)
+    window.dispatchEvent(new Event('resize'))
+
+    expect(callback).toHaveBeenCalledTimes(1)
+  })
+
+  it('can unsubscribe while the callbacks are being called', async () => {
+    setViewport(1200, 800)
+    const { default: device } = await import('../src/index')
+    const calls: string[] = []
+    const unsubscribeFirst = device.onChangeOrientation(() => {
+      calls.push('first')
+      unsubscribeFirst()
+    })
+    device.onChangeOrientation(() => calls.push('second'))
+
+    setViewport(800, 1200)
+    window.dispatchEvent(new Event('resize'))
+    setViewport(1200, 800)
+    window.dispatchEvent(new Event('resize'))
+
+    expect(calls).toEqual(['first', 'second', 'second'])
+  })
+
+  it('returns a function for a callback that is not a function', async () => {
+    const { default: device } = await import('../src/index')
+    const unsubscribe = device.onChangeOrientation(undefined as never)
+    expect(() => unsubscribe()).not.toThrow()
+  })
 })
 
 // CSS treats a square viewport as portrait: `(orientation: portrait)` matches
