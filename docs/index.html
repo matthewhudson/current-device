@@ -238,7 +238,10 @@
     .windows .badge.windows,
     .fxos .badge.fxos,
     .meego .badge.meego,
-    .television .badge.television {
+    .television .badge.television,
+    .harmonyos .badge.harmonyos,
+    .chromeos .badge.chromeos,
+    .linux .badge.linux {
       background: var(--detected-subtle);
       color: var(--detected);
       border-color: var(--detected);
@@ -437,12 +440,15 @@
         <span class="badge ipad">ipad</span>
         <span class="badge ipod">ipod</span>
         <span class="badge android">android</span>
-        <span class="badge blackberry">blackberry</span>
+        <span class="badge harmonyos">harmonyos</span>
+        <span class="badge chromeos">chromeos</span>
         <span class="badge macos">macos</span>
         <span class="badge windows">windows</span>
+        <span class="badge linux">linux</span>
+        <span class="badge television">television</span>
+        <span class="badge blackberry">blackberry</span>
         <span class="badge fxos">fxos</span>
         <span class="badge meego">meego</span>
-        <span class="badge television">television</span>
       </div>
     </div>
 
@@ -508,7 +514,7 @@ console.log(device.os)          // 'ios', 'android', 'macos', ...
 console.log(device.orientation) // 'portrait' or 'landscape'</code></pre>
     </div>
     <div class="tab-content" id="tab-script">
-      <pre><code>&lt;script src="https://unpkg.com/current-device"&gt;&lt;/script&gt;</code></pre>
+      <pre><code>&lt;script src="https://unpkg.com/current-device@2"&gt;&lt;/script&gt;</code></pre>
       <pre><code>&lt;script&gt;
   if (device.mobile()) {
     // Mobile-specific logic
@@ -531,7 +537,7 @@ console.log(device.orientation) // 'portrait' or 'landscape'</code></pre>
     </p>
   </footer>
 
-  <script src="https://unpkg.com/current-device"></script>
+  <script src="https://unpkg.com/current-device@2"></script>
   <script>
     (function () {
       // Populate hero pill with detected values

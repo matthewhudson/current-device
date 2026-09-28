@@ -4,83 +4,37 @@
 [![npm version](https://img.shields.io/npm/v/current-device.svg)](https://www.npmjs.com/package/current-device)
 [![npm downloads](https://img.shields.io/npm/dm/current-device.svg)](https://www.npmjs.com/package/current-device)
 
-This module makes it easy to write conditional CSS _and/or_ JavaScript based on
-device operating system (iOS, Android, Blackberry, Windows, macOS, Firefox OS, MeeGo,
-AppleTV, etc), orientation (Portrait vs. Landscape), and type (Tablet vs.
-Mobile).
-
-[View the Demo &rarr;](https://matthewhudson.github.io/current-device/)
-
-### EXAMPLES
-
-This module inserts CSS classes into the `<html>` element.
-
-#### iPhone
-
-<img src="https://raw.githubusercontent.com/matthewhudson/current-device/main/docs/iphone.png" />
-
-#### Android Tablet
-
-<img src="https://raw.githubusercontent.com/matthewhudson/current-device/main/docs/android.png" />
-
-#### Blackberry Tablet
-
-<img src="https://raw.githubusercontent.com/matthewhudson/current-device/main/docs/blackberry.png" />
-
-### DEVICE SUPPORT
-
-- iOS: iPhone, iPod, iPad
-- macOS
-- Android: Phones, Tablets & TVs
-- Blackberry: Phones & Tablets
-- Windows: Phones, Tablets, Desktops
-- Firefox OS: Phones & Tablets
-- ChromeOS (including Android apps running on a Chromebook)
-- Linux
-- Televisions: Android TV, Google TV, Fire TV, Chromecast, Samsung Tizen,
-  LG webOS, Roku, Apple TV, HbbTV, Vizio, Hisense VIDAA and Opera TV
-- Feature phones and other handsets (Java ME, Symbian, KaiOS, Tizen,
-  Sailfish, Palm webOS...) are reported as mobile
-
-### BROWSER SUPPORT
-
-current-device 2.x ships ES2015 JavaScript without polyfills. It runs in any
-browser with full ES2015 support:
-
-| Browser | Minimum version |
-| --- | --- |
-| Chrome, Android WebView | 51 |
-| Edge | 15 |
-| Firefox | 54 |
-| Safari (macOS and iOS) | 10 |
-| Samsung Internet | 5 |
-| Opera | 38 |
-
-Internet Explorer and other browsers without ES2015 support are not supported.
-This includes the built-in browsers of several platforms that current-device
-still recognizes by user agent: the Android stock browser (Android 4.4 and
-earlier), BlackBerry, Windows Phone 8.x, Firefox OS and MeeGo. If you need to
-support them, use current-device 0.10.x, which ships ES5:
+current-device adds CSS classes to `<html>` for the visitor's operating system,
+device type and orientation, and gives you the same answers in JavaScript:
 
 ```html
-<script src="https://unpkg.com/current-device@0.10.2/umd/current-device.min.js"></script>
+<!-- iPhone -->        <html class="ios iphone mobile portrait">
+<!-- Galaxy Tab -->    <html class="android tablet landscape">
+<!-- MacBook -->       <html class="macos desktop landscape">
 ```
 
-current-device detects the device in the browser. It can also be imported on a
-server, see [Server-Side Rendering](#server-side-rendering).
+```ts
+import device from "current-device";
 
-### USAGE
+device.type; // 'mobile' | 'tablet' | 'desktop' | 'unknown'
+device.os; // 'ios' | 'android' | 'windows' | 'macos' | ...
+device.orientation; // 'portrait' | 'landscape' | 'unknown'
+device.mobile(); // boolean
+```
 
-Just include the script. The script then updates the `<html>` section with the
-[appropriate classes](#conditional-css) based on the device's characteristics.
+It is a small (under 3 KB gzipped), dependency-free classifier built for
+styling, layout conventions and analytics. It reads the user agent string once
+and sorts the device into a handful of buckets. It does not identify device
+models, browsers or OS versions, and user agent sniffing has hard limits in
+2026: read [Limitations](#limitations) before you rely on it.
+
+[View the Demo &rarr;](https://matthewhudson.github.io/current-device/)
 
 ## Installation
 
 ```sh
 npm install current-device
 ```
-
-And then import it:
 
 ```ts
 // ES modules (recommended)
@@ -90,16 +44,20 @@ import device from "current-device";
 const device = require("current-device").default;
 ```
 
+Importing the module adds the classes to `<html>` and starts listening for
+orientation changes. Nothing else is needed.
+
 ### CDN / Script Tag
 
-You can also include current-device directly via a `<script>` tag using a CDN:
-
 ```html
-<script src="https://unpkg.com/current-device/dist/index.global.js"></script>
+<script src="https://unpkg.com/current-device@2/dist/index.global.js"></script>
 <script>
-  console.log(device.type); // 'mobile', 'tablet', or 'desktop'
+  console.log(device.type); // 'mobile', 'tablet' or 'desktop'
 </script>
 ```
+
+The script defines one global, `device`. See
+[`device.noConflict()`](#devicenoconflict) if that name is taken.
 
 ### React
 
@@ -120,7 +78,7 @@ function Player() {
 ```
 
 - `useDevice()` returns `{ type, os, orientation }`, with the same values as
-  [`device.type`, `device.os` and `device.orientation`](#useful-properties).
+  [`device.type`, `device.os` and `device.orientation`](#properties).
 - `useOrientation()` returns only the orientation.
 
 Both re-render the component when the orientation changes.
@@ -148,7 +106,7 @@ event handler.
 
 ### TypeScript
 
-This package ships with built-in TypeScript types. You can import the types directly:
+The package ships its own types:
 
 ```ts
 import device from "current-device";
@@ -159,12 +117,10 @@ const type: DeviceType = device.type;
 const isPhone: boolean = device.mobile();
 ```
 
-### CONDITIONAL CSS
+## CSS Classes
 
-The following tables map which CSS classes are added based on device and
-orientation.
-
-#### Device CSS Class Names
+One operating-system class and one type class are added to `<html>`, plus the
+orientation class.
 
 <table>
 	<tr>
@@ -172,15 +128,15 @@ orientation.
 		<th>CSS Classes</th>
 	</tr>
 	<tr>
-		<td>iPad</td>
-		<td>ios ipad tablet</td>
-	</tr>
-	<tr>
 		<td>iPhone</td>
 		<td>ios iphone mobile</td>
 	</tr>
 	<tr>
-		<td>iPod</td>
+		<td>iPad (also iPadOS 13+ with its Mac user agent)</td>
+		<td>ios ipad tablet</td>
+	</tr>
+	<tr>
+		<td>iPod touch</td>
 		<td>ios ipod mobile</td>
 	</tr>
 	<tr>
@@ -188,77 +144,102 @@ orientation.
 		<td>macos desktop</td>
 	</tr>
 	<tr>
-		<td>Android Phone</td>
+		<td>Android phone</td>
 		<td>android mobile</td>
 	</tr>
 	<tr>
-		<td>Android Tablet</td>
+		<td>Android tablet</td>
 		<td>android tablet</td>
 	</tr>
 	<tr>
-		<td>Android TV</td>
+		<td>Android TV, Google TV, Fire TV, Chromecast</td>
 		<td>android television</td>
 	</tr>
 	<tr>
-		<td>BlackBerry Phone</td>
-		<td>blackberry mobile</td>
+		<td>HarmonyOS phone</td>
+		<td>harmonyos mobile</td>
 	</tr>
 	<tr>
-		<td>BlackBerry Tablet</td>
-		<td>blackberry tablet</td>
+		<td>HarmonyOS tablet</td>
+		<td>harmonyos tablet</td>
 	</tr>
 	<tr>
-		<td>Windows Phone</td>
-		<td>windows mobile</td>
+		<td>ChromeOS (also an Android app on a Chromebook)</td>
+		<td>chromeos desktop</td>
 	</tr>
 	<tr>
-		<td>Windows Tablet</td>
-		<td>windows tablet</td>
-	</tr>
-	<tr>
-		<td>Windows Desktop</td>
+		<td>Windows desktop, laptop or 2-in-1</td>
 		<td>windows desktop</td>
 	</tr>
 	<tr>
-		<td>Firefox OS Phone</td>
+		<td>Windows RT tablet</td>
+		<td>windows tablet</td>
+	</tr>
+	<tr>
+		<td>Windows Phone, Windows Mobile</td>
+		<td>windows mobile</td>
+	</tr>
+	<tr>
+		<td>Linux desktop</td>
+		<td>linux desktop</td>
+	</tr>
+	<tr>
+		<td>Other television or set-top box (Tizen, webOS, Roku, Apple TV, HbbTV...)</td>
+		<td>television</td>
+	</tr>
+	<tr>
+		<td>BlackBerry phone</td>
+		<td>blackberry mobile</td>
+	</tr>
+	<tr>
+		<td>BlackBerry PlayBook</td>
+		<td>blackberry tablet</td>
+	</tr>
+	<tr>
+		<td>Firefox OS or KaiOS phone</td>
 		<td>fxos mobile</td>
 	</tr>
 	<tr>
-		<td>Firefox OS Tablet</td>
+		<td>Firefox OS tablet</td>
 		<td>fxos tablet</td>
 	</tr>
 	<tr>
 		<td>MeeGo</td>
-		<td>meego</td>
+		<td>meego mobile</td>
 	</tr>
 	<tr>
-		<td>Other phone (feature phone, Symbian, Tizen...)</td>
+		<td>Other phone (feature phone, Symbian, Tizen, Sailfish...)</td>
 		<td>mobile</td>
 	</tr>
 	<tr>
-		<td>Desktop</td>
+		<td>Anything else</td>
 		<td>desktop</td>
-	</tr>
-	<tr>
-		<td>Television</td>
-		<td>television</td>
-	</tr>
-	<tr>
-		<td>ChromeOS</td>
-		<td>chromeos desktop</td>
-	</tr>
-	<tr>
-		<td>Linux</td>
-		<td>linux desktop</td>
 	</tr>
 </table>
 
-#### Orientation CSS Class Names
+Two more classes describe the runtime rather than the device:
+
+<table>
+	<tr>
+		<th>Runtime</th>
+		<th>CSS Class</th>
+	</tr>
+	<tr>
+		<td>Cordova app (<code>window.cordova</code> exists and the page is loaded from <code>file:</code>)</td>
+		<td>cordova, added to the classes above</td>
+	</tr>
+	<tr>
+		<td>NW.js or Electron renderer (<code>window.process</code> exists)</td>
+		<td>node-webkit. On Windows and macOS the classes above win; on Linux it is added instead of them</td>
+	</tr>
+</table>
+
+### Orientation
 
 <table>
 	<tr>
 		<th>Orientation</th>
-		<th>CSS Classes</th>
+		<th>CSS Class</th>
 	</tr>
 	<tr>
 		<td>Landscape</td>
@@ -270,20 +251,23 @@ orientation.
 	</tr>
 </table>
 
-### CONDITIONAL JAVASCRIPT
+The orientation class is the only one that changes while the page is open. On
+phones and tablets it follows the screen's orientation; on desktops, where the
+screen doesn't rotate, it follows the window's aspect ratio, so a portrait
+monitor or a tall window is `portrait`. A square window is `portrait`, like the
+CSS `(orientation: portrait)` media query.
 
-This module _also_ includes support for conditional JavaScript, allowing you to
-write checks on the following device characteristics:
+## JavaScript API
 
-#### Device JavaScript Methods
+### Type
 
 <table>
 	<tr>
-		<th>Device</th>
-		<th>JavaScript Method</th>
+		<th>Type</th>
+		<th>Method</th>
 	</tr>
 	<tr>
-		<td>Mobile</td>
+		<td>Phone</td>
 		<td>device.mobile()</td>
 	</tr>
 	<tr>
@@ -291,23 +275,34 @@ write checks on the following device characteristics:
 		<td>device.tablet()</td>
 	</tr>
 	<tr>
-		<td>Desktop</td>
+		<td>Neither: desktops, laptops and televisions</td>
 		<td>device.desktop()</td>
 	</tr>
+</table>
+
+Exactly one of the three is true in a browser.
+
+### Operating System and Device
+
+<table>
 	<tr>
-		<td>iOS</td>
-		<td>device.ios()</td>
+		<th>Device</th>
+		<th>Method</th>
 	</tr>
 	<tr>
-		<td>iPad</td>
-		<td>device.ipad()</td>
+		<td>iOS or iPadOS</td>
+		<td>device.ios()</td>
 	</tr>
 	<tr>
 		<td>iPhone</td>
 		<td>device.iphone()</td>
 	</tr>
 	<tr>
-		<td>iPod</td>
+		<td>iPad</td>
+		<td>device.ipad()</td>
+	</tr>
+	<tr>
+		<td>iPod touch</td>
 		<td>device.ipod()</td>
 	</tr>
 	<tr>
@@ -315,77 +310,98 @@ write checks on the following device characteristics:
 		<td>device.macos()</td>
 	</tr>
 	<tr>
-		<td>Android</td>
+		<td>Android (phones, tablets, TVs, HarmonyOS, Android apps on a Chromebook)</td>
 		<td>device.android()</td>
 	</tr>
 	<tr>
-		<td>Android Phone</td>
+		<td>Android phone</td>
 		<td>device.androidPhone()</td>
 	</tr>
 	<tr>
-		<td>Android Tablet</td>
+		<td>Android tablet</td>
 		<td>device.androidTablet()</td>
 	</tr>
 	<tr>
-		<td>BlackBerry</td>
-		<td>device.blackberry()</td>
-	</tr>
-	<tr>
-		<td>BlackBerry Phone</td>
-		<td>device.blackberryPhone()</td>
-	</tr>
-	<tr>
-		<td>BlackBerry Tablet</td>
-		<td>device.blackberryTablet()</td>
-	</tr>
-	<tr>
-		<td>Windows</td>
-		<td>device.windows()</td>
-	</tr>
-	<tr>
-		<td>Windows Phone</td>
-		<td>device.windowsPhone()</td>
-	</tr>
-	<tr>
-		<td>Windows Tablet</td>
-		<td>device.windowsTablet()</td>
-	</tr>
-	<tr>
-		<td>Firefox OS</td>
-		<td>device.fxos()</td>
-	</tr>
-	<tr>
-		<td>Firefox OS Phone</td>
-		<td>device.fxosPhone()</td>
-	</tr>
-	<tr>
-		<td>Firefox OS Tablet</td>
-		<td>device.fxosTablet()</td>
-	</tr>
-	<tr>
-		<td>MeeGo</td>
-		<td>device.meego()</td>
-	</tr>
-	<tr>
-		<td>Television</td>
-		<td>device.television()</td>
+		<td>HarmonyOS (also <code>android()</code>)</td>
+		<td>device.harmonyos()</td>
 	</tr>
 	<tr>
 		<td>ChromeOS</td>
 		<td>device.chromeos()</td>
 	</tr>
 	<tr>
-		<td>Linux</td>
+		<td>Windows</td>
+		<td>device.windows()</td>
+	</tr>
+	<tr>
+		<td>Windows Phone, Windows Mobile</td>
+		<td>device.windowsPhone()</td>
+	</tr>
+	<tr>
+		<td>Windows RT tablet</td>
+		<td>device.windowsTablet()</td>
+	</tr>
+	<tr>
+		<td>Linux desktop</td>
 		<td>device.linux()</td>
+	</tr>
+	<tr>
+		<td>Television or set-top box (any OS)</td>
+		<td>device.television()</td>
+	</tr>
+	<tr>
+		<td>BlackBerry</td>
+		<td>device.blackberry()</td>
+	</tr>
+	<tr>
+		<td>BlackBerry phone</td>
+		<td>device.blackberryPhone()</td>
+	</tr>
+	<tr>
+		<td>BlackBerry PlayBook</td>
+		<td>device.blackberryTablet()</td>
+	</tr>
+	<tr>
+		<td>Firefox OS or KaiOS</td>
+		<td>device.fxos()</td>
+	</tr>
+	<tr>
+		<td>Firefox OS or KaiOS phone</td>
+		<td>device.fxosPhone()</td>
+	</tr>
+	<tr>
+		<td>Firefox OS tablet</td>
+		<td>device.fxosTablet()</td>
+	</tr>
+	<tr>
+		<td>MeeGo</td>
+		<td>device.meego()</td>
 	</tr>
 </table>
 
-#### Orientation JavaScript Methods
+### Runtime
+
+<table>
+	<tr>
+		<th>Runtime</th>
+		<th>Method</th>
+	</tr>
+	<tr>
+		<td>Cordova app</td>
+		<td>device.cordova()</td>
+	</tr>
+	<tr>
+		<td>NW.js or Electron renderer</td>
+		<td>device.nodeWebkit()</td>
+	</tr>
+</table>
+
+### Orientation
 
 <table>
 	<tr>
 		<th>Orientation</th>
-		<th>JavaScript Method</th>
+		<th>Method</th>
 	</tr>
 	<tr>
 		<td>Landscape</td>
@@ -397,106 +413,185 @@ write checks on the following device characteristics:
 	</tr>
 </table>
 
-#### Orientation JavaScript Callback
-
 ```ts
-device.onChangeOrientation((newOrientation: "landscape" | "portrait") => {
+const unsubscribe = device.onChangeOrientation((newOrientation: "landscape" | "portrait") => {
   console.log(`New orientation is ${newOrientation}`);
 });
+
+unsubscribe(); // removes the callback again
 ```
 
-`onChangeOrientation` returns a function that removes the callback:
+### Properties
 
-```ts
-const unsubscribe = device.onChangeOrientation(callback);
-unsubscribe();
-```
+The properties hold the first match, so you don't have to call the methods one
+by one.
 
-### Utility Methods
+<table>
+	<tr>
+		<th>Property</th>
+		<th>Type</th>
+		<th>Value</th>
+	</tr>
+	<tr>
+		<td>device.type</td>
+		<td>DeviceType</td>
+		<td>'mobile', 'tablet', 'desktop' or 'unknown'</td>
+	</tr>
+	<tr>
+		<td>device.os</td>
+		<td>DeviceOs</td>
+		<td>'ios', 'android', 'harmonyos', 'chromeos', 'windows', 'macos', 'linux', 'television', 'blackberry', 'fxos', 'meego' or 'unknown'</td>
+	</tr>
+	<tr>
+		<td>device.orientation</td>
+		<td>DeviceOrientation</td>
+		<td>'landscape', 'portrait' or 'unknown'</td>
+	</tr>
+</table>
 
-#### device.noConflict()
+Notes on `device.os`:
 
-Run `current-device` in noConflict mode, returning the device variable to its
-previous owner. Returns a reference to the `device` object.
+- It is `'ios'` for every iPhone, iPad and iPod touch. The `DeviceOs` type also
+  lists `'iphone'`, `'ipad'` and `'ipod'` for backwards compatibility, but
+  `device.os` never has those values; use `device.iphone()`, `device.ipad()` and
+  `device.ipod()` instead. The three values will be removed from the type in 3.0.
+- Where two checks match, the more specific platform wins: a HarmonyOS device is
+  `'harmonyos'` (and `device.android()` is also true), an Android app running on
+  a Chromebook is `'chromeos'`, and an Android TV is `'android'` with
+  `device.television()` true. `'television'` is used for TVs whose operating
+  system isn't recognised (Tizen, webOS, Roku...).
+- Feature phones and phones on platforms without their own method are
+  `'unknown'` with `device.type === 'mobile'`.
+
+`device.type` and `device.os` are computed once when the module is imported;
+only `device.orientation` changes afterwards.
+
+### device.noConflict()
+
+Returns the `device` object and gives the global `device` variable back to its
+previous owner. Only relevant for the `<script>` build.
 
 ```ts
 const currentDevice: Device = device.noConflict();
 ```
 
-### Useful Properties
+## Device Support
 
-Access these properties on the `device` object to get the first match on that
-attribute without looping through all of its getter methods.
+Current platforms:
 
-<table>
-	<tr>
-		<th>JS Property</th>
-		<th>Type</th>
-		<th>Returns</th>
-	</tr>
-	<tr>
-		<td>device.type</td>
-		<td>DeviceType</td>
-		<td>'mobile', 'tablet', 'desktop', or 'unknown'</td>
-	</tr>
-	<tr>
-		<td>device.orientation</td>
-		<td>DeviceOrientation</td>
-		<td>'landscape', 'portrait', or 'unknown'</td>
-	</tr>
-	<tr>
-		<td>device.os</td>
-		<td>DeviceOs</td>
-		<td>'ios', 'iphone', 'ipad', 'ipod', 'android', 'blackberry', 'windows', 'macos', 'fxos', 'meego', 'television', 'chromeos', 'linux', or 'unknown'</td>
-	</tr>
-</table>
+- iOS and iPadOS: iPhone, iPad, iPod touch
+- macOS
+- Android: phones, tablets and TVs
+- HarmonyOS (the Android-based versions; see [Limitations](#limitations) for
+  HarmonyOS NEXT)
+- ChromeOS, including Android apps running on a Chromebook
+- Windows: desktops, laptops and 2-in-1s (`desktop`), Windows RT tablets,
+  Windows Phone and Windows Mobile
+- Linux desktops
+- Televisions and set-top boxes: Android TV, Google TV, Fire TV, Chromecast,
+  Samsung Tizen, LG webOS, Roku, Apple TV, HbbTV, Vizio, Hisense VIDAA, Opera TV
+- Feature phones and other handsets (Java ME, Symbian, KaiOS, Tizen, Sailfish,
+  Palm webOS...) as `mobile`
 
-### LIMITATIONS
+Legacy platforms, still recognised by user agent although their browsers cannot
+run the ES2015 bundle (see [Browser Support](#browser-support)): BlackBerry and
+the PlayBook, Windows Phone, Firefox OS and MeeGo. Their methods stay in 2.x
+for compatibility.
 
-current-device reads the browser's user agent string once, when it is imported.
-That has consequences worth knowing before you rely on it:
+## Browser Support
 
-- **`device.type` and `device.os` do not change while the page is open.** They
-  describe the device, not the window. Resizing the browser only updates the
-  orientation (and calls `onChangeOrientation` callbacks); it never turns a
-  desktop into a mobile. Use CSS media queries for layout that should follow
-  the window size.
-- **Chrome's reduced user agent** (`Android 10; K`) hides the device model, so
-  an Android tablet narrower than 600dp, which Chrome labels `Mobile`, is
-  reported as a phone. Tablets whose user agent still names a known tablet
-  family (Galaxy Tab, Lenovo Tab, MediaPad/MatePad, Huawei `-W09` models,
-  Kindle Fire...) are tablets.
-- **iPadOS 13+ and "Request Desktop Website"** send a Mac user agent. iPads
-  are recognised by their touchscreen, and an iPhone in desktop mode is told
-  from an iPad by its screen size. An iPad inside an app that reports an
-  iPhone user agent (some Cordova apps) is an iPad for the same reason.
-- **Foldable phones** unfolded are wider than 600dp, so Chrome drops `Mobile`.
-  Known families (Galaxy Z Fold, Pixel Fold) are still phones; unknown ones
-  are tablets.
-- **Windows tablets and 2-in-1s** are `desktop`. Modern browsers on Windows
-  give no hint of a tablet; only Windows RT devices (Internet Explorer with
-  `ARM` and `Touch` in the user agent) are `windows tablet`.
-- **Televisions** are `device.type === 'desktop'` with the `television` class.
-  Wearables, consoles, car displays and VR headsets have no category of their
-  own.
+current-device 2.x ships ES2015 JavaScript without polyfills. It runs in any
+browser with full ES2015 support:
 
-### BEST PRACTICES
+| Browser | Minimum version |
+| --- | --- |
+| Chrome, Android WebView | 51 |
+| Edge | 15 |
+| Firefox | 54 |
+| Safari (macOS and iOS) | 10 |
+| Samsung Internet | 5 |
+| Opera | 38 |
 
-Environment detection has a high rate of misuse. Often times, folks will attempt
-to work around browser feature support problems by checking for the affected
-browser and doing something different in response. The preferred solution for
-those kinds of problems, of course, is to check for the feature, not the browser
-(ala [Modernizr](http://modernizr.com/)).
+Internet Explorer and other browsers without ES2015 support are not supported.
+This includes the built-in browsers of several platforms that current-device
+still recognizes by user agent: the Android stock browser (Android 4.4 and
+earlier), BlackBerry, Windows Phone 8.x, Firefox OS and MeeGo. If you need to
+support them, use current-device 0.10.x, which ships ES5:
 
-However, that common misuse of device detection doesn't mean it should never be
-done. For example, `current-device` could be employed to change the interface of
-your web app such that it uses interaction patterns and UI elements common to
-the device it's being presented on. Android devices might get a slightly
-different treatment than Windows or iOS, for instance. Another valid use-case is
-guiding users to different app stores depending on the device they're using.
+```html
+<script src="https://unpkg.com/current-device@0.10.2/umd/current-device.min.js"></script>
+```
 
-In short, check for features when you need features, and check for the browser
-when you need the browser.
+## Limitations
+
+current-device classifies the user agent string, once, at import. That is
+enough to tell phones, tablets and desktops apart and to name the operating
+system for the vast majority of visitors (89% of the 35,000 user agents in the
+[Matomo device-detector](https://github.com/matomo-org/device-detector)
+fixtures get the right type). It is not device identification, and these
+limits are inherent to the approach:
+
+- **Results don't follow the window.** `device.type`, `device.os` and their
+  classes describe the device and are computed once. Resizing the browser,
+  docking a tablet or opening the page in a split screen only updates the
+  orientation. Use CSS media queries for layout that should follow the
+  viewport.
+- **Chrome's reduced user agent.** Since Chrome 110 every Android Chrome user
+  agent says `Android 10; K`, without the device model. Phone versus tablet
+  then rests on Chrome's own `Mobile` token, which Chrome adds on screens
+  narrower than 600dp, so a 7" or 8" tablet is a phone. Tablet model names
+  still help in browsers that send them (WebViews, Samsung Internet, Huawei
+  Browser): Galaxy Tab, Lenovo Tab, MediaPad/MatePad, Huawei `-W09` models,
+  Kindle Fire and a few others are tablets even with `Mobile`.
+- **Apple's Mac user agent.** iPadOS 13+ and an iPhone with "Request Desktop
+  Website" both send the Mac Safari user agent. current-device recognises them
+  by their touchscreen (`navigator.maxTouchPoints`) and tells the iPhone from
+  the iPad by screen size. This relies on `navigator.platform`, which browsers
+  have deprecated; if Safari stops reporting it, desktop-mode iPads become
+  Macs.
+- **Windows and ChromeOS tablets are desktops.** No modern browser on Windows
+  or ChromeOS puts a tablet hint in the user agent, so a Surface, a 2-in-1 or a
+  Chromebook tablet is `desktop`. Only Windows RT devices, whose Internet
+  Explorer said `ARM` and `Touch`, are `windows tablet`.
+- **HarmonyOS NEXT is not recognised.** Huawei's Android-free OS (OpenHarmony
+  5, ArkWeb) is new and its user agent is not detected yet: phones are
+  `mobile` with `os: 'unknown'` and tablets are `desktop`. The Android-based
+  HarmonyOS versions are detected.
+- **Client Hints are not used.** Detection is user agent only;
+  `navigator.userAgentData` is Chromium-only and its useful fields are
+  asynchronous, which doesn't fit classes that must be set at import time.
+- **Foldables.** Unfolded, a foldable's screen is wider than 600dp and Chrome
+  drops `Mobile`. Galaxy Z Fold and Pixel Fold are phones in either state;
+  other foldables are tablets when unfolded.
+- **Televisions have `type: 'desktop'`** with the `television` class, and an
+  Android TV has `os: 'android'`; there is no television type. Wearables, game
+  consoles, car displays, smart displays and VR headsets have no category of
+  their own and land in `mobile` or `desktop`.
+- **A phone whose model name contains "TV"** as a separate word (for example
+  "KAZAM TV 45") is detected as a television.
+- **KaiOS keeps the Firefox OS user agent** it descends from, so it is reported
+  as `fxos`, not as a separate platform.
+- **No browsers, versions or models.** current-device does not report the
+  browser, the OS version or the device model. For those, use a full parser
+  such as [ua-parser-js](https://github.com/faisalman/ua-parser-js) or
+  [device-detector](https://github.com/matomo-org/device-detector).
+
+## Best Practices
+
+Use current-device for what only the platform can tell you: interaction
+conventions (Android and iOS users expect different controls), app-store links,
+platform-specific help text, and analytics segments.
+
+Don't use it as a proxy for capabilities or screen size. The browser can tell
+you those directly, on every device, and keeps them up to date:
+
+- layout that depends on the viewport: CSS media queries, or `matchMedia()`
+- touch versus mouse: `(pointer: coarse)` and `(hover: none)` media queries
+- orientation-dependent layout: the `(orientation: portrait)` media query
+- an API or feature: check for the feature itself
+
+In short, check for features when you need features, and check for the platform
+when you need the platform.
 
 ## Contributors
 
