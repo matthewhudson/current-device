@@ -15,14 +15,15 @@ jobs:
       pull-requests: write
       id-token: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
         with:
-          # Node 24 bundles npm 11 (>= 11.5.1), which npm trusted publishing (OIDC) requires
-          node-version: 24
+          # Node 24 (.nvmrc) bundles npm 11 (>= 11.5.1), which npm trusted
+          # publishing (OIDC) requires
+          node-version-file: .nvmrc
           cache: pnpm
       - run: npm --version
       - run: pnpm install
