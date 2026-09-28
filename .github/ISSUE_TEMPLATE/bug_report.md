@@ -4,7 +4,7 @@ about: Create a report if you see a problem that should be fixed! 🤕
 labels: bug
 ---
 
-**Describe the Nug**
+**Describe the Bug**
 
 <!-- A clear and concise description of what the bug is. -->
 
