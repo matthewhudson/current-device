@@ -21,8 +21,10 @@ jobs:
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          # Node 24 bundles npm 11 (>= 11.5.1), which npm trusted publishing (OIDC) requires
+          node-version: 24
           cache: pnpm
+      - run: npm --version
       - run: pnpm install
       - name: Create Release Pull Request or Publish
         id: changesets
@@ -34,7 +36,6 @@ jobs:
           createGithubReleases: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
       - name: Create GitHub Release (fallback)
         if: steps.changesets.outputs.published == 'true'
