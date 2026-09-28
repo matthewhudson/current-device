@@ -19,11 +19,12 @@ This is a widely-used public package. Follow semver strictly: breaking changes r
 
 ## Architecture
 
-- Single source file: `src/index.ts` — all detection logic
+- `src/index.ts` — all detection logic
+- `src/react.ts` — React hooks (`useDevice`, `useOrientation`), published as `current-device/react`; React is an optional peer dependency
 - Tests: `tests/*.test.ts` run against src/ (Vitest + jsdom); `tests/built/` runs against the built files with its own config (`vitest.built.config.ts`); `tests/browser/` is Playwright (`playwright.config.ts`)
-- Build output: `dist/` (index.js=CJS, index.mjs=ESM, index.d.ts/index.d.mts=types)
-- Browser-only library: uses window, navigator, document, screen at module scope
-- Module has side effects on import (adds CSS classes to <html>, attaches orientation listener)
+- Build output: `dist/` (index.js=CJS, index.mjs=ESM, index.global.js=`<script>`, index.d.ts/index.d.mts=types; the same for react.*, without a `<script>` build)
+- Uses window, navigator, document, screen at module scope, guarded by `isBrowser`: without a DOM (server-side rendering) the import must not throw, methods return false and type/os/orientation are 'unknown'
+- Module has side effects on import in a browser (adds CSS classes to <html>, attaches orientation listener)
 
 ## Key Conventions
 
@@ -46,3 +47,6 @@ This is a widely-used public package. Follow semver strictly: breaking changes r
 - Playwright's WebKit exposes `onorientationchange` even on desktop, so there the library follows screen (not window) orientation; the desktop rotate test is skipped for engines with that event
 - UA fixtures (`tests/ua-strings.ts`) are shared by the src/ and dist/ tests. New real-world UAs must be copied verbatim with a `source` URL. A fixture with `knownIssue` holds the *correct* expectations and runs as `it.fails`; when you fix that bug the test fails, so remove `knownIssue` then. Every other fixture must also pass the invariants in `tests/fixture-assertions.ts`
 - `pnpm approve-builds` is interactive — use `pnpm.onlyBuiltDependencies` in package.json instead
+- `dist/react.*` must import `current-device` instead of bundling `src/index.ts` (the esbuild plugin in `tsup.config.ts` does this): a second copy would add its own listener and overwrite `window.device`
+- `react/package.json` lets tools without `exports` support (TypeScript `moduleResolution: node`, webpack 4) resolve `current-device/react`; it is in `files`
+- Tests that need no DOM start with `// @vitest-environment node` (`tests/ssr.test.ts`)

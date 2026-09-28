@@ -18,20 +18,31 @@
         "types": "./dist/index.d.ts",
         "default": "./dist/index.js"
       }
+    },
+    "./react": {
+      "import": {
+        "types": "./dist/react.d.mts",
+        "default": "./dist/react.mjs"
+      },
+      "require": {
+        "types": "./dist/react.d.ts",
+        "default": "./dist/react.js"
+      }
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "react"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "node -e \"fs.rmSync('dist', { recursive: true, force: true })\" && tsup",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "test:dist": "vitest run --config vitest.built.config.ts",
     "test:browser": "playwright test",
     "typecheck": "tsc --noEmit",
-    "check:es2015": "es-check es6 dist/index.js dist/index.global.js --checkFeatures && es-check es6 dist/index.mjs --module --checkFeatures",
+    "check:es2015": "es-check es6 dist/index.js dist/index.global.js dist/react.js --checkFeatures && es-check es6 dist/index.mjs dist/react.mjs --module --checkFeatures",
     "check:package": "publint && attw --pack . --ignore-rules missing-export-equals",
     "prepublishOnly": "pnpm run build && pnpm run check:es2015 && pnpm run test:dist",
     "changeset": "changeset",
@@ -42,13 +53,26 @@
     "@changesets/changelog-github": "0.5.2",
     "@changesets/cli": "2.29.8",
     "@playwright/test": "1.63.0",
+    "@testing-library/react": "^16.3.3",
     "@types/jsdom": "^21.1.7",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
     "es-check": "^9.8.1",
     "jsdom": "^25.0.0",
     "publint": "0.3.24",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
     "tsup": "^8.0.0",
     "typescript": "^5.7.0",
     "vitest": "^4.1.11"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
   },
   "packageManager": "pnpm@10.30.1",
   "engines": {

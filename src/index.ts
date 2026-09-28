@@ -49,7 +49,7 @@ export interface Device {
   desktop(): boolean
   portrait(): boolean
   landscape(): boolean
-  onChangeOrientation(cb: OrientationChangeCallback): void
+  onChangeOrientation(cb: OrientationChangeCallback): () => void
   noConflict(): Device
   type: DeviceType
   os: DeviceOs
@@ -62,22 +62,29 @@ declare global {
   }
 }
 
+// False on a server (server-side rendering) and anywhere else without a DOM.
+// There the module can still be imported: it adds no classes or listeners, and
+// every detection method returns false.
+const isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined'
+
 // Save the previous value of the device variable.
-const previousDevice = window.device
+const previousDevice = isBrowser ? window.device : undefined
 
 const device = {} as Device
 
 const changeOrientationList: OrientationChangeCallback[] = []
 
 // Add device as a global object.
-window.device = device
+if (isBrowser) {
+  window.device = device
+}
 
 // The <html> element.
-const documentElement = window.document.documentElement
+const documentElement = isBrowser ? window.document.documentElement : undefined
 
 // The client user agent string.
 // Lowercase, so we can use the more efficient indexOf(), instead of Regex
-const userAgent = window.navigator.userAgent.toLowerCase()
+const userAgent = isBrowser ? window.navigator.userAgent.toLowerCase() : ''
 
 // Detectable television devices.
 const televisionDevices: string[] = [
@@ -113,6 +120,9 @@ function find(needle: string): boolean {
 
 // Add one or more CSS classes (space-separated) to the <html> element.
 function addClass(classNames: string): void {
+  if (!documentElement) {
+    return
+  }
   const names = classNames.split(' ')
   for (let i = 0; i < names.length; i++) {
     documentElement.classList.add(names[i])
@@ -121,6 +131,9 @@ function addClass(classNames: string): void {
 
 // Remove a single CSS class from the <html> element.
 function removeClass(className: string): void {
+  if (!documentElement) {
+    return
+  }
   documentElement.classList.remove(className)
 }
 
@@ -226,11 +239,15 @@ device.linux = function (): boolean {
 }
 
 device.cordova = function (): boolean {
-  return !!(window as Window & { cordova?: unknown }).cordova && location.protocol === 'file:'
+  return (
+    isBrowser &&
+    !!(window as Window & { cordova?: unknown }).cordova &&
+    location.protocol === 'file:'
+  )
 }
 
 device.nodeWebkit = function (): boolean {
-  return typeof (window as Window & { process?: unknown }).process === 'object'
+  return isBrowser && typeof (window as Window & { process?: unknown }).process === 'object'
 }
 
 device.mobile = function (): boolean {
@@ -256,7 +273,7 @@ device.tablet = function (): boolean {
 }
 
 device.desktop = function (): boolean {
-  return !device.tablet() && !device.mobile()
+  return isBrowser && !device.tablet() && !device.mobile()
 }
 
 device.television = function (): boolean {
@@ -271,6 +288,9 @@ device.television = function (): boolean {
 }
 
 device.portrait = function (): boolean {
+  if (!isBrowser) {
+    return false
+  }
   // Check iOS first: Safari 16.4+ exposes screen.orientation, but it still
   // reports the previous orientation during the orientationchange event (#367)
   if (
@@ -290,6 +310,9 @@ device.portrait = function (): boolean {
 }
 
 device.landscape = function (): boolean {
+  if (!isBrowser) {
+    return false
+  }
   // Check iOS first: Safari 16.4+ exposes screen.orientation, but it still
   // reports the previous orientation during the orientationchange event (#367)
   if (
@@ -313,7 +336,9 @@ device.landscape = function (): boolean {
 // Run device.js in noConflict mode,
 // returning the device variable to its previous owner.
 device.noConflict = function (): Device {
-  window.device = previousDevice
+  if (isBrowser) {
+    window.device = previousDevice as Device
+  }
   return this
 }
 
@@ -398,33 +423,48 @@ function handleOrientation(): void {
   currentOrientation = newOrientation
   removeClass(newOrientation === 'landscape' ? 'portrait' : 'landscape')
   addClass(newOrientation)
-  walkOnChangeOrientationList(newOrientation)
+  // Update device.orientation first, so callbacks that read it see the new value
   setOrientationCache()
+  walkOnChangeOrientationList(newOrientation)
 }
 
 function walkOnChangeOrientationList(newOrientation: 'landscape' | 'portrait'): void {
-  for (let index = 0; index < changeOrientationList.length; index++) {
-    changeOrientationList[index](newOrientation)
+  // Walk a copy: a callback may unsubscribe itself or others while it runs
+  const callbacks = changeOrientationList.slice()
+  for (let index = 0; index < callbacks.length; index++) {
+    callbacks[index](newOrientation)
   }
 }
 
-device.onChangeOrientation = function (cb: OrientationChangeCallback): void {
-  if (typeof cb === 'function') {
-    changeOrientationList.push(cb)
+// Returns a function that removes the callback again.
+device.onChangeOrientation = function (cb: OrientationChangeCallback): () => void {
+  if (typeof cb !== 'function') {
+    return function (): void {}
+  }
+  changeOrientationList.push(cb)
+  let subscribed = true
+  return function (): void {
+    if (!subscribed) {
+      return
+    }
+    subscribed = false
+    changeOrientationList.splice(changeOrientationList.lastIndexOf(cb), 1)
   }
 }
 
-// Detect whether device supports orientationchange event,
-// otherwise fall back to the resize event.
-let orientationEvent = 'resize'
-if (Object.prototype.hasOwnProperty.call(window, 'onorientationchange')) {
-  orientationEvent = 'orientationchange'
+if (isBrowser) {
+  // Detect whether device supports orientationchange event,
+  // otherwise fall back to the resize event.
+  let orientationEvent = 'resize'
+  if (Object.prototype.hasOwnProperty.call(window, 'onorientationchange')) {
+    orientationEvent = 'orientationchange'
+  }
+
+  // Listen for changes in orientation.
+  window.addEventListener(orientationEvent, handleOrientation, false)
+
+  handleOrientation()
 }
-
-// Listen for changes in orientation.
-window.addEventListener(orientationEvent, handleOrientation, false)
-
-handleOrientation()
 
 // Public functions to get the current value of type, os, or orientation
 // ---------------------------------------------------------------------

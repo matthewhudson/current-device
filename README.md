@@ -62,8 +62,8 @@ support them, use current-device 0.10.x, which ships ES5:
 <script src="https://unpkg.com/current-device@0.10.2/umd/current-device.min.js"></script>
 ```
 
-current-device is browser-only: it reads `window`, `navigator` and `document`
-when it is imported. With server-side rendering, import it only on the client.
+current-device detects the device in the browser. It can also be imported on a
+server, see [Server-Side Rendering](#server-side-rendering).
 
 ### USAGE
 
@@ -96,6 +96,51 @@ You can also include current-device directly via a `<script>` tag using a CDN:
   console.log(device.type); // 'mobile', 'tablet', or 'desktop'
 </script>
 ```
+
+### React
+
+`current-device/react` has hooks for React 18 and later:
+
+```tsx
+import { useDevice, useOrientation } from "current-device/react";
+
+function Navigation() {
+  const { type, os, orientation } = useDevice();
+  return type === "mobile" ? <MobileNav /> : <DesktopNav />;
+}
+
+function Player() {
+  const orientation = useOrientation();
+  return <video className={orientation} />;
+}
+```
+
+- `useDevice()` returns `{ type, os, orientation }`, with the same values as
+  [`device.type`, `device.os` and `device.orientation`](#useful-properties).
+- `useOrientation()` returns only the orientation.
+
+Both re-render the component when the orientation changes.
+
+### Server-Side Rendering
+
+current-device can be imported on a server, for example with Next.js, Remix or
+Astro. A server can't see the device, so there:
+
+- no classes are added to `<html>`,
+- every method, such as `device.mobile()`, returns `false`,
+- `device.type`, `device.os` and `device.orientation` are `'unknown'`.
+
+The React hooks also return `'unknown'` on the server and while the page
+hydrates, and the real values right after. Render something that fits every
+device for `'unknown'`.
+
+In Next.js, components that use the hooks need the `"use client"` directive.
+
+In a server-rendered app, don't call `device` methods such as `device.mobile()`
+while a component renders. They return `false` on the server and the real value
+in the browser, which causes a hydration error, and React then removes the
+classes from `<html>`. Use the hooks, or call the methods in an effect or an
+event handler.
 
 ### TypeScript
 
@@ -346,6 +391,13 @@ write checks on the following device characteristics:
 device.onChangeOrientation((newOrientation: "landscape" | "portrait") => {
   console.log(`New orientation is ${newOrientation}`);
 });
+```
+
+`onChangeOrientation` returns a function that removes the callback:
+
+```ts
+const unsubscribe = device.onChangeOrientation(callback);
+unsubscribe();
 ```
 
 ### Utility Methods
