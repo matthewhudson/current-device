@@ -116,3 +116,51 @@ describe('Orientation on non-iOS devices', () => {
     expect(device.portrait()).toBe(false)
   })
 })
+
+describe('Orientation callbacks', () => {
+  const originalWidth = window.innerWidth
+  const originalHeight = window.innerHeight
+
+  function setViewport(width: number, height: number): void {
+    Object.defineProperty(window, 'innerWidth', { value: width, configurable: true, writable: true })
+    Object.defineProperty(window, 'innerHeight', { value: height, configurable: true, writable: true })
+  }
+
+  afterEach(() => {
+    setViewport(originalWidth, originalHeight)
+  })
+
+  it('are not called when a resize leaves the orientation unchanged', async () => {
+    setViewport(1200, 800)
+    const { default: device } = await import('../src/index')
+    const callback = vi.fn()
+    device.onChangeOrientation(callback)
+
+    setViewport(1100, 800)
+    window.dispatchEvent(new Event('resize'))
+    setViewport(1000, 800)
+    window.dispatchEvent(new Event('resize'))
+
+    expect(callback).not.toHaveBeenCalled()
+    expect(device.orientation).toBe('landscape')
+  })
+
+  it('are called once for each change of orientation', async () => {
+    setViewport(1200, 800)
+    const { default: device } = await import('../src/index')
+    const callback = vi.fn()
+    device.onChangeOrientation(callback)
+
+    setViewport(800, 1200)
+    window.dispatchEvent(new Event('resize'))
+    setViewport(700, 1200)
+    window.dispatchEvent(new Event('resize'))
+    setViewport(1200, 800)
+    window.dispatchEvent(new Event('resize'))
+
+    expect(callback.mock.calls).toEqual([['portrait'], ['landscape']])
+    expect(device.orientation).toBe('landscape')
+    expect(document.documentElement.className).toContain('landscape')
+    expect(document.documentElement.className).not.toContain('portrait')
+  })
+})

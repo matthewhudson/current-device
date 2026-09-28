@@ -377,17 +377,20 @@ if (device.cordova()) {
 // Orientation Handling
 // --------------------
 
-// Handle device orientation changes.
+// The orientation the <html> classes and callbacks were last updated for.
+let currentOrientation: 'landscape' | 'portrait' | undefined
+
+// Handle device orientation changes. The resize event also fires when the
+// orientation stays the same, so only act when it changed.
 function handleOrientation(): void {
-  if (device.landscape()) {
-    removeClass('portrait')
-    addClass('landscape')
-    walkOnChangeOrientationList('landscape')
-  } else {
-    removeClass('landscape')
-    addClass('portrait')
-    walkOnChangeOrientationList('portrait')
+  const newOrientation = device.landscape() ? 'landscape' : 'portrait'
+  if (newOrientation === currentOrientation) {
+    return
   }
+  currentOrientation = newOrientation
+  removeClass(newOrientation === 'landscape' ? 'portrait' : 'landscape')
+  addClass(newOrientation)
+  walkOnChangeOrientationList(newOrientation)
   setOrientationCache()
 }
 
