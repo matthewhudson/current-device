@@ -369,8 +369,27 @@ device.meego = function (): boolean {
   return find('meego')
 }
 
+// HarmonyOS 2 to 4 run an Android compatibility layer and say "Android ...;
+// HarmonyOS". HarmonyOS NEXT (OpenHarmony 5 and later) has no Android layer:
+// "(Phone; OpenHarmony 5.0) ... ArkWeb/4.1.6.1 Mobile", "(Tablet; OpenHarmony
+// 5.0) ..." or "(PC; OpenHarmony 5.0; HarmonyOS 5.0) ..."
 device.harmonyos = function (): boolean {
-  return find('harmonyos')
+  return find('harmonyos') || find('openharmony')
+}
+
+// The form factor of a HarmonyOS NEXT device, from its device-type token.
+// The Android-based versions go through androidPhone()/androidTablet()
+function harmonyosNextPhone(): boolean {
+  return (
+    device.harmonyos() &&
+    !device.android() &&
+    !find('(tablet') &&
+    (find('(phone') || find('mobile'))
+  )
+}
+
+function harmonyosNextTablet(): boolean {
+  return device.harmonyos() && !device.android() && find('(tablet')
 }
 
 // Match " cros " with spaces: "microsoft" also contains "cros". An Android app
@@ -401,6 +420,7 @@ function otherPhone(): boolean {
     device.blackberry() ||
     device.fxos() ||
     device.meego() ||
+    device.harmonyos() ||
     device.macos() ||
     device.chromeos() ||
     device.television()
@@ -439,6 +459,7 @@ device.mobile = function (): boolean {
     device.blackberryPhone() ||
     device.fxosPhone() ||
     device.meego() ||
+    harmonyosNextPhone() ||
     otherPhone()
   )
 }
@@ -449,7 +470,8 @@ device.tablet = function (): boolean {
     device.androidTablet() ||
     device.blackberryTablet() ||
     device.windowsTablet() ||
-    device.fxosTablet()
+    device.fxosTablet() ||
+    harmonyosNextTablet()
   )
 }
 
@@ -542,11 +564,13 @@ if (device.ios()) {
   // Before Android: an Android app on a Chromebook
   addClass('chromeos desktop')
 } else if (device.harmonyos()) {
-  // The same rule as device.type: a tablet model with "Mobile" is a tablet
-  if (device.androidTablet()) {
+  // The same rules as device.type; a HarmonyOS PC is a desktop
+  if (device.tablet()) {
     addClass('harmonyos tablet')
-  } else {
+  } else if (device.mobile()) {
     addClass('harmonyos mobile')
+  } else {
+    addClass('harmonyos desktop')
   }
 } else if (device.android()) {
   if (device.television()) {

@@ -961,4 +961,38 @@ export const uaFixtures: UAFixture[] = [
       methods: { television: false, androidPhone: true, mobile: true },
     },
   },
+
+  // === HarmonyOS NEXT (OpenHarmony, no Android layer) ===
+  // The phone and tablet strings are Huawei's documented default user agent
+  // (the {Mobile} token is only sent by phones), not captured from a device
+  {
+    name: 'HarmonyOS NEXT phone (ArkWeb)',
+    ua: 'Mozilla/5.0 (Phone; OpenHarmony 5.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 ArkWeb/4.1.6.1 Mobile',
+    source: 'https://developer.huawei.com/consumer/en/doc/harmonyos-guides/web-default-userAgent',
+    expected: {
+      os: 'harmonyos',
+      type: 'mobile',
+      methods: { harmonyos: true, android: false, mobile: true, tablet: false, desktop: false, linux: false },
+    },
+  },
+  {
+    name: 'HarmonyOS NEXT tablet (ArkWeb)',
+    ua: 'Mozilla/5.0 (Tablet; OpenHarmony 5.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 ArkWeb/4.1.6.1',
+    source: 'https://developer.huawei.com/consumer/en/doc/harmonyos-guides/web-default-userAgent',
+    expected: {
+      os: 'harmonyos',
+      type: 'tablet',
+      methods: { harmonyos: true, android: false, tablet: true, mobile: false, desktop: false, linux: false },
+    },
+  },
+  {
+    name: 'HarmonyOS NEXT PC (360 Browser)',
+    ua: 'Mozilla/5.0 (PC; OpenHarmony 5.0; HarmonyOS 5.0) AppleWebKit/537.36 (KHTML,like Gecko) Chrome/114.0.0.0 Safari/537.36 ArkWeb/4.1.6.1 Browser/harmony360Browser/1.0.0',
+    source: 'https://github.com/matomo-org/device-detector/blob/master/Tests/fixtures/unknown.yml',
+    expected: {
+      os: 'harmonyos',
+      type: 'desktop',
+      methods: { harmonyos: true, android: false, desktop: true, mobile: false, tablet: false, linux: false },
+    },
+  },
 ]
