@@ -3,7 +3,8 @@ import type { Device } from '../src/index'
 import type { UAFixture } from './ua-strings'
 
 // Operating-system families that can't apply to the same device.
-// (harmonyos is excluded: HarmonyOS devices are also android by design.)
+// (harmonyos and chromeos are excluded: HarmonyOS devices are also android by
+// design, and so is an Android app running on a Chromebook.)
 const OS_FAMILIES = [
   'ios',
   'android',
@@ -12,7 +13,6 @@ const OS_FAMILIES = [
   'fxos',
   'meego',
   'macos',
-  'chromeos',
   'linux'
 ] as const
 
@@ -34,4 +34,12 @@ export function expectConsistent(device: Device): void {
 
   const families = OS_FAMILIES.filter((os) => device[os]())
   expect(families.length, `at most one OS family is detected, got: ${families.join(', ')}`).toBeLessThanOrEqual(1)
+
+  // chromeos() and linux() are never both true: ChromeOS is not desktop Linux
+  expect(device.chromeos() && device.linux(), 'chromeos() and linux() are both true').toBe(false)
+
+  // A television is neither a phone nor a tablet
+  if (device.television()) {
+    expect(device.type, 'a television has type desktop').toBe('desktop')
+  }
 }

@@ -31,12 +31,16 @@ This module inserts CSS classes into the `<html>` element.
 
 - iOS: iPhone, iPod, iPad
 - macOS
-- Android: Phones & Tablets
+- Android: Phones, Tablets & TVs
 - Blackberry: Phones & Tablets
 - Windows: Phones, Tablets, Desktops
 - Firefox OS: Phones & Tablets
-- ChromeOS
+- ChromeOS (including Android apps running on a Chromebook)
 - Linux
+- Televisions: Android TV, Google TV, Fire TV, Chromecast, Samsung Tizen,
+  LG webOS, Roku, Apple TV, HbbTV, Vizio, Hisense VIDAA and Opera TV
+- Feature phones and other handsets (Java ME, Symbian, KaiOS, Tizen,
+  Sailfish, Palm webOS...) are reported as mobile
 
 ### BROWSER SUPPORT
 
@@ -192,6 +196,10 @@ orientation.
 		<td>android tablet</td>
 	</tr>
 	<tr>
+		<td>Android TV</td>
+		<td>android television</td>
+	</tr>
+	<tr>
 		<td>BlackBerry Phone</td>
 		<td>blackberry mobile</td>
 	</tr>
@@ -222,6 +230,10 @@ orientation.
 	<tr>
 		<td>MeeGo</td>
 		<td>meego</td>
+	</tr>
+	<tr>
+		<td>Other phone (feature phone, Symbian, Tizen...)</td>
+		<td>mobile</td>
 	</tr>
 	<tr>
 		<td>Desktop</td>

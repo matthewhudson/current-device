@@ -92,6 +92,7 @@ const televisionDevices: string[] = [
   'viera',
   'smarttv',
   'smart-tv',
+  'smart tv',
   'internet.tv',
   'netcast',
   'nettv',
@@ -102,7 +103,86 @@ const televisionDevices: string[] = [
   'dlnadoc',
   'pov_tv',
   'hbbtv',
-  'ce-html'
+  'ce-html',
+  // Android TV, Google TV and Android set-top boxes
+  'android tv',
+  'androidtv',
+  'tv box',
+  'tvbox',
+  'tv_box',
+  'smart box',
+  'smartbox',
+  'bravia',
+  'mitv',
+  'mibox',
+  'fire tv',
+  'firetv',
+  '; aft', // Fire TV model numbers: AFTKA, AFTMM, AFTSS...
+  'chromecast',
+  'crkey',
+  'nexus player',
+  'a95x',
+  'ugoos',
+  'zidoo',
+  'vontar',
+  'rombica',
+  'mygica',
+  'nexbox',
+  'uhd',
+  'iptv',
+  // Linux-based TVs and set-top boxes
+  ' omi/', // Opera's TV browser (with the space: "Xiaomi/")
+  'opera tv',
+  'sonycebrowser',
+  'vizio',
+  'smartcast',
+  'vidaa',
+  'philipstv',
+  'vstvb',
+  'fvc/',
+  'sraf',
+  'mstar'
+]
+
+// "TV" or "STB" on its own in a model name ("MYSTERY_TV_D2365CH58",
+// "R-TV BOX X10") or browser token ("(lite) TV Safari"). Underscore counts as
+// a separator here, unlike with \b
+const televisionModel = /(^|[^a-z0-9])(tv|stb)([^a-z0-9]|$)/
+
+// Android tablets whose browser still says "Mobile" (Chrome adds it on screens
+// narrower than 600dp): model names and numbers of tablet families, and the
+// "/apad" token Yandex apps add on tablets
+const androidTabletModel =
+  /tablet|(^|[^a-z0-9])(tab ?[a-z]?\d|(sm-[tpx]|gt-p|tb-[a-z]?)\d|kf[a-z]{2,6}([^a-z0-9]|$)|nexus (7|9|10)([^0-9]|$))|mediapad|matepad|kindle|\/apad/
+
+// Feature phones and other handsets no OS check above knows: Java ME (MIDP/CLDC),
+// Symbian, Nokia Series 40/60, MediaTek MAUI, Openwave, WAP browsers, UC Browser
+// and Opera Mini, NTT DoCoMo, Samsung Bada, KaiOS, Palm webOS
+const otherPhones: string[] = [
+  'midp',
+  'cldc',
+  'symbian',
+  'series60',
+  'series40',
+  'nokia',
+  'maui',
+  'mre/',
+  'mmp/',
+  'up.browser',
+  'wap browser',
+  'wap-browser',
+  'netfront',
+  'obigo',
+  'teleca',
+  'ucweb',
+  'opera mini',
+  'opera mobi',
+  'docomo',
+  'bada',
+  'kaios',
+  'palm',
+  'blazer',
+  'webos/'
 ]
 
 // Private Utility Functions
@@ -141,10 +221,14 @@ function removeClass(className: string): void {
 // --------------
 
 // Windows Phone 8.1 UAs contain "like iPhone OS ... Mac OS X", and some
-// Android devices have "Mac" in their model name
+// Android devices and TVs have "Mac" in their model or maker name
 device.macos = function (): boolean {
   return (
-    find('mac') && !device.ios() && !device.windows() && !device.android()
+    find('mac') &&
+    !device.ios() &&
+    !device.windows() &&
+    !device.android() &&
+    !device.television()
   )
 }
 
@@ -174,12 +258,17 @@ device.android = function (): boolean {
   return !device.windows() && find('android')
 }
 
+// Android TVs and Android apps on Chromebooks are neither phones nor tablets
+function androidHandheld(): boolean {
+  return device.android() && !device.television() && !device.chromeos()
+}
+
 device.androidPhone = function (): boolean {
-  return device.android() && find('mobile')
+  return androidHandheld() && find('mobile') && !androidTabletModel.test(userAgent)
 }
 
 device.androidTablet = function (): boolean {
-  return device.android() && !find('mobile')
+  return androidHandheld() && (!find('mobile') || androidTabletModel.test(userAgent))
 }
 
 // The BlackBerry PlayBook's UA says "RIM Tablet OS" instead of BlackBerry
@@ -199,8 +288,13 @@ device.windows = function (): boolean {
   return find('windows')
 }
 
+// Windows Mobile and Windows CE handsets say "IEMobile" or "Windows CE";
+// Internet Explorer on Windows Phone 8.1 in desktop mode says "WPDesktop"
 device.windowsPhone = function (): boolean {
-  return device.windows() && find('phone')
+  return (
+    device.windows() &&
+    (find('phone') || find('iemobile') || find('windows ce') || find('wpdesktop'))
+  )
 }
 
 device.windowsTablet = function (): boolean {
@@ -228,14 +322,49 @@ device.harmonyos = function (): boolean {
   return find('harmonyos')
 }
 
-// Match " cros " with spaces: "microsoft" also contains "cros"
+// Match " cros " with spaces: "microsoft" also contains "cros". An Android app
+// on a Chromebook sends an Android UA that names the Chromebook as the model
 device.chromeos = function (): boolean {
-  return find(' cros ')
+  return find(' cros ') || find('chromebook')
 }
 
-// Android, HarmonyOS and many smart TVs also report "Linux" in their UA
+// Android, HarmonyOS, many smart TVs and Linux-based phones (Tizen, Sailfish)
+// also report "Linux" in their UA
 device.linux = function (): boolean {
-  return find('linux') && !device.android() && !device.television()
+  return (
+    find('linux') &&
+    !device.android() &&
+    !device.television() &&
+    !device.chromeos() &&
+    !otherPhone()
+  )
+}
+
+// A handset that no operating-system check knows: a feature phone, or a phone
+// on a platform without its own method (Symbian, Tizen, Sailfish, KaiOS...)
+function otherPhone(): boolean {
+  if (
+    device.android() ||
+    device.ios() ||
+    device.windows() ||
+    device.blackberry() ||
+    device.fxos() ||
+    device.meego() ||
+    device.macos() ||
+    device.chromeos() ||
+    device.television()
+  ) {
+    return false
+  }
+  if (find('mobile')) {
+    return true
+  }
+  for (let i = 0; i < otherPhones.length; i++) {
+    if (find(otherPhones[i])) {
+      return true
+    }
+  }
+  return false
 }
 
 device.cordova = function (): boolean {
@@ -258,7 +387,8 @@ device.mobile = function (): boolean {
     device.windowsPhone() ||
     device.blackberryPhone() ||
     device.fxosPhone() ||
-    device.meego()
+    device.meego() ||
+    otherPhone()
   )
 }
 
@@ -284,7 +414,7 @@ device.television = function (): boolean {
     }
     i++
   }
-  return false
+  return televisionModel.test(userAgent)
 }
 
 device.portrait = function (): boolean {
@@ -357,6 +487,9 @@ if (device.ios()) {
   }
 } else if (device.macos()) {
   addClass('macos desktop')
+} else if (device.chromeos()) {
+  // Before Android: an Android app on a Chromebook
+  addClass('chromeos desktop')
 } else if (device.harmonyos()) {
   if (find('mobile')) {
     addClass('harmonyos mobile')
@@ -364,7 +497,9 @@ if (device.ios()) {
     addClass('harmonyos tablet')
   }
 } else if (device.android()) {
-  if (device.androidTablet()) {
+  if (device.television()) {
+    addClass('android television')
+  } else if (device.androidTablet()) {
     addClass('android tablet')
   } else {
     addClass('android mobile')
@@ -395,10 +530,11 @@ if (device.ios()) {
   addClass('node-webkit')
 } else if (device.television()) {
   addClass('television')
-} else if (device.chromeos()) {
-  addClass('chromeos desktop')
 } else if (device.linux()) {
   addClass('linux desktop')
+} else if (device.mobile()) {
+  // A feature phone or a phone on a platform without its own class
+  addClass('mobile')
 } else if (device.desktop()) {
   addClass('desktop')
 }
@@ -484,6 +620,7 @@ device.os = findMatch([
   'iphone',
   'ipad',
   'ipod',
+  'chromeos',
   'harmonyos',
   'android',
   'blackberry',
@@ -492,7 +629,6 @@ device.os = findMatch([
   'fxos',
   'meego',
   'television',
-  'chromeos',
   'linux'
 ]) as DeviceOs
 

@@ -65,7 +65,9 @@ function setViewport(win: DeviceWindow, width: number, height: number): void {
 function expectClassesMatch(win: DeviceWindow, device: Device): void {
   const classes = htmlClasses(win)
   expect(classes).toContain(device.orientation)
-  if (device.os === 'television') {
+  // Televisions get `television` instead of the type class, except a TV
+  // browser on a Windows PC (Kylo), which keeps the Windows classes
+  if (device.os === 'television' || (device.os === 'android' && device.television())) {
     expect(classes).toContain('television')
   } else {
     expect(classes).toContain(device.type)
