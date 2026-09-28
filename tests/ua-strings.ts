@@ -399,7 +399,6 @@ export const uaFixtures: UAFixture[] = [
     name: 'BlackBerry PlayBook',
     ua: 'Mozilla/5.0 (PlayBook; U; RIM Tablet OS 2.1.0; en-US) AppleWebKit/536.2+ (KHTML, like Gecko) Version/7.2.1.0 Safari/536.2+',
     source: 'https://user-agents.net/string/mozilla-5-0-playbook-u-rim-tablet-os-2-1-0-en-us-applewebkit-536-2-khtml-like-gecko-version-7-2-1-0-safari-536-2',
-    knownIssue: 'No blackberry/bb10 token, so it is detected as unknown desktop',
     expected: {
       os: 'blackberry',
       type: 'tablet',
@@ -410,7 +409,6 @@ export const uaFixtures: UAFixture[] = [
     name: 'Windows Phone 8.1 (IE Mobile 11)',
     ua: 'Mozilla/5.0 (Mobile; Windows Phone 8.1; Android 4.0; ARM; Trident/7.0; Touch; rv:11.0; IEMobile/11.0; NOKIA; Lumia 520) like iPhone OS 7_0_3 Mac OS X AppleWebKit/537 (KHTML, like Gecko) Mobile Safari/537',
     source: 'https://learn.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/compatibility/hh869301(v=vs.85)',
-    knownIssue: '"Mac OS X" in the UA makes os macos (with a macos desktop class on a phone), and fxos() is also true',
     expected: {
       os: 'windows',
       type: 'mobile',
@@ -443,7 +441,6 @@ export const uaFixtures: UAFixture[] = [
     name: 'Samsung Tizen TV (2024)',
     ua: 'Mozilla/5.0 (SMART-TV; LINUX; Tizen 8.0) AppleWebKit/537.36 (KHTML, like Gecko) 108.0.5359.1/8.0 TV Safari/537.36',
     source: 'https://developer.samsung.com/smarttv/develop/guides/fundamentals/retrieving-platform-information.html',
-    knownIssue: '"SMART-TV" (hyphenated) is not matched by the smarttv token, so it is detected as linux',
     expected: {
       os: 'television',
       type: 'desktop',
