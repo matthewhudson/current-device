@@ -10,13 +10,16 @@ This is a widely-used public package. Follow semver strictly: breaking changes r
 - `pnpm run typecheck` — check types with tsc --noEmit
 - `pnpm run test:watch` — run tests in watch mode
 - `pnpm run test:coverage` — run tests with coverage report
+- `pnpm run test:dist` — test the built files in dist/ (run `pnpm run build` first)
+- `pnpm run check:es2015` — verify dist/ has no syntax or built-ins newer than ES2015
+- `pnpm run check:package` — validate package.json exports and types (publint + attw)
 - `pnpm changeset` — create a changeset describing your changes (run before committing)
 - `pnpm changeset status` — check pending changesets
 
 ## Architecture
 
 - Single source file: `src/index.ts` — all detection logic
-- Tests: `tests/index.test.ts` — Vitest + jsdom
+- Tests: `tests/*.test.ts` run against src/ (Vitest + jsdom); `tests/built/` runs against the built files with its own config (`vitest.built.config.ts`)
 - Build output: `dist/` (index.js=CJS, index.mjs=ESM, index.d.ts/index.d.mts=types)
 - Browser-only library: uses window, navigator, document, screen at module scope
 - Module has side effects on import (adds CSS classes to <html>, attaches orientation listener)
@@ -36,4 +39,7 @@ This is a widely-used public package. Follow semver strictly: breaking changes r
 - jsdom has `window.process` defined (Node.js), so `device.nodeWebkit()` returns true in tests — account for this in test assertions about CSS classes
 - `device.noConflict()` restores `window.device` to its value before module import (undefined in jsdom)
 - Orientation callback tests require dispatching a resize event since handleOrientation() runs at import time before callbacks are registered
+- dist tests load the <script> build via a real `<script>` element, not `window.eval()`: the build is strict mode, and strict eval keeps top-level `var`s local, which would hide leaked globals
+- Never add `"sideEffects": false` (publint suggests it): importing the module adds <html> classes and a listener, so bundlers would drop the import
+- `check:package` ignores attw's `missing-export-equals`: fixing it would change what `require('current-device')` returns (README documents `.default`), a breaking change
 - `pnpm approve-builds` is interactive — use `pnpm.onlyBuiltDependencies` in package.json instead

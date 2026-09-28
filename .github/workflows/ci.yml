@@ -21,3 +21,5 @@ jobs:
       - run: pnpm run test
       - run: pnpm run build
       - run: pnpm run check:es2015
+      - run: pnpm run test:dist
+      - run: pnpm run check:package
