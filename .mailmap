@@ -1,0 +1,5 @@
+# Maps the alternate names and e-mail addresses in the history onto one
+# identity per person, so that `git shortlog -se` and `git log --use-mailmap`
+# (and AUTHORS, which is generated from them) list each contributor once.
+Matthew Hudson <matthud@gmail.com> <matt@matthewghudson.com>
+Matthew Hudson <matthud@gmail.com> matthewhudson <matthud@gmail.com>
