@@ -29,13 +29,16 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "typecheck": "tsc --noEmit",
-    "prepublishOnly": "pnpm run build",
+    "check:es5": "es-check es5 dist/index.js dist/index.global.js --checkFeatures && es-check es5 dist/index.mjs --module --checkFeatures --ignore export",
+    "prepublishOnly": "pnpm run build && pnpm run check:es5",
     "changeset": "changeset",
     "release": "changeset publish"
   },
   "devDependencies": {
     "@changesets/changelog-github": "0.5.2",
     "@changesets/cli": "2.29.8",
+    "@swc/core": "^1.16.2",
+    "es-check": "^9.8.1",
     "jsdom": "^25.0.0",
     "tsup": "^8.0.0",
     "typescript": "^5.7.0",
