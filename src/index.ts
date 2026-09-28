@@ -84,6 +84,7 @@ const televisionDevices: string[] = [
   'googletv',
   'viera',
   'smarttv',
+  'smart-tv',
   'internet.tv',
   'netcast',
   'nettv',
@@ -137,8 +138,9 @@ function removeClass(className: string): void {
 // Main functions
 // --------------
 
+// Windows Phone 8.1 UAs contain "like iPhone OS ... Mac OS X"
 device.macos = function (): boolean {
-  return find('mac') && !device.ios()
+  return find('mac') && !device.ios() && !device.windows()
 }
 
 device.ios = function (): boolean {
@@ -171,8 +173,9 @@ device.androidTablet = function (): boolean {
   return device.android() && !find('mobile')
 }
 
+// The BlackBerry PlayBook's UA says "RIM Tablet OS" instead of BlackBerry
 device.blackberry = function (): boolean {
-  return find('blackberry') || find('bb10')
+  return find('blackberry') || find('bb10') || find('rim tablet os')
 }
 
 device.blackberryPhone = function (): boolean {
@@ -195,8 +198,9 @@ device.windowsTablet = function (): boolean {
   return device.windows() && (find('touch') && !device.windowsPhone())
 }
 
+// Windows Phone 8.1 UAs also start with "(Mobile;" and contain " rv:"
 device.fxos = function (): boolean {
-  return (find('(mobile') || find('(tablet')) && find(' rv:')
+  return (find('(mobile') || find('(tablet')) && find(' rv:') && !device.windows()
 }
 
 device.fxosPhone = function (): boolean {
