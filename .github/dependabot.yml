@@ -1,0 +1,15 @@
+# Monthly version updates for the dev dependencies and the GitHub Actions in
+# the workflows. Security updates arrive regardless of this file.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      dev-dependencies:
+        dependency-type: development
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
