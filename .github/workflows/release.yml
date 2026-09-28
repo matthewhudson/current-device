@@ -27,6 +27,14 @@ jobs:
           cache: pnpm
       - run: npm --version
       - run: pnpm install
+      # Gate the release on the checks CI would run. The "chore: version
+      # packages" PR is opened with GITHUB_TOKEN, which does not trigger the CI
+      # workflow, and on merge this workflow runs in parallel with CI, so
+      # without this step the only check before `npm publish` is
+      # prepublishOnly (build, ES2015 check, dist tests): no type check and no
+      # source tests
+      - run: pnpm run typecheck
+      - run: pnpm run test
       - name: Create Release Pull Request or Publish
         id: changesets
         uses: changesets/action@v1
