@@ -148,7 +148,10 @@ describe('current-device', () => {
           resolve()
         }
         device.onChangeOrientation(callback)
-        // Trigger orientation recalculation via resize event
+        // Rotate the viewport, then trigger orientation recalculation via resize event
+        const { innerWidth, innerHeight } = window
+        Object.defineProperty(window, 'innerWidth', { value: innerHeight, configurable: true, writable: true })
+        Object.defineProperty(window, 'innerHeight', { value: innerWidth, configurable: true, writable: true })
         window.dispatchEvent(new Event('resize'))
       })
     })

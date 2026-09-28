@@ -39,7 +39,7 @@ This is a widely-used public package. Follow semver strictly: breaking changes r
 
 - jsdom has `window.process` defined (Node.js), so `device.nodeWebkit()` returns true in tests — account for this in test assertions about CSS classes
 - `device.noConflict()` restores `window.device` to its value before module import (undefined in jsdom)
-- Orientation callback tests require dispatching a resize event since handleOrientation() runs at import time before callbacks are registered
+- Orientation callback tests must change the viewport (`innerWidth`/`innerHeight`) and then dispatch a resize event: handleOrientation() runs at import time before callbacks are registered, and callbacks only fire when the orientation changes
 - dist tests load the <script> build via a real `<script>` element, not `window.eval()`: the build is strict mode, and strict eval keeps top-level `var`s local, which would hide leaked globals
 - Never add `"sideEffects": false` (publint suggests it): importing the module adds <html> classes and a listener, so bundlers would drop the import
 - `check:package` ignores attw's `missing-export-equals`: fixing it would change what `require('current-device')` returns (README documents `.default`), a breaking change
