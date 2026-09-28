@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterAll } from 'vitest'
 import type { Device } from '../src/index'
 import { uaFixtures } from './ua-strings'
+import { expectConsistent, expectFixture } from './fixture-assertions'
 
 // Store originals to restore after all tests
 const originalUserAgent = navigator.userAgent
@@ -71,6 +72,16 @@ afterAll(() => {
 describe('UA string detection', () => {
   for (const fixture of uaFixtures) {
     describe(fixture.name, () => {
+      if (fixture.knownIssue) {
+        // Fails until the bug is fixed; then remove `knownIssue` from the fixture
+        it.fails(`known issue: ${fixture.knownIssue}`, async () => {
+          const device = await createDeviceWithUA(fixture.ua, fixture.navigatorOverrides)
+          expectFixture(device, fixture)
+          expectConsistent(device)
+        })
+        return
+      }
+
       it(`detects os=${fixture.expected.os}, type=${fixture.expected.type}`, async () => {
         const device = await createDeviceWithUA(fixture.ua, fixture.navigatorOverrides)
 
@@ -86,6 +97,10 @@ describe('UA string detection', () => {
           expect((fn as () => boolean).call(device)).toBe(expectedResult)
         })
       }
+
+      it('is internally consistent', async () => {
+        expectConsistent(await createDeviceWithUA(fixture.ua, fixture.navigatorOverrides))
+      })
     })
   }
 })

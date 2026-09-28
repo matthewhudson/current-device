@@ -4,6 +4,7 @@ import { createRequire } from 'node:module'
 import { JSDOM, ResourceLoader, VirtualConsole, type DOMWindow } from 'jsdom'
 import type { Device } from '../../src/index'
 import { uaFixtures, type UAFixture } from '../ua-strings'
+import { expectConsistent, expectFixture } from '../fixture-assertions'
 
 // These tests run against the built files in dist/ (run `pnpm run build`
 // first). Each test gets a fresh jsdom window, so unlike the src/ tests there
@@ -60,29 +61,36 @@ function setViewport(win: DeviceWindow, width: number, height: number): void {
   Object.defineProperty(win, 'innerHeight', { value: height, configurable: true })
 }
 
+// The <html> classes must agree with what the JS API reports
+function expectClassesMatch(win: DeviceWindow, device: Device): void {
+  const classes = htmlClasses(win)
+  expect(classes).toContain(device.orientation)
+  if (device.os === 'television') {
+    expect(classes).toContain('television')
+  } else {
+    expect(classes).toContain(device.type)
+  }
+  if (device.os !== 'unknown') {
+    expect(classes).toContain(device.os)
+  }
+}
+
 describe('dist/index.global.js (<script> build)', () => {
   describe('UA string detection', () => {
     for (const fixture of uaFixtures) {
-      it(fixture.name, () => {
+      const check = (): void => {
         const win = createWindow(fixture.ua, fixture.navigatorOverrides)
         const device = loadScript(win)
-
-        expect(device.os).toBe(fixture.expected.os)
-        expect(device.type).toBe(fixture.expected.type)
-        for (const [method, expected] of Object.entries(fixture.expected.methods)) {
-          const fn = device[method as keyof Device]
-          expect(typeof fn, `device.${method} should be a function`).toBe('function')
-          expect((fn as () => boolean).call(device), `device.${method}()`).toBe(expected)
-        }
-
-        const classes = htmlClasses(win)
-        expect(classes).toContain(device.orientation)
-        if (device.os === 'television') {
-          expect(classes).toContain('television')
-        } else {
-          expect(classes).toContain(device.type)
-        }
-      })
+        expectFixture(device, fixture)
+        expectConsistent(device)
+        expectClassesMatch(win, device)
+      }
+      if (fixture.knownIssue) {
+        // Fails until the bug is fixed; then remove `knownIssue` from the fixture
+        it.fails(`${fixture.name} (known issue: ${fixture.knownIssue})`, check)
+      } else {
+        it(fixture.name, check)
+      }
     }
   })
 

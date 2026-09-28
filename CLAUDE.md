@@ -44,4 +44,5 @@ This is a widely-used public package. Follow semver strictly: breaking changes r
 - Never add `"sideEffects": false` (publint suggests it): importing the module adds <html> classes and a listener, so bundlers would drop the import
 - `check:package` ignores attw's `missing-export-equals`: fixing it would change what `require('current-device')` returns (README documents `.default`), a breaking change
 - Playwright's WebKit exposes `onorientationchange` even on desktop, so there the library follows screen (not window) orientation; the desktop rotate test is skipped for engines with that event
+- UA fixtures (`tests/ua-strings.ts`) are shared by the src/ and dist/ tests. New real-world UAs must be copied verbatim with a `source` URL. A fixture with `knownIssue` holds the *correct* expectations and runs as `it.fails`; when you fix that bug the test fails, so remove `knownIssue` then. Every other fixture must also pass the invariants in `tests/fixture-assertions.ts`
 - `pnpm approve-builds` is interactive — use `pnpm.onlyBuiltDependencies` in package.json instead
