@@ -529,4 +529,49 @@ export const uaFixtures: UAFixture[] = [
       methods: { television: true, windows: true },
     },
   },
+
+  // === Apple detection false positives ===
+  {
+    name: 'iPad mini Safari ("iPad; CPU iPhone OS")',
+    ua: 'Mozilla/5.0 (iPad; CPU iPhone OS 13_1_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.1 Mobile/15E148 Safari/604.1',
+    source: 'https://github.com/mozilla-mobile/firefox-ios/issues/9150',
+    expected: {
+      os: 'ios',
+      type: 'tablet',
+      methods: { ios: true, ipad: true, iphone: false, tablet: true, mobile: false, desktop: false },
+    },
+  },
+  {
+    name: 'Android car head unit with "Mac" in its model name',
+    ua: 'Mozilla/5.0 (Linux; Android 11.0.0; Mac Audio Spro) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.105 Safari/537.36',
+    source: 'https://github.com/matomo-org/device-detector/blob/135132f8e4b4a03145ba3dbedba0655da41b435f/Tests/fixtures/car_browser.yml#L111',
+    expected: {
+      os: 'android',
+      type: 'tablet',
+      methods: { android: true, androidTablet: true, macos: false, desktop: false },
+    },
+  },
+  // The iPadOS 13+ check (MacIntel + touch) must only apply to a Mac user agent
+  {
+    name: 'Windows Edge reporting platform MacIntel with touch',
+    ua: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0',
+    source: 'https://learn.microsoft.com/en-us/microsoft-edge/web-platform/user-agent-guidance',
+    navigatorOverrides: { platform: 'MacIntel', maxTouchPoints: 5 },
+    expected: {
+      os: 'windows',
+      type: 'desktop',
+      methods: { windows: true, desktop: true, ios: false, ipad: false, tablet: false },
+    },
+  },
+  {
+    name: 'Android Chrome reporting platform MacIntel with touch',
+    ua: 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36',
+    source: 'https://developer.chrome.com/blog/desktop-mode',
+    navigatorOverrides: { platform: 'MacIntel', maxTouchPoints: 5 },
+    expected: {
+      os: 'android',
+      type: 'tablet',
+      methods: { android: true, androidTablet: true, tablet: true, ios: false, ipad: false, mobile: false },
+    },
+  },
 ]
