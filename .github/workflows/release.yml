@@ -35,16 +35,26 @@ jobs:
       # source tests
       - run: pnpm run typecheck
       - run: pnpm run test
+      # changesets/action v2 needs Changesets CLI 3 and renamed its inputs.
+      #
+      # The default GITHUB_TOKEN has two limits here: it cannot push a change
+      # to .github/workflows/* (so the version PR can no longer be updated
+      # once a workflow file changed on main, which is how release run #47
+      # failed), and PRs it opens don't trigger the CI workflow. Set a
+      # CHANGESETS_TOKEN repository secret (fine-grained PAT: Contents,
+      # Pull requests and Workflows read/write on this repo) to lift both;
+      # until then the default token is used
       - name: Create Release Pull Request or Publish
         id: changesets
         uses: changesets/action@v2
         with:
-          publish: pnpm run release
-          commit: "chore: version packages"
-          title: "chore: version packages"
-          createGithubReleases: true
+          github-token: ${{ secrets.CHANGESETS_TOKEN || secrets.GITHUB_TOKEN }}
+          publish-script: pnpm run release
+          commit-message: "chore: version packages"
+          pr-title: "chore: version packages"
+          create-github-releases: true
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.CHANGESETS_TOKEN || secrets.GITHUB_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
       - name: Create GitHub Release (fallback)
         if: steps.changesets.outputs.published == 'true'
