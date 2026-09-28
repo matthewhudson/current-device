@@ -257,33 +257,37 @@ device.television = function (): boolean {
 }
 
 device.portrait = function (): boolean {
-  if (
-    screen.orientation &&
-    Object.prototype.hasOwnProperty.call(window, 'onorientationchange')
-  ) {
-    return includes(screen.orientation.type, 'portrait')
-  }
+  // Check iOS first: Safari 16.4+ exposes screen.orientation, but it still
+  // reports the previous orientation during the orientationchange event (#367)
   if (
     device.ios() &&
     Object.prototype.hasOwnProperty.call(window, 'orientation')
   ) {
     return Math.abs(window.orientation as number) !== 90
   }
-  return window.innerHeight / window.innerWidth > 1
-}
-
-device.landscape = function (): boolean {
   if (
     screen.orientation &&
     Object.prototype.hasOwnProperty.call(window, 'onorientationchange')
   ) {
-    return includes(screen.orientation.type, 'landscape')
+    return includes(screen.orientation.type, 'portrait')
   }
+  return window.innerHeight / window.innerWidth > 1
+}
+
+device.landscape = function (): boolean {
+  // Check iOS first: Safari 16.4+ exposes screen.orientation, but it still
+  // reports the previous orientation during the orientationchange event (#367)
   if (
     device.ios() &&
     Object.prototype.hasOwnProperty.call(window, 'orientation')
   ) {
     return Math.abs(window.orientation as number) === 90
+  }
+  if (
+    screen.orientation &&
+    Object.prototype.hasOwnProperty.call(window, 'onorientationchange')
+  ) {
+    return includes(screen.orientation.type, 'landscape')
   }
   return window.innerHeight / window.innerWidth < 1
 }
