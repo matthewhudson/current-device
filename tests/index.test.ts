@@ -130,6 +130,11 @@ describe('current-device', () => {
     it('Exposes a `noConflict` function', () => {
       expect(typeof device.noConflict).toBe('function')
     })
+    it('Returns the device object when `noConflict` is called unbound', () => {
+      const { noConflict } = device
+      expect(noConflict()).toBe(device)
+    })
+
     it('Restores the previous value of the `device` global object when `noConflict` is called', () => {
       const deviceInstance: Device = device.noConflict()
       // previousDevice was undefined before the module loaded in jsdom
