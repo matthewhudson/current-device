@@ -1,23 +1,32 @@
+# People who have committed to current-device, in alphabetical order.
+# Generated from the git history with .mailmap applied:
+#   git log --use-mailmap --format="%aN <%aE>" | sort -uf
+# Bots are left out.
+
 Ajith <ajithbhat@users.noreply.github.com>
 Andrey <uvarenkov@gmail.com>
 André Tarnowsky <lotterfriends@gmail.com>
+Anson Hou <anson2495@gmail.com>
 Athou <jeremiepanzer@gmail.com>
 Bohdan Zhuravel <zhuravel@users.noreply.github.com>
 ckcecjtu <13730754@qq.com>
 Daniel Paul <daniel@identitysquare.ie>
 Evan Hahn <me@evanhahn.com>
+Finlay Smith <finlay.smith@clearscore.com>
 Giorgio Cefaro <giorgio.cefaro@gmail.com>
-greenkeeper[bot] <greenkeeper[bot]@users.noreply.github.com>
 Guilherme Simoes <guilherme.rdems@gmail.com>
+Hi <girvan@users.noreply.github.com>
+Ivan Križnar <hyperNURb@users.noreply.github.com>
 Jake <jake.puffer@gmail.com>
 Jonas Jonny <jonas.krutil@gmail.com>
 JSteunou <jerome.steunou+github@gmail.com>
 Kevin Kirsche <Kev.Kirsche+GitHub@gmail.com>
 Lauren Tan <lauren.elizabeth.tan@gmail.com>
+LeeKatz1 <43403037+LeeKatz1@users.noreply.github.com>
+Marcel Blum <marcel@soundplant.org>
 Markus Kaiserswerth <github@sensun.org>
-Matthew Hudson <matt@matthewghudson.com>
+martinwepner <martin.wepner@icloud.com>
 Matthew Hudson <matthud@gmail.com>
-matthewhudson <matthud@gmail.com>
 Michael Chambaud <mchambaud@gmail.com>
 Mike Taylor <miket@mozilla.com>
 Mikhail <m.gordeyev@gmail.com>
@@ -25,6 +34,9 @@ Mustard Andrew <mustard.andrew@gmail.com>
 NoobsArePeople2 <sean@seanmonahan.org>
 PatrickJS <github@gdi2290.com>
 Philip Karpiak <energy@eswat.ca>
+Rafael Terán <rafaelterantorralbo@gmail.com>
 Rob Laucius <rob.laucius@punchkickinteractive.com>
 sergeybochkarev <sergey.bochkarev@starcode.ru>
-The Gitter Badger <badger@gitter.im>
+thomasjonas <thomas@thomasjonas.nl>
+Vishnu Singh <vishnusingh1729@gmail.com>
+Дмитрий Уткин <higimo@gmail.com>
