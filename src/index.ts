@@ -162,7 +162,8 @@ const androidFoldablePhone = /(^|[^a-z0-9])(sm-f9\d\d[a-z0-9]?|pixel( \d+ pro)? 
 
 // Feature phones and other handsets no OS check above knows: Java ME (MIDP/CLDC),
 // Symbian, Nokia Series 40/60, MediaTek MAUI, Openwave, WAP browsers, UC Browser
-// and Opera Mini, NTT DoCoMo, Samsung Bada, KaiOS, Palm webOS
+// and Opera Mini, NTT DoCoMo, Samsung Bada, Palm webOS. (KaiOS keeps the
+// Firefox OS user agent shape, so device.fxos() catches it first)
 const otherPhones: string[] = [
   'midp',
   'cldc',
@@ -184,7 +185,6 @@ const otherPhones: string[] = [
   'opera mobi',
   'docomo',
   'bada',
-  'kaios',
   'palm',
   'blazer',
   'webos/'
