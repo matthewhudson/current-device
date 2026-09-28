@@ -1,9 +1,8 @@
 # [CURRENT-DEVICE](https://matthewhudson.github.io/current-device/)
 
 [![CI](https://github.com/matthewhudson/current-device/actions/workflows/ci.yml/badge.svg)](https://github.com/matthewhudson/current-device/actions/workflows/ci.yml)
-[![Bundle size](https://badgen.net/bundlephobia/minzip/current-device)](https://bundlephobia.com/result?p=current-device)
-[![NPM version](https://badge.fury.io/js/current-device.svg)](http://badge.fury.io/js/current-device)
-[![NPM downloads](https://img.shields.io/npm/dm/current-device.svg)](https://www.npmjs.com/package/current-device)
+[![npm version](https://img.shields.io/npm/v/current-device.svg)](https://www.npmjs.com/package/current-device)
+[![npm downloads](https://img.shields.io/npm/dm/current-device.svg)](https://www.npmjs.com/package/current-device)
 
 This module makes it easy to write conditional CSS _and/or_ JavaScript based on
 device operating system (iOS, Android, Blackberry, Windows, macOS, Firefox OS, MeeGo,
