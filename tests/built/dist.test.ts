@@ -1,7 +1,7 @@
 import { describe, it, expect, afterEach, vi } from 'vitest'
 import { readFileSync } from 'node:fs'
 import { createRequire } from 'node:module'
-import { JSDOM, ResourceLoader, VirtualConsole, type DOMWindow } from 'jsdom'
+import { JSDOM, VirtualConsole, type DOMWindow } from 'jsdom'
 import type { Device } from '../../src/index'
 import { uaFixtures, type UAFixture } from '../ua-strings'
 import { expectConsistent, expectFixture } from '../fixture-assertions'
@@ -31,7 +31,8 @@ function createWindow(
 
   const dom = new JSDOM('<!doctype html><html><head></head><body></body></html>', {
     runScripts: 'dangerously',
-    resources: new ResourceLoader({ userAgent: ua }),
+    // Sets navigator.userAgent (jsdom 27+ replaced ResourceLoader with this)
+    resources: { userAgent: ua },
     virtualConsole,
   })
   const win = Object.assign(dom.window, { scriptErrors }) as DeviceWindow
