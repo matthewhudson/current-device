@@ -36,6 +36,8 @@ This module inserts CSS classes into the `<html>` element.
 - Blackberry: Phones & Tablets
 - Windows: Phones, Tablets, Desktops
 - Firefox OS: Phones & Tablets
+- ChromeOS
+- Linux
 
 ### USAGE
 
@@ -158,6 +160,14 @@ orientation.
 		<td>Television</td>
 		<td>television</td>
 	</tr>
+	<tr>
+		<td>ChromeOS</td>
+		<td>chromeos desktop</td>
+	</tr>
+	<tr>
+		<td>Linux</td>
+		<td>linux desktop</td>
+	</tr>
 </table>
 
 #### Orientation CSS Class Names
@@ -277,6 +287,14 @@ write checks on the following device characteristics:
 		<td>Television</td>
 		<td>device.television()</td>
 	</tr>
+	<tr>
+		<td>ChromeOS</td>
+		<td>device.chromeos()</td>
+	</tr>
+	<tr>
+		<td>Linux</td>
+		<td>device.linux()</td>
+	</tr>
 </table>
 
 #### Orientation JavaScript Methods
@@ -339,7 +357,7 @@ attribute without looping through all of its getter methods.
 	<tr>
 		<td>device.os</td>
 		<td>DeviceOs</td>
-		<td>'ios', 'iphone', 'ipad', 'ipod', 'android', 'blackberry', 'windows', 'macos', 'fxos', 'meego', 'television', or 'unknown'</td>
+		<td>'ios', 'iphone', 'ipad', 'ipod', 'android', 'blackberry', 'windows', 'macos', 'fxos', 'meego', 'television', 'chromeos', 'linux', or 'unknown'</td>
 	</tr>
 </table>
 

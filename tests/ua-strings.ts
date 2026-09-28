@@ -83,7 +83,7 @@ export const uaFixtures: UAFixture[] = [
     expected: {
       os: 'android',
       type: 'mobile',
-      methods: { android: true, androidPhone: true, androidTablet: false, mobile: true, tablet: false, desktop: false },
+      methods: { android: true, androidPhone: true, androidTablet: false, mobile: true, tablet: false, desktop: false, linux: false },
     },
   },
   {
@@ -172,18 +172,38 @@ export const uaFixtures: UAFixture[] = [
     name: 'Linux Chrome',
     ua: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36',
     expected: {
-      os: 'unknown',
+      os: 'linux',
       type: 'desktop',
-      methods: { desktop: true, mobile: false, tablet: false, windows: false, macos: false, android: false },
+      methods: { linux: true, chromeos: false, desktop: true, mobile: false, tablet: false, windows: false, macos: false, android: false },
     },
   },
   {
     name: 'Linux Firefox',
     ua: 'Mozilla/5.0 (X11; Linux x86_64; rv:135.0) Gecko/20100101 Firefox/135.0',
     expected: {
-      os: 'unknown',
+      os: 'linux',
       type: 'desktop',
-      methods: { desktop: true, mobile: false, tablet: false },
+      methods: { linux: true, chromeos: false, desktop: true, mobile: false, tablet: false },
+    },
+  },
+
+  // === ChromeOS ===
+  {
+    name: 'ChromeOS Chrome (x86_64)',
+    ua: 'Mozilla/5.0 (X11; CrOS x86_64 14541.0.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36',
+    expected: {
+      os: 'chromeos',
+      type: 'desktop',
+      methods: { chromeos: true, linux: false, desktop: true, mobile: false, tablet: false, android: false },
+    },
+  },
+  {
+    name: 'ChromeOS Chrome (ARM)',
+    ua: 'Mozilla/5.0 (X11; CrOS aarch64 15329.44.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    expected: {
+      os: 'chromeos',
+      type: 'desktop',
+      methods: { chromeos: true, linux: false, desktop: true },
     },
   },
 
@@ -194,7 +214,7 @@ export const uaFixtures: UAFixture[] = [
     expected: {
       os: 'television',
       type: 'desktop',
-      methods: { television: true },
+      methods: { television: true, linux: false },
     },
   },
   {
@@ -223,7 +243,7 @@ export const uaFixtures: UAFixture[] = [
     expected: {
       os: 'harmonyos',
       type: 'mobile',
-      methods: { harmonyos: true, android: true, androidPhone: true, mobile: true, tablet: false, desktop: false },
+      methods: { harmonyos: true, android: true, androidPhone: true, mobile: true, tablet: false, desktop: false, linux: false },
     },
   },
   {
@@ -243,7 +263,7 @@ export const uaFixtures: UAFixture[] = [
     expected: {
       os: 'windows',
       type: 'mobile',
-      methods: { windows: true, windowsPhone: true, mobile: true, tablet: false, desktop: false },
+      methods: { windows: true, windowsPhone: true, mobile: true, tablet: false, desktop: false, chromeos: false },
     },
   },
 ]

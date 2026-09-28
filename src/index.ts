@@ -13,6 +13,8 @@ export type DeviceOs =
   | 'meego'
   | 'television'
   | 'harmonyos'
+  | 'chromeos'
+  | 'linux'
   | 'unknown'
 
 export type OrientationChangeCallback = (newOrientation: 'landscape' | 'portrait') => void
@@ -37,6 +39,8 @@ export interface Device {
   fxosTablet(): boolean
   meego(): boolean
   harmonyos(): boolean
+  chromeos(): boolean
+  linux(): boolean
   television(): boolean
   cordova(): boolean
   nodeWebkit(): boolean
@@ -211,6 +215,16 @@ device.harmonyos = function (): boolean {
   return find('harmonyos')
 }
 
+// Match " cros " with spaces: "microsoft" also contains "cros"
+device.chromeos = function (): boolean {
+  return find(' cros ')
+}
+
+// Android, HarmonyOS and many smart TVs also report "Linux" in their UA
+device.linux = function (): boolean {
+  return find('linux') && !device.android() && !device.television()
+}
+
 device.cordova = function (): boolean {
   return !!(window as Window & { cordova?: unknown }).cordova && location.protocol === 'file:'
 }
@@ -355,6 +369,10 @@ if (device.ios()) {
   addClass('node-webkit')
 } else if (device.television()) {
   addClass('television')
+} else if (device.chromeos()) {
+  addClass('chromeos desktop')
+} else if (device.linux()) {
+  addClass('linux desktop')
 } else if (device.desktop()) {
   addClass('desktop')
 }
@@ -429,7 +447,9 @@ device.os = findMatch([
   'windows',
   'fxos',
   'meego',
-  'television'
+  'television',
+  'chromeos',
+  'linux'
 ]) as DeviceOs
 
 function setOrientationCache(): void {

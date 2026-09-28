@@ -82,9 +82,8 @@ describe('UA string detection', () => {
         it(`${method}() returns ${expectedResult}`, async () => {
           const device = await createDeviceWithUA(fixture.ua, fixture.navigatorOverrides)
           const fn = device[method as keyof Device]
-          if (typeof fn === 'function') {
-            expect((fn as () => boolean).call(device)).toBe(expectedResult)
-          }
+          expect(typeof fn, `device.${method} should be a function`).toBe('function')
+          expect((fn as () => boolean).call(device)).toBe(expectedResult)
         })
       }
     })
