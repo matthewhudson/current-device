@@ -285,7 +285,8 @@ device.portrait = function (): boolean {
   ) {
     return includes(screen.orientation.type, 'portrait')
   }
-  return window.innerHeight / window.innerWidth > 1
+  // A square viewport is portrait, as in CSS `(orientation: portrait)`
+  return window.innerHeight >= window.innerWidth
 }
 
 device.landscape = function (): boolean {
@@ -303,7 +304,7 @@ device.landscape = function (): boolean {
   ) {
     return includes(screen.orientation.type, 'landscape')
   }
-  return window.innerHeight / window.innerWidth < 1
+  return window.innerHeight < window.innerWidth
 }
 
 // Public Utility Functions
