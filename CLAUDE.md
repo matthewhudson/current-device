@@ -33,6 +33,7 @@ This is a widely-used public package. Follow semver strictly: breaking changes r
 - Node.js >= 16 (for consumers; development and CI use Node 24, pinned in `.nvmrc`)
 - Dual CJS/ESM via package.json exports field
 - CI: GitHub Actions (.github/workflows/ci.yml)
+- Demo site: `docs/` is deployed to GitHub Pages by .github/workflows/docs.yml when `docs/` changes on main
 - Releases: Changesets (.changeset/) — run `pnpm changeset` to describe changes, the release.yml workflow handles versioning and npm publish on merge to main
 
 ## Gotchas
