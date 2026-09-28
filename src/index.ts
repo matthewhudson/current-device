@@ -138,17 +138,21 @@ function removeClass(className: string): void {
 // Main functions
 // --------------
 
-// Windows Phone 8.1 UAs contain "like iPhone OS ... Mac OS X"
+// Windows Phone 8.1 UAs contain "like iPhone OS ... Mac OS X", and some
+// Android devices have "Mac" in their model name
 device.macos = function (): boolean {
-  return find('mac') && !device.ios() && !device.windows()
+  return (
+    find('mac') && !device.ios() && !device.windows() && !device.android()
+  )
 }
 
 device.ios = function (): boolean {
   return device.iphone() || device.ipod() || device.ipad()
 }
 
+// Some iPad UAs say "iPad; CPU iPhone OS"
 device.iphone = function (): boolean {
-  return !device.windows() && find('iphone')
+  return !device.windows() && find('iphone') && !find('ipad')
 }
 
 device.ipod = function (): boolean {
@@ -156,8 +160,11 @@ device.ipod = function (): boolean {
 }
 
 device.ipad = function (): boolean {
+  // iPadOS 13+ sends a Mac user agent; unlike a Mac, it has a touchscreen
   const iPadOS13Up =
-    navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1
+    find('macintosh') &&
+    navigator.platform === 'MacIntel' &&
+    navigator.maxTouchPoints > 1
   return find('ipad') || iPadOS13Up
 }
 
