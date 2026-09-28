@@ -31,7 +31,7 @@
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "pnpm run build",
     "changeset": "changeset",
-    "release": "npm publish --provenance"
+    "release": "changeset publish"
   },
   "devDependencies": {
     "@changesets/changelog-github": "0.5.2",
