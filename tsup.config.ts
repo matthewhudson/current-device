@@ -3,13 +3,23 @@ import { defineConfig } from 'tsup'
 export default defineConfig([
   {
     entry: ['src/index.ts'],
-    format: ['cjs', 'esm', 'iife'],
+    format: ['cjs', 'esm'],
     dts: true,
     sourcemap: true,
     outDir: 'dist',
     // Output syntax floor: browsers with full ES2015 support (see README
     // "Browser Support"). Newer syntax in src/ is down-leveled to this.
     // Enforced by `pnpm run check:es2015`.
+    target: 'es2015'
+  },
+  {
+    // The <script> build (dist/index.global.js), served by unpkg and jsDelivr.
+    // Bundlers minify the CJS/ESM builds themselves; nothing minifies this one
+    entry: ['src/index.ts'],
+    format: ['iife'],
+    minify: true,
+    sourcemap: true,
+    outDir: 'dist',
     target: 'es2015'
   },
   {
