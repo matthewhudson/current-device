@@ -10,6 +10,11 @@ export interface UAFixture {
     platform?: string
     maxTouchPoints?: number
   }
+  /** screen.width and screen.height in CSS pixels (0 in jsdom, which the library treats as unknown) */
+  screenOverrides?: {
+    width: number
+    height: number
+  }
   /** Where the UA string was taken from (copied verbatim) */
   source?: string
   /**
@@ -69,6 +74,42 @@ export const uaFixtures: UAFixture[] = [
       os: 'ios',
       type: 'tablet',
       methods: { ipad: true, ios: true, tablet: true, mobile: false, desktop: false },
+    },
+  },
+  {
+    name: 'iPad Pro Safari (desktop mode, with its screen size)',
+    ua: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.10 Safari/605.1.15',
+    navigatorOverrides: { platform: 'MacIntel', maxTouchPoints: 5 },
+    screenOverrides: { width: 1024, height: 1366 },
+    expected: {
+      os: 'ios',
+      type: 'tablet',
+      methods: { ipad: true, iphone: false, ios: true, tablet: true, mobile: false, desktop: false },
+    },
+  },
+  // "Request Desktop Website" on an iPhone sends the same Mac user agent as an
+  // iPad; only the screen size tells them apart (#363)
+  {
+    name: 'iPhone Safari (desktop mode, "Request Desktop Website")',
+    ua: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.10 Safari/605.1.15',
+    navigatorOverrides: { platform: 'MacIntel', maxTouchPoints: 5 },
+    screenOverrides: { width: 390, height: 844 },
+    expected: {
+      os: 'ios',
+      type: 'mobile',
+      methods: { iphone: true, ipad: false, ios: true, mobile: true, tablet: false, desktop: false, macos: false },
+    },
+  },
+  // Inside a Cordova app an iPad Pro can report an iPhone user agent; the
+  // screen is still iPad-sized (#106)
+  {
+    name: 'iPad in a Cordova app reporting an iPhone user agent',
+    ua: 'Mozilla/5.0 (iPhone; CPU iPhone OS 15_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.5 Mobile/15E148 Safari/604.1',
+    screenOverrides: { width: 1024, height: 1366 },
+    expected: {
+      os: 'ios',
+      type: 'tablet',
+      methods: { ipad: true, iphone: false, ios: true, tablet: true, mobile: false, desktop: false },
     },
   },
 
@@ -264,6 +305,28 @@ export const uaFixtures: UAFixture[] = [
   },
 
   // === Edge cases ===
+  // Internet Explorer said "Touch" on touch-screen laptops too (#64); only a
+  // Windows RT device ("ARM") is a tablet (#89)
+  {
+    name: 'Windows 8 touch-screen laptop (IE10, x64, "Touch")',
+    ua: 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Win64; x64; Trident/6.0; Touch; MALNJS)',
+    source: 'https://github.com/matthewhudson/current-device/issues/64',
+    expected: {
+      os: 'windows',
+      type: 'desktop',
+      methods: { windows: true, windowsTablet: false, windowsPhone: false, desktop: true, tablet: false, mobile: false },
+    },
+  },
+  {
+    name: 'Microsoft Surface RT (Windows RT, IE10, "ARM; ... Touch")',
+    ua: 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; ARM; Trident/6.0; Touch; ARMBJS)',
+    source: 'https://github.com/matomo-org/device-detector/blob/master/Tests/fixtures/tablet.yml',
+    expected: {
+      os: 'windows',
+      type: 'tablet',
+      methods: { windows: true, windowsTablet: true, windowsPhone: false, tablet: true, desktop: false, mobile: false },
+    },
+  },
   {
     name: 'Windows Phone',
     ua: 'Mozilla/5.0 (Windows Phone 10.0; Android 6.0.1; Microsoft; Lumia 950) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Mobile Safari/537.36 Edge/15.15254',
@@ -812,6 +875,40 @@ export const uaFixtures: UAFixture[] = [
   // === Android tablets whose browser says "Mobile" ===
   // Chrome adds "Mobile" on screens narrower than 600dp, which includes many
   // 7" and 8" tablets. Well-known tablet model names still win
+  // Huawei and Honor tablets have Wi-Fi model codes ending in -W09; the
+  // model code is often all the user agent says (#362)
+  {
+    name: 'Huawei MediaPad M6 (VRD-W09) with "Mobile" in its UA',
+    ua: 'Mozilla/5.0 (Linux; Android 9; VRD-W09 Build/HUAWEIVRD-W09) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/70.0.3538.64 HuaweiBrowser/10.0.1.333 Mobile Safari/537.36',
+    source: 'https://github.com/matomo-org/device-detector/blob/master/Tests/fixtures/tablet-2.yml',
+    expected: {
+      os: 'android',
+      type: 'tablet',
+      methods: { androidTablet: true, androidPhone: false, tablet: true, mobile: false },
+    },
+  },
+  // Unfolded, a foldable phone is wider than 600dp, so Chrome drops "Mobile"
+  // and it looks like a tablet (#332)
+  {
+    name: 'Samsung Galaxy Z Fold3 unfolded (SM-F926W, no "Mobile")',
+    ua: 'Mozilla/5.0 (Linux; Android 13; SM-F926W) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36',
+    source: 'https://github.com/matomo-org/device-detector/blob/master/Tests/fixtures/phablet-1.yml',
+    expected: {
+      os: 'android',
+      type: 'mobile',
+      methods: { androidPhone: true, androidTablet: false, mobile: true, tablet: false },
+    },
+  },
+  {
+    name: 'Google Pixel 9 Pro Fold',
+    ua: 'Mozilla/5.0 (Linux; Android 14; Pixel 9 Pro Fold) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Mobile Safari/537.36',
+    source: 'https://github.com/matomo-org/device-detector/blob/master/Tests/fixtures/phablet-1.yml',
+    expected: {
+      os: 'android',
+      type: 'mobile',
+      methods: { androidPhone: true, androidTablet: false, mobile: true, tablet: false },
+    },
+  },
   {
     name: 'Lenovo Tab with "Mobile" in its UA',
     ua: 'Mozilla/5.0 (Linux; Android 6.0.1; Lenovo TB-7703X) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Mobile Safari/537.36',

@@ -150,10 +150,15 @@ const televisionDevices: string[] = [
 const televisionModel = /(^|[^a-z0-9])(tv|stb)([^a-z0-9]|$)/
 
 // Android tablets whose browser still says "Mobile" (Chrome adds it on screens
-// narrower than 600dp): model names and numbers of tablet families, and the
-// "/apad" token Yandex apps add on tablets
+// narrower than 600dp): model names and numbers of tablet families, Huawei and
+// Honor Wi-Fi tablet model codes ("VRD-W09", "BAH4-W09": phones use -L09 and
+// -AL00), and the "/apad" token Yandex apps add on tablets
 const androidTabletModel =
-  /tablet|(^|[^a-z0-9])(tab ?[a-z]?\d|(sm-[tpx]|gt-p|tb-[a-z]?)\d|kf[a-z]{2,6}([^a-z0-9]|$)|nexus (7|9|10)([^0-9]|$))|mediapad|matepad|kindle|\/apad/
+  /tablet|(^|[^a-z0-9])(tab ?[a-z]?\d|(sm-[tpx]|gt-p|tb-[a-z]?)\d|kf[a-z]{2,6}([^a-z0-9]|$)|nexus (7|9|10)([^0-9]|$)|[a-z0-9]{2,5}-w\d\d([^a-z0-9]|$))|mediapad|matepad|kindle|\/apad/
+
+// Foldable phones: unfolded, their inner screen is wider than 600dp, so Chrome
+// drops "Mobile" and they look like tablets (Galaxy Z Fold "SM-F9xx", Pixel Fold)
+const androidFoldablePhone = /(^|[^a-z0-9])(sm-f9\d\d[a-z0-9]?|pixel( \d+ pro)? fold)([^a-z0-9]|$)/
 
 // Feature phones and other handsets no OS check above knows: Java ME (MIDP/CLDC),
 // Symbian, Nokia Series 40/60, MediaTek MAUI, Openwave, WAP browsers, UC Browser
@@ -198,6 +203,32 @@ function find(needle: string): boolean {
   return includes(userAgent, needle)
 }
 
+// The shorter side of the screen in CSS pixels, or 0 when unknown. On iOS it
+// is the device's portrait width whatever the current orientation
+function screenSide(): number {
+  if (!isBrowser || !window.screen) {
+    return 0
+  }
+  const side = Math.min(screen.width, screen.height)
+  return side > 0 ? side : 0
+}
+
+// iPhones are at most 440 CSS pixels wide, iPads at least 744 (iPad mini)
+function phoneSizedScreen(): boolean {
+  const side = screenSide()
+  return side > 0 && side < 600
+}
+
+function tabletSizedScreen(): boolean {
+  return screenSide() >= 600
+}
+
+// iPadOS 13+ sends a Mac user agent, and so does an iPhone with "Request
+// Desktop Website"; unlike a Mac, both have a touchscreen
+function appleTouchMac(): boolean {
+  return find('macintosh') && navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1
+}
+
 // Add one or more CSS classes (space-separated) to the <html> element.
 function addClass(classNames: string): void {
   if (!documentElement) {
@@ -236,9 +267,17 @@ device.ios = function (): boolean {
   return device.iphone() || device.ipod() || device.ipad()
 }
 
-// Some iPad UAs say "iPad; CPU iPhone OS"
+// Some iPad UAs say "iPad; CPU iPhone OS". An iPhone in desktop mode is told
+// from an iPad by its screen size, and so is an iPad whose app reports an
+// iPhone user agent (Cordova, #106)
 device.iphone = function (): boolean {
-  return !device.windows() && find('iphone') && !find('ipad')
+  if (device.windows()) {
+    return false
+  }
+  if (find('iphone') && !find('ipad')) {
+    return !tabletSizedScreen()
+  }
+  return appleTouchMac() && phoneSizedScreen()
 }
 
 device.ipod = function (): boolean {
@@ -246,12 +285,15 @@ device.ipod = function (): boolean {
 }
 
 device.ipad = function (): boolean {
-  // iPadOS 13+ sends a Mac user agent; unlike a Mac, it has a touchscreen
-  const iPadOS13Up =
-    find('macintosh') &&
-    navigator.platform === 'MacIntel' &&
-    navigator.maxTouchPoints > 1
-  return find('ipad') || iPadOS13Up
+  if (find('ipad')) {
+    return true
+  }
+  if (appleTouchMac()) {
+    // A desktop-mode iPad, unless the screen is phone-sized (#363). An
+    // unknown screen size (0) keeps the iPad
+    return !phoneSizedScreen()
+  }
+  return !device.windows() && find('iphone') && tabletSizedScreen()
 }
 
 device.android = function (): boolean {
@@ -264,11 +306,18 @@ function androidHandheld(): boolean {
 }
 
 device.androidPhone = function (): boolean {
-  return androidHandheld() && find('mobile') && !androidTabletModel.test(userAgent)
+  return (
+    androidHandheld() &&
+    (androidFoldablePhone.test(userAgent) || (find('mobile') && !androidTabletModel.test(userAgent)))
+  )
 }
 
 device.androidTablet = function (): boolean {
-  return androidHandheld() && (!find('mobile') || androidTabletModel.test(userAgent))
+  return (
+    androidHandheld() &&
+    !androidFoldablePhone.test(userAgent) &&
+    (!find('mobile') || androidTabletModel.test(userAgent))
+  )
 }
 
 // The BlackBerry PlayBook's UA says "RIM Tablet OS" instead of BlackBerry
@@ -297,8 +346,10 @@ device.windowsPhone = function (): boolean {
   )
 }
 
+// Only Internet Explorer ever said "Touch", and it did so on touch-screen
+// laptops as well (#64), so a tablet is a Windows RT device: "ARM" (#89)
 device.windowsTablet = function (): boolean {
-  return device.windows() && (find('touch') && !device.windowsPhone())
+  return device.windows() && find('touch') && find('; arm;') && !device.windowsPhone()
 }
 
 // Windows Phone 8.1 UAs also start with "(Mobile;" and contain " rv:"
@@ -491,10 +542,11 @@ if (device.ios()) {
   // Before Android: an Android app on a Chromebook
   addClass('chromeos desktop')
 } else if (device.harmonyos()) {
-  if (find('mobile')) {
-    addClass('harmonyos mobile')
-  } else {
+  // The same rule as device.type: a tablet model with "Mobile" is a tablet
+  if (device.androidTablet()) {
     addClass('harmonyos tablet')
+  } else {
+    addClass('harmonyos mobile')
   }
 } else if (device.android()) {
   if (device.television()) {
