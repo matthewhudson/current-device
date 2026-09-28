@@ -116,3 +116,27 @@ describe('Orientation on non-iOS devices', () => {
     expect(device.portrait()).toBe(false)
   })
 })
+
+// CSS treats a square viewport as portrait: `(orientation: portrait)` matches
+// when the height is greater than or equal to the width
+describe('Orientation of a square viewport', () => {
+  const originalWidth = window.innerWidth
+  const originalHeight = window.innerHeight
+
+  afterEach(() => {
+    Object.defineProperty(window, 'innerWidth', { value: originalWidth, configurable: true, writable: true })
+    Object.defineProperty(window, 'innerHeight', { value: originalHeight, configurable: true, writable: true })
+  })
+
+  it('is portrait in the methods, the property and the <html> class', async () => {
+    Object.defineProperty(window, 'innerWidth', { value: 800, configurable: true, writable: true })
+    Object.defineProperty(window, 'innerHeight', { value: 800, configurable: true, writable: true })
+    const { default: device } = await import('../src/index')
+
+    expect(device.portrait()).toBe(true)
+    expect(device.landscape()).toBe(false)
+    expect(device.orientation).toBe('portrait')
+    expect(document.documentElement.className).toContain('portrait')
+    expect(document.documentElement.className).not.toContain('landscape')
+  })
+})
