@@ -164,6 +164,10 @@ orientation class.
 		<td>harmonyos tablet</td>
 	</tr>
 	<tr>
+		<td>HarmonyOS PC</td>
+		<td>harmonyos desktop</td>
+	</tr>
+	<tr>
 		<td>ChromeOS (also an Android app on a Chromebook)</td>
 		<td>chromeos desktop</td>
 	</tr>
@@ -322,7 +326,7 @@ Exactly one of the three is true in a browser.
 		<td>device.androidTablet()</td>
 	</tr>
 	<tr>
-		<td>HarmonyOS (also <code>android()</code>)</td>
+		<td>HarmonyOS, including HarmonyOS NEXT (the Android-based versions are also <code>android()</code>)</td>
 		<td>device.harmonyos()</td>
 	</tr>
 	<tr>
@@ -456,7 +460,8 @@ Notes on `device.os`:
   `device.os` never has those values; use `device.iphone()`, `device.ipad()` and
   `device.ipod()` instead. The three values will be removed from the type in 3.0.
 - Where two checks match, the more specific platform wins: a HarmonyOS device is
-  `'harmonyos'` (and `device.android()` is also true), an Android app running on
+  `'harmonyos'` (and `device.android()` is also true on the Android-based
+  versions), an Android app running on
   a Chromebook is `'chromeos'`, and an Android TV is `'android'` with
   `device.television()` true. `'television'` is used for TVs whose operating
   system isn't recognised (Tizen, webOS, Roku...).
@@ -482,8 +487,7 @@ Current platforms:
 - iOS and iPadOS: iPhone, iPad, iPod touch
 - macOS
 - Android: phones, tablets and TVs
-- HarmonyOS (the Android-based versions; see [Limitations](#limitations) for
-  HarmonyOS NEXT)
+- HarmonyOS, including HarmonyOS NEXT (OpenHarmony): phones, tablets and PCs
 - ChromeOS, including Android apps running on a Chromebook
 - Windows: desktops, laptops and 2-in-1s (`desktop`), Windows RT tablets,
   Windows Phone and Windows Mobile
@@ -553,10 +557,6 @@ limits are inherent to the approach:
   or ChromeOS puts a tablet hint in the user agent, so a Surface, a 2-in-1 or a
   Chromebook tablet is `desktop`. Only Windows RT devices, whose Internet
   Explorer said `ARM` and `Touch`, are `windows tablet`.
-- **HarmonyOS NEXT is not recognised.** Huawei's Android-free OS (OpenHarmony
-  5, ArkWeb) is new and its user agent is not detected yet: phones are
-  `mobile` with `os: 'unknown'` and tablets are `desktop`. The Android-based
-  HarmonyOS versions are detected.
 - **Client Hints are not used.** Detection is user agent only;
   `navigator.userAgentData` is Chromium-only and its useful fields are
   asynchronous, which doesn't fit classes that must be set at import time.
