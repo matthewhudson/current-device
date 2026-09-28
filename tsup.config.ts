@@ -7,5 +7,8 @@ export default defineConfig({
   sourcemap: true,
   clean: true,
   outDir: 'dist',
-  target: 'es2022'
+  // Output syntax floor: browsers with full ES2015 support (see README
+  // "Browser Support"). Newer syntax in src/ is down-leveled to this.
+  // Enforced by `pnpm run check:es2015`.
+  target: 'es2015'
 })

@@ -24,6 +24,7 @@ This is a widely-used public package. Follow semver strictly: breaking changes r
 ## Key Conventions
 
 - TypeScript strict mode — no `any` types
+- Browser floor is ES2015 (README "Browser Support"): tsup `target: 'es2015'` down-levels syntax, tsconfig `lib: ES2015` blocks newer built-ins (no polyfills are shipped), and `pnpm run check:es2015` verifies dist/ in CI and before publish
 - pnpm as package manager (esbuild must be in pnpm.onlyBuiltDependencies)
 - Node.js >= 16 (for consumers; development and CI use Node 24, pinned in `.nvmrc`)
 - Dual CJS/ESM via package.json exports field

@@ -39,6 +39,33 @@ This module inserts CSS classes into the `<html>` element.
 - ChromeOS
 - Linux
 
+### BROWSER SUPPORT
+
+current-device 2.x ships ES2015 JavaScript without polyfills. It runs in any
+browser with full ES2015 support:
+
+| Browser | Minimum version |
+| --- | --- |
+| Chrome, Android WebView | 51 |
+| Edge | 15 |
+| Firefox | 54 |
+| Safari (macOS and iOS) | 10 |
+| Samsung Internet | 5 |
+| Opera | 38 |
+
+Internet Explorer and other browsers without ES2015 support are not supported.
+This includes the built-in browsers of several platforms that current-device
+still recognizes by user agent: the Android stock browser (Android 4.4 and
+earlier), BlackBerry, Windows Phone 8.x, Firefox OS and MeeGo. If you need to
+support them, use current-device 0.10.x, which ships ES5:
+
+```html
+<script src="https://unpkg.com/current-device@0.10.2/umd/current-device.min.js"></script>
+```
+
+current-device is browser-only: it reads `window`, `navigator` and `document`
+when it is imported. With server-side rendering, import it only on the client.
+
 ### USAGE
 
 Just include the script. The script then updates the `<html>` section with the
