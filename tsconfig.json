@@ -12,7 +12,10 @@
     "sourceMap": true,
     "outDir": "dist",
     "rootDir": "src",
-    "lib": ["ES2022", "DOM", "DOM.Iterable"]
+    // ES2015 built-ins only: esbuild down-levels syntax but doesn't polyfill
+    // APIs, so newer ones (e.g. Array.prototype.includes) would break the
+    // browsers listed under "Browser Support" in the README
+    "lib": ["ES2015", "DOM", "DOM.Iterable"]
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist", "tests"]
