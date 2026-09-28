@@ -28,17 +28,22 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
+    "test:dist": "vitest run --config vitest.built.config.ts",
     "typecheck": "tsc --noEmit",
     "check:es2015": "es-check es6 dist/index.js dist/index.global.js --checkFeatures && es-check es6 dist/index.mjs --module --checkFeatures",
-    "prepublishOnly": "pnpm run build && pnpm run check:es2015",
+    "check:package": "publint && attw --pack . --ignore-rules missing-export-equals",
+    "prepublishOnly": "pnpm run build && pnpm run check:es2015 && pnpm run test:dist",
     "changeset": "changeset",
     "release": "changeset publish"
   },
   "devDependencies": {
+    "@arethetypeswrong/cli": "0.18.5",
     "@changesets/changelog-github": "0.5.2",
     "@changesets/cli": "2.29.8",
+    "@types/jsdom": "^21.1.7",
     "es-check": "^9.8.1",
     "jsdom": "^25.0.0",
+    "publint": "0.3.24",
     "tsup": "^8.0.0",
     "typescript": "^5.7.0",
     "vitest": "^4.1.11"
@@ -54,7 +59,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/matthewhudson/current-device.git"
+    "url": "git+https://github.com/matthewhudson/current-device.git"
   },
   "bugs": {
     "url": "https://github.com/matthewhudson/current-device/issues"
