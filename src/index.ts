@@ -83,7 +83,8 @@ if (isBrowser) {
 const documentElement = isBrowser ? window.document.documentElement : undefined
 
 // The client user agent string.
-// Lowercase, so we can use the more efficient indexOf(), instead of Regex
+// Lowercased once, so the substring checks and the regexes below can all
+// match lowercase text without case-insensitive flags
 const userAgent = isBrowser ? window.navigator.userAgent.toLowerCase() : ''
 
 // Detectable television devices.
@@ -193,7 +194,7 @@ const otherPhones: string[] = [
 // Private Utility Functions
 // -------------------------
 
-// Check if element exists
+// Whether `needle` occurs anywhere in `haystack`
 function includes(haystack: string, needle: string): boolean {
   return haystack.indexOf(needle) !== -1
 }
@@ -507,8 +508,8 @@ device.landscape = function (): boolean {
 // Public Utility Functions
 // ------------------------
 
-// Run device.js in noConflict mode,
-// returning the device variable to its previous owner.
+// Gives the `device` global back to whatever it held before current-device
+// loaded, for pages where that name is taken (see the <script> build).
 // Returns `device` itself, also when called unbound (`const { noConflict } = device`)
 device.noConflict = function (): Device {
   if (isBrowser) {
