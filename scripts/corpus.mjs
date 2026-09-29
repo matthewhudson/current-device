@@ -21,8 +21,21 @@ const dump = process.argv.includes('--dump')
 
 const BASE = 'https://raw.githubusercontent.com/matomo-org/device-detector/master/Tests/fixtures/'
 const FILES = [
-  'desktop', 'tv', 'feature_phone', 'phablet', 'tablet', 'smartphone', 'console', 'car_browser',
-  'camera', 'portable_media_player', 'smart_display', 'smart_speaker', 'wearable', 'peripheral', 'unknown'
+  'desktop',
+  'tv',
+  'feature_phone',
+  'phablet',
+  'tablet',
+  'smartphone',
+  'console',
+  'car_browser',
+  'camera',
+  'portable_media_player',
+  'smart_display',
+  'smart_speaker',
+  'wearable',
+  'peripheral',
+  'unknown',
 ]
 
 async function download() {
@@ -86,7 +99,7 @@ function detect(ua) {
     navigator: { userAgent: ua, platform: 'Linux armv8l', maxTouchPoints: 0 },
     innerWidth: 1024,
     innerHeight: 768,
-    addEventListener() {}
+    addEventListener() {},
   }
   win.document = { documentElement: { classList: { add() {}, remove() {} } } }
   const device = run(win, win.document, win.navigator, {}, { protocol: 'https:' })
@@ -94,10 +107,24 @@ function detect(ua) {
 }
 
 // What we expect from device.type and device.os for a Matomo device type / OS family
-const TYPES = { smartphone: 'mobile', phablet: 'mobile', 'feature phone': 'mobile', tablet: 'tablet', desktop: 'desktop', tv: 'television' }
+const TYPES = {
+  smartphone: 'mobile',
+  phablet: 'mobile',
+  'feature phone': 'mobile',
+  tablet: 'tablet',
+  desktop: 'desktop',
+  tv: 'television',
+}
 const FAMILIES = {
-  Android: 'android', iOS: 'ios', Windows: 'windows', 'Windows Mobile': 'windows', Mac: 'macos',
-  'GNU/Linux': 'linux', 'Chrome OS': 'chromeos', BlackBerry: 'blackberry', 'Firefox OS': 'fxos'
+  Android: 'android',
+  iOS: 'ios',
+  Windows: 'windows',
+  'Windows Mobile': 'windows',
+  Mac: 'macos',
+  'GNU/Linux': 'linux',
+  'Chrome OS': 'chromeos',
+  BlackBerry: 'blackberry',
+  'Firefox OS': 'fxos',
 }
 
 await download()
@@ -133,11 +160,19 @@ for (const file of fs.readdirSync(fixtureDir).sort()) {
 }
 
 const pct = (part, whole) => `${((100 * part) / whole).toFixed(1)}%`.padStart(7)
-console.log(`${'expected (Matomo)'.padEnd(38)}${'n'.padStart(7)}${'type'.padStart(8)}${'os'.padStart(8)}  most common results`)
+console.log(
+  `${'expected (Matomo)'.padEnd(38)}${'n'.padStart(7)}${'type'.padStart(8)}${'os'.padStart(8)}  most common results`
+)
 for (const [key, group] of [...groups].sort((a, b) => b[1].n - a[1].n)) {
   if (group.n < 15) continue
-  const top = [...group.results].sort((a, b) => b[1] - a[1]).slice(0, 3).map(([result, n]) => `${n} ${result}`).join(', ')
-  console.log(`${key.padEnd(38)}${String(group.n).padStart(7)}${pct(group.typeOk, group.n)}${pct(group.osOk, group.n)}  ${top}`)
+  const top = [...group.results]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3)
+    .map(([result, n]) => `${n} ${result}`)
+    .join(', ')
+  console.log(
+    `${key.padEnd(38)}${String(group.n).padStart(7)}${pct(group.typeOk, group.n)}${pct(group.osOk, group.n)}  ${top}`
+  )
 }
 console.log(`\n${total} user agents, type correct: ${pct(totalOk, total).trim()}`)
 

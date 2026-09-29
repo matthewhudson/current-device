@@ -5,16 +5,7 @@ import type { UAFixture } from './ua-strings'
 // Operating-system families that can't apply to the same device.
 // (harmonyos and chromeos are excluded: HarmonyOS devices are also android by
 // design, and so is an Android app running on a Chromebook.)
-const OS_FAMILIES = [
-  'ios',
-  'android',
-  'blackberry',
-  'windows',
-  'fxos',
-  'meego',
-  'macos',
-  'linux'
-] as const
+const OS_FAMILIES = ['ios', 'android', 'blackberry', 'windows', 'fxos', 'meego', 'macos', 'linux'] as const
 
 // Everything a fixture expects: os, type and each listed method
 export function expectFixture(device: Device, fixture: UAFixture): void {

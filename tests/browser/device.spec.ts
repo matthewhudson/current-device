@@ -19,7 +19,7 @@ const expected: Record<(typeof deviceProfiles)[number], { os: string; type: stri
   'iPhone 15': { os: 'ios', type: 'mobile', classes: ['ios', 'iphone', 'mobile'] },
   'iPad Pro 11': { os: 'ios', type: 'tablet', classes: ['ios', 'ipad', 'tablet'] },
   'Pixel 7': { os: 'android', type: 'mobile', classes: ['android', 'mobile'] },
-  'Galaxy Tab S4': { os: 'android', type: 'tablet', classes: ['android', 'tablet'] }
+  'Galaxy Tab S4': { os: 'android', type: 'tablet', classes: ['android', 'tablet'] },
 }
 
 // Load the <script> build into a blank page, as a CDN user would
@@ -52,7 +52,7 @@ test('detects the device and adds <html> classes', async ({ page }, testInfo) =>
   const result = await page.evaluate(() => ({
     os: window.device.os,
     type: window.device.type,
-    orientation: window.device.orientation
+    orientation: window.device.orientation,
   }))
   const viewport = viewportOf(page)
 

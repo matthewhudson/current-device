@@ -131,7 +131,15 @@ export const uaFixtures: UAFixture[] = [
     expected: {
       os: 'android',
       type: 'mobile',
-      methods: { android: true, androidPhone: true, androidTablet: false, mobile: true, tablet: false, desktop: false, linux: false },
+      methods: {
+        android: true,
+        androidPhone: true,
+        androidTablet: false,
+        mobile: true,
+        tablet: false,
+        desktop: false,
+        linux: false,
+      },
     },
   },
   {
@@ -193,7 +201,14 @@ export const uaFixtures: UAFixture[] = [
     expected: {
       os: 'windows',
       type: 'desktop',
-      methods: { windows: true, desktop: true, windowsPhone: false, windowsTablet: false, mobile: false, tablet: false },
+      methods: {
+        windows: true,
+        desktop: true,
+        windowsPhone: false,
+        windowsTablet: false,
+        mobile: false,
+        tablet: false,
+      },
     },
   },
   {
@@ -222,7 +237,16 @@ export const uaFixtures: UAFixture[] = [
     expected: {
       os: 'linux',
       type: 'desktop',
-      methods: { linux: true, chromeos: false, desktop: true, mobile: false, tablet: false, windows: false, macos: false, android: false },
+      methods: {
+        linux: true,
+        chromeos: false,
+        desktop: true,
+        mobile: false,
+        tablet: false,
+        windows: false,
+        macos: false,
+        android: false,
+      },
     },
   },
   {
@@ -291,7 +315,15 @@ export const uaFixtures: UAFixture[] = [
     expected: {
       os: 'harmonyos',
       type: 'mobile',
-      methods: { harmonyos: true, android: true, androidPhone: true, mobile: true, tablet: false, desktop: false, linux: false },
+      methods: {
+        harmonyos: true,
+        android: true,
+        androidPhone: true,
+        mobile: true,
+        tablet: false,
+        desktop: false,
+        linux: false,
+      },
     },
   },
   {
@@ -314,7 +346,14 @@ export const uaFixtures: UAFixture[] = [
     expected: {
       os: 'windows',
       type: 'desktop',
-      methods: { windows: true, windowsTablet: false, windowsPhone: false, desktop: true, tablet: false, mobile: false },
+      methods: {
+        windows: true,
+        windowsTablet: false,
+        windowsPhone: false,
+        desktop: true,
+        tablet: false,
+        mobile: false,
+      },
     },
   },
   {
@@ -345,7 +384,8 @@ export const uaFixtures: UAFixture[] = [
   {
     name: 'Android WebView (Android 5)',
     ua: 'Mozilla/5.0 (Linux; Android 5.1.1; Nexus 5 Build/LMY48B; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/43.0.2357.65 Mobile Safari/537.36',
-    source: 'https://github.com/GoogleChrome/developer.chrome.com/blob/main/site/en/docs/multidevice/user-agent/index.md',
+    source:
+      'https://github.com/GoogleChrome/developer.chrome.com/blob/main/site/en/docs/multidevice/user-agent/index.md',
     expected: {
       os: 'android',
       type: 'mobile',
@@ -395,7 +435,8 @@ export const uaFixtures: UAFixture[] = [
   {
     name: 'Samsung Internet tablet',
     ua: 'Mozilla/5.0 (Linux; Android 10; SAMSUNG SM-T500) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/12.1 Chrome/79.0.3945.136 Safari/537.36',
-    source: 'https://user-agents.net/string/mozilla-5-0-linux-android-10-samsung-sm-t500-applewebkit-537-36-khtml-like-gecko-samsungbrowser-12-1-chrome-79-0-3945-136-safari-537-36',
+    source:
+      'https://user-agents.net/string/mozilla-5-0-linux-android-10-samsung-sm-t500-applewebkit-537-36-khtml-like-gecko-samsungbrowser-12-1-chrome-79-0-3945-136-safari-537-36',
     expected: {
       os: 'android',
       type: 'tablet',
@@ -407,7 +448,8 @@ export const uaFixtures: UAFixture[] = [
   {
     name: 'Chrome on iPad (CriOS)',
     ua: 'Mozilla/5.0 (iPad; CPU OS 16_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/111.0.5563.101 Mobile/15E148 Safari/604.1',
-    source: 'https://user-agents.net/string/mozilla-5-0-ipad-cpu-os-16-1-like-mac-os-x-applewebkit-605-1-15-khtml-like-gecko-crios-111-0-5563-101-mobile-15e148-safari-604-1',
+    source:
+      'https://user-agents.net/string/mozilla-5-0-ipad-cpu-os-16-1-like-mac-os-x-applewebkit-605-1-15-khtml-like-gecko-crios-111-0-5563-101-mobile-15e148-safari-604-1',
     expected: {
       os: 'ios',
       type: 'tablet',
@@ -461,7 +503,8 @@ export const uaFixtures: UAFixture[] = [
   {
     name: 'BlackBerry PlayBook',
     ua: 'Mozilla/5.0 (PlayBook; U; RIM Tablet OS 2.1.0; en-US) AppleWebKit/536.2+ (KHTML, like Gecko) Version/7.2.1.0 Safari/536.2+',
-    source: 'https://user-agents.net/string/mozilla-5-0-playbook-u-rim-tablet-os-2-1-0-en-us-applewebkit-536-2-khtml-like-gecko-version-7-2-1-0-safari-536-2',
+    source:
+      'https://user-agents.net/string/mozilla-5-0-playbook-u-rim-tablet-os-2-1-0-en-us-applewebkit-536-2-khtml-like-gecko-version-7-2-1-0-safari-536-2',
     expected: {
       os: 'blackberry',
       type: 'tablet',
@@ -471,7 +514,8 @@ export const uaFixtures: UAFixture[] = [
   {
     name: 'Windows Phone 8.1 (IE Mobile 11)',
     ua: 'Mozilla/5.0 (Mobile; Windows Phone 8.1; Android 4.0; ARM; Trident/7.0; Touch; rv:11.0; IEMobile/11.0; NOKIA; Lumia 520) like iPhone OS 7_0_3 Mac OS X AppleWebKit/537 (KHTML, like Gecko) Mobile Safari/537',
-    source: 'https://learn.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/compatibility/hh869301(v=vs.85)',
+    source:
+      'https://learn.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/compatibility/hh869301(v=vs.85)',
     expected: {
       os: 'windows',
       type: 'mobile',
@@ -481,7 +525,8 @@ export const uaFixtures: UAFixture[] = [
   {
     name: 'Firefox OS phone',
     ua: 'Mozilla/5.0 (Mobile; rv:26.0) Gecko/26.0 Firefox/26.0',
-    source: 'https://github.com/mdn/content/blob/cbe151a06d6e5b4d1fbb46081bd16e69ef4c1630/files/en-us/web/http/headers/user-agent/firefox/index.html',
+    source:
+      'https://github.com/mdn/content/blob/cbe151a06d6e5b4d1fbb46081bd16e69ef4c1630/files/en-us/web/http/headers/user-agent/firefox/index.html',
     expected: {
       os: 'fxos',
       type: 'mobile',
@@ -491,7 +536,8 @@ export const uaFixtures: UAFixture[] = [
   {
     name: 'Firefox OS tablet',
     ua: 'Mozilla/5.0 (Tablet; rv:26.0) Gecko/26.0 Firefox/26.0',
-    source: 'https://github.com/mdn/content/blob/cbe151a06d6e5b4d1fbb46081bd16e69ef4c1630/files/en-us/web/http/headers/user-agent/firefox/index.html',
+    source:
+      'https://github.com/mdn/content/blob/cbe151a06d6e5b4d1fbb46081bd16e69ef4c1630/files/en-us/web/http/headers/user-agent/firefox/index.html',
     expected: {
       os: 'fxos',
       type: 'tablet',
@@ -533,7 +579,8 @@ export const uaFixtures: UAFixture[] = [
   {
     name: 'Philips NetTV',
     ua: 'Opera/9.80 (Linux mips ; U; HbbTV/1.1.1 (; Philips; ; ; ; ) CE-HTML/1.0 NETTV/4.3.3 PHILIPSTV/1.1.1 Firmware/173.60.0 (PhilipsTV, 1.1.1,) en Presto/2.12.362 Version/12.11',
-    source: 'https://user-agents.net/string/opera-9-80-linux-mips-u-hbbtv-1-1-1-philips-ce-html-1-0-nettv-4-3-3-philipstv-1-1-1-firmware-173-60-0-philipstv-1-1-1-en-presto-2-12-362-version-12-11',
+    source:
+      'https://user-agents.net/string/opera-9-80-linux-mips-u-hbbtv-1-1-1-philips-ce-html-1-0-nettv-4-3-3-philipstv-1-1-1-firmware-173-60-0-philipstv-1-1-1-en-presto-2-12-362-version-12-11',
     expected: {
       os: 'television',
       type: 'desktop',
@@ -579,7 +626,14 @@ export const uaFixtures: UAFixture[] = [
     expected: {
       os: 'android',
       type: 'desktop',
-      methods: { television: true, android: true, androidTablet: false, androidPhone: false, tablet: false, mobile: false },
+      methods: {
+        television: true,
+        android: true,
+        androidTablet: false,
+        androidPhone: false,
+        tablet: false,
+        mobile: false,
+      },
     },
   },
   // television() is true, but os reports the platform: television is checked last
@@ -608,7 +662,8 @@ export const uaFixtures: UAFixture[] = [
   {
     name: 'Android car head unit with "Mac" in its model name',
     ua: 'Mozilla/5.0 (Linux; Android 11.0.0; Mac Audio Spro) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.105 Safari/537.36',
-    source: 'https://github.com/matomo-org/device-detector/blob/135132f8e4b4a03145ba3dbedba0655da41b435f/Tests/fixtures/car_browser.yml#L111',
+    source:
+      'https://github.com/matomo-org/device-detector/blob/135132f8e4b4a03145ba3dbedba0655da41b435f/Tests/fixtures/car_browser.yml#L111',
     expected: {
       os: 'android',
       type: 'tablet',
@@ -650,7 +705,16 @@ export const uaFixtures: UAFixture[] = [
     expected: {
       os: 'android',
       type: 'desktop',
-      methods: { television: true, android: true, androidTablet: false, androidPhone: false, tablet: false, mobile: false, desktop: true, linux: false },
+      methods: {
+        television: true,
+        android: true,
+        androidTablet: false,
+        androidPhone: false,
+        tablet: false,
+        mobile: false,
+        desktop: true,
+        linux: false,
+      },
     },
   },
   {
@@ -660,7 +724,16 @@ export const uaFixtures: UAFixture[] = [
     expected: {
       os: 'android',
       type: 'desktop',
-      methods: { television: true, android: true, androidTablet: false, androidPhone: false, tablet: false, mobile: false, desktop: true, linux: false },
+      methods: {
+        television: true,
+        android: true,
+        androidTablet: false,
+        androidPhone: false,
+        tablet: false,
+        mobile: false,
+        desktop: true,
+        linux: false,
+      },
     },
   },
   {
@@ -670,7 +743,16 @@ export const uaFixtures: UAFixture[] = [
     expected: {
       os: 'android',
       type: 'desktop',
-      methods: { television: true, android: true, androidTablet: false, androidPhone: false, tablet: false, mobile: false, desktop: true, linux: false },
+      methods: {
+        television: true,
+        android: true,
+        androidTablet: false,
+        androidPhone: false,
+        tablet: false,
+        mobile: false,
+        desktop: true,
+        linux: false,
+      },
     },
   },
   {
@@ -680,7 +762,16 @@ export const uaFixtures: UAFixture[] = [
     expected: {
       os: 'android',
       type: 'desktop',
-      methods: { television: true, android: true, androidTablet: false, androidPhone: false, tablet: false, mobile: false, desktop: true, linux: false },
+      methods: {
+        television: true,
+        android: true,
+        androidTablet: false,
+        androidPhone: false,
+        tablet: false,
+        mobile: false,
+        desktop: true,
+        linux: false,
+      },
     },
   },
   {
@@ -690,7 +781,16 @@ export const uaFixtures: UAFixture[] = [
     expected: {
       os: 'android',
       type: 'desktop',
-      methods: { television: true, android: true, androidTablet: false, androidPhone: false, tablet: false, mobile: false, desktop: true, linux: false },
+      methods: {
+        television: true,
+        android: true,
+        androidTablet: false,
+        androidPhone: false,
+        tablet: false,
+        mobile: false,
+        desktop: true,
+        linux: false,
+      },
     },
   },
   {
@@ -700,7 +800,16 @@ export const uaFixtures: UAFixture[] = [
     expected: {
       os: 'android',
       type: 'desktop',
-      methods: { television: true, android: true, androidTablet: false, androidPhone: false, tablet: false, mobile: false, desktop: true, linux: false },
+      methods: {
+        television: true,
+        android: true,
+        androidTablet: false,
+        androidPhone: false,
+        tablet: false,
+        mobile: false,
+        desktop: true,
+        linux: false,
+      },
     },
   },
 
@@ -858,7 +967,16 @@ export const uaFixtures: UAFixture[] = [
     expected: {
       os: 'chromeos',
       type: 'desktop',
-      methods: { chromeos: true, android: true, androidTablet: false, androidPhone: false, desktop: true, tablet: false, mobile: false, linux: false },
+      methods: {
+        chromeos: true,
+        android: true,
+        androidTablet: false,
+        androidPhone: false,
+        desktop: true,
+        tablet: false,
+        mobile: false,
+        linux: false,
+      },
     },
   },
   {

@@ -10,7 +10,7 @@ export const deviceProfiles = [
   'iPhone 15',
   'iPad Pro 11',
   'Pixel 7',
-  'Galaxy Tab S4'
+  'Galaxy Tab S4',
 ] as const
 
 export default defineConfig({
@@ -18,5 +18,5 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   reporter: process.env.CI ? [['list'], ['github']] : 'list',
-  projects: deviceProfiles.map((name) => ({ name, use: { ...devices[name] } }))
+  projects: deviceProfiles.map((name) => ({ name, use: { ...devices[name] } })),
 })
