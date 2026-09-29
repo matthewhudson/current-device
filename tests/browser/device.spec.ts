@@ -36,6 +36,15 @@ function orientationOf(size: { width: number; height: number }): 'portrait' | 'l
   return size.height > size.width ? 'portrait' : 'landscape'
 }
 
+// Every project uses a device profile, and every profile sets a viewport
+function viewportOf(page: Page): { width: number; height: number } {
+  const viewport = page.viewportSize()
+  if (!viewport) {
+    throw new Error('the Playwright device profile sets no viewport')
+  }
+  return viewport
+}
+
 test('detects the device and adds <html> classes', async ({ page }, testInfo) => {
   const want = expected[testInfo.project.name as keyof typeof expected]
   await loadScript(page)
@@ -45,7 +54,7 @@ test('detects the device and adds <html> classes', async ({ page }, testInfo) =>
     type: window.device.type,
     orientation: window.device.orientation
   }))
-  const viewport = page.viewportSize()!
+  const viewport = viewportOf(page)
 
   expect(result).toEqual({ os: want.os, type: want.type, orientation: orientationOf(viewport) })
   expect(await htmlClasses(page)).toEqual(expect.arrayContaining([...want.classes, result.orientation]))
@@ -61,7 +70,7 @@ test('adds only the `device` global', async ({ page }) => {
 
 test('rotating updates orientation, classes and callbacks', async ({ page, isMobile }, testInfo) => {
   await loadScript(page)
-  const start = page.viewportSize()!
+  const start = viewportOf(page)
   const rotated = { width: start.height, height: start.width }
   const target = orientationOf(rotated)
 
@@ -76,9 +85,10 @@ test('rotating updates orientation, classes and callbacks', async ({ page, isMob
   }
 
   await page.evaluate(() => {
-    ;(window as Window & { changes?: string[] }).changes = []
+    const changes: string[] = []
+    ;(window as Window & { changes?: string[] }).changes = changes
     window.device.onChangeOrientation((orientation) => {
-      ;(window as Window & { changes?: string[] }).changes!.push(orientation)
+      changes.push(orientation)
     })
   })
   await page.setViewportSize(rotated)

@@ -57,7 +57,7 @@ function parseFixtures(text) {
       continue
     }
     if (!entry) continue
-    const top = /^  (\w+):\s*(.*)$/.exec(line)
+    const top = /^ {2}(\w+):\s*(.*)$/.exec(line)
     if (top) {
       section = top[1]
       if (top[1] === 'user_agent') entry.ua = unquote(top[2])
@@ -65,7 +65,7 @@ function parseFixtures(text) {
       else if (top[1] === 'headers') entry.headers = true
       continue
     }
-    const nested = /^    (\w+):\s*(.*)$/.exec(line)
+    const nested = /^ {4}(\w+):\s*(.*)$/.exec(line)
     if (nested && section === 'device' && nested[1] === 'type') entry.type = unquote(nested[2])
   }
   return entries.filter((e) => typeof e.ua === 'string' && !e.headers)

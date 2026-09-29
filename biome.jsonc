@@ -1,0 +1,29 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  // Skip everything .gitignore lists (dist/, node_modules/, test-results/...)
+  "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
+  "files": { "includes": ["**/*.ts", "**/*.mjs"] },
+  // The house style: no semicolons, single quotes. Line width and trailing
+  // commas were picked to change the fewest existing lines
+  "formatter": { "indentStyle": "space", "indentWidth": 2, "lineWidth": 120 },
+  "javascript": {
+    "formatter": { "semicolons": "asNeeded", "quoteStyle": "single", "trailingCommas": "es5" }
+  },
+  // No import sorting: formatting and linting only
+  "assist": { "enabled": false },
+  "linter": {
+    "rules": {
+      "preset": "recommended",
+      "complexity": {
+        // The public API is written as `device.x = function () {}`. Arrow
+        // functions would change nothing at runtime, only churn the file
+        "useArrowFunction": "off"
+      },
+      "suspicious": {
+        // Its fix, Object.hasOwn(), is ES2022 and would break the ES2015
+        // browser floor (see README "Browser Support")
+        "noPrototypeBuiltins": "off"
+      }
+    }
+  }
+}

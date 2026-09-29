@@ -17,6 +17,8 @@ jobs:
           node-version-file: .nvmrc
           cache: pnpm
       - run: pnpm install
+      # Formatting and lint; annotates the PR diff on failure
+      - run: pnpm exec biome ci
       - run: pnpm run typecheck
       - run: pnpm run test
       - run: pnpm run build
