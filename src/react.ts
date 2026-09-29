@@ -15,7 +15,7 @@ export interface DeviceState {
 const serverState: DeviceState = {
   type: 'unknown',
   os: 'unknown',
-  orientation: 'unknown'
+  orientation: 'unknown',
 }
 
 let state: DeviceState | undefined

@@ -232,6 +232,7 @@ describe('current-device/react (React hooks)', () => {
   })
 
   it('dist/react.mjs renders on a server', async () => {
+    // biome-ignore lint/suspicious/noTsIgnore: the import resolves to dist/ only after a build; @ts-expect-error would fail once it does
     // @ts-ignore -- resolves to dist/, which only exists after a build
     const hooks = (await import('current-device/react')) as Hooks
     expect(render(hooks)).toBe('<p>unknown unknown unknown</p>')

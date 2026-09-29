@@ -141,7 +141,7 @@ const televisionDevices: string[] = [
   'vstvb',
   'fvc/',
   'sraf',
-  'mstar'
+  'mstar',
 ]
 
 // "TV" or "STB" on its own in a model name ("MYSTERY_TV_D2365CH58",
@@ -187,7 +187,7 @@ const otherPhones: string[] = [
   'bada',
   'palm',
   'blazer',
-  'webos/'
+  'webos/',
 ]
 
 // Private Utility Functions
@@ -341,10 +341,7 @@ device.windows = function (): boolean {
 // Windows Mobile and Windows CE handsets say "IEMobile" or "Windows CE";
 // Internet Explorer on Windows Phone 8.1 in desktop mode says "WPDesktop"
 device.windowsPhone = function (): boolean {
-  return (
-    device.windows() &&
-    (find('phone') || find('iemobile') || find('windows ce') || find('wpdesktop'))
-  )
+  return device.windows() && (find('phone') || find('iemobile') || find('windows ce') || find('wpdesktop'))
 }
 
 // Only Internet Explorer ever said "Touch", and it did so on touch-screen
@@ -381,12 +378,7 @@ device.harmonyos = function (): boolean {
 // The form factor of a HarmonyOS NEXT device, from its device-type token.
 // The Android-based versions go through androidPhone()/androidTablet()
 function harmonyosNextPhone(): boolean {
-  return (
-    device.harmonyos() &&
-    !device.android() &&
-    !find('(tablet') &&
-    (find('(phone') || find('mobile'))
-  )
+  return device.harmonyos() && !device.android() && !find('(tablet') && (find('(phone') || find('mobile'))
 }
 
 function harmonyosNextTablet(): boolean {
@@ -402,13 +394,7 @@ device.chromeos = function (): boolean {
 // Android, HarmonyOS, many smart TVs and Linux-based phones (Tizen, Sailfish)
 // also report "Linux" in their UA
 device.linux = function (): boolean {
-  return (
-    find('linux') &&
-    !device.android() &&
-    !device.television() &&
-    !device.chromeos() &&
-    !otherPhone()
-  )
+  return find('linux') && !device.android() && !device.television() && !device.chromeos() && !otherPhone()
 }
 
 // A handset that no operating-system check knows: a feature phone, or a phone
@@ -440,11 +426,7 @@ function otherPhone(): boolean {
 }
 
 device.cordova = function (): boolean {
-  return (
-    isBrowser &&
-    !!(window as Window & { cordova?: unknown }).cordova &&
-    location.protocol === 'file:'
-  )
+  return isBrowser && !!(window as Window & { cordova?: unknown }).cordova && location.protocol === 'file:'
 }
 
 device.nodeWebkit = function (): boolean {
@@ -497,16 +479,10 @@ device.portrait = function (): boolean {
   }
   // Check iOS first: Safari 16.4+ exposes screen.orientation, but it still
   // reports the previous orientation during the orientationchange event (#367)
-  if (
-    device.ios() &&
-    Object.prototype.hasOwnProperty.call(window, 'orientation')
-  ) {
+  if (device.ios() && Object.prototype.hasOwnProperty.call(window, 'orientation')) {
     return Math.abs(window.orientation as number) !== 90
   }
-  if (
-    screen.orientation &&
-    Object.prototype.hasOwnProperty.call(window, 'onorientationchange')
-  ) {
+  if (screen.orientation && Object.prototype.hasOwnProperty.call(window, 'onorientationchange')) {
     return includes(screen.orientation.type, 'portrait')
   }
   // A square viewport is portrait, as in CSS `(orientation: portrait)`
@@ -519,16 +495,10 @@ device.landscape = function (): boolean {
   }
   // Check iOS first: Safari 16.4+ exposes screen.orientation, but it still
   // reports the previous orientation during the orientationchange event (#367)
-  if (
-    device.ios() &&
-    Object.prototype.hasOwnProperty.call(window, 'orientation')
-  ) {
+  if (device.ios() && Object.prototype.hasOwnProperty.call(window, 'orientation')) {
     return Math.abs(window.orientation as number) === 90
   }
-  if (
-    screen.orientation &&
-    Object.prototype.hasOwnProperty.call(window, 'onorientationchange')
-  ) {
+  if (screen.orientation && Object.prototype.hasOwnProperty.call(window, 'onorientationchange')) {
     return includes(screen.orientation.type, 'landscape')
   }
   return window.innerHeight < window.innerWidth
@@ -685,7 +655,11 @@ if (isBrowser) {
 
 function findMatch<T extends string>(arr: T[]): T | 'unknown' {
   for (let i = 0; i < arr.length; i++) {
-    if (device[arr[i] as keyof Device] && typeof device[arr[i] as keyof Device] === 'function' && (device[arr[i] as keyof Device] as () => boolean)()) {
+    if (
+      device[arr[i] as keyof Device] &&
+      typeof device[arr[i] as keyof Device] === 'function' &&
+      (device[arr[i] as keyof Device] as () => boolean)()
+    ) {
       return arr[i]
     }
   }
@@ -707,7 +681,7 @@ device.os = findMatch([
   'fxos',
   'meego',
   'television',
-  'linux'
+  'linux',
 ]) as DeviceOs
 
 function setOrientationCache(): void {

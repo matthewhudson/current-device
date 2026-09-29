@@ -21,6 +21,8 @@ pnpm install
 | `pnpm run test:watch` | The same, on every change |
 | `pnpm run test:coverage` | The same, with a coverage report |
 | `pnpm run typecheck` | `tsc --noEmit` |
+| `pnpm run lint` | Checks formatting and lint with [Biome](https://biomejs.dev) |
+| `pnpm run format` | Formats the code and applies safe lint fixes |
 | `pnpm run build` | Builds `dist/` (CJS, ESM, `<script>` build and types) with tsup |
 | `pnpm run check:es2015` | Verifies `dist/` uses no syntax or built-ins newer than ES2015 |
 | `pnpm run test:dist` | Tests the built files in `dist/` (run `pnpm run build` first) |
@@ -28,8 +30,8 @@ pnpm install
 | `pnpm run test:browser` | Loads the `<script>` build in real browsers with Playwright device profiles (run `pnpm run build` and `pnpm exec playwright install` first) |
 | `pnpm run corpus` | Runs the built `<script>` build against the Matomo device-detector fixtures and prints detection accuracy per device type (run `pnpm run build` first) |
 
-CI runs typecheck, test, build, check:es2015, test:dist, check:package and the
-browser tests on every pull request.
+CI runs Biome, typecheck, test, build, check:es2015, test:dist, check:package
+and the browser tests on every pull request.
 
 ## Making a change
 
@@ -37,8 +39,8 @@ browser tests on every pull request.
 2. Make the change. For a detection change, run `pnpm run corpus` before and
    after to see what it does across 35,000 real user agents, and add a
    fixture for the user agent you are fixing (see below).
-3. Run `pnpm run typecheck`, `pnpm run test`, `pnpm run build` and
-   `pnpm run test:dist`.
+3. Run `pnpm run format`, `pnpm run typecheck`, `pnpm run test`,
+   `pnpm run build` and `pnpm run test:dist`.
 4. Run `pnpm changeset` and describe the change for the changelog. Pick
    `patch` for a fix, `minor` for a new feature or a newly detected platform,
    `major` for anything that changes existing results or the API. Documentation

@@ -8,6 +8,7 @@ This is a widely-used public package. Follow semver strictly: breaking changes r
 - `pnpm run build` — build with tsup to dist/ (CJS + ESM + .d.ts)
 - `pnpm run test` — run Vitest tests with jsdom environment
 - `pnpm run typecheck` — check types with tsc --noEmit
+- `pnpm run lint` — check formatting and lint with Biome (`pnpm run format` fixes what it can)
 - `pnpm run test:watch` — run tests in watch mode
 - `pnpm run test:coverage` — run tests with coverage report
 - `pnpm run test:dist` — test the built files in dist/ (run `pnpm run build` first)
@@ -50,6 +51,7 @@ This is a widely-used public package. Follow semver strictly: breaking changes r
 - `dist/react.*` must import `current-device` instead of bundling `src/index.ts` (the esbuild plugin in `tsup.config.ts` does this): a second copy would add its own listener and overwrite `window.device`
 - `react/package.json` lets tools without `exports` support (TypeScript `moduleResolution: node`, webpack 4) resolve `current-device/react`; it is in `files`
 - Tests that need no DOM start with `// @vitest-environment node` (`tests/ssr.test.ts`)
+- Biome (`biome.jsonc`) formats and lints `.ts`/`.mjs` only. Two recommended rules are off on purpose: `useArrowFunction` (the API is `device.x = function () {}`) and `noPrototypeBuiltins` (its fix, `Object.hasOwn`, is ES2022)
 - A television is never a phone or a tablet, so `device.type` is `'desktop'` for every TV (there is no `'television'` type: adding one would change `type` for existing TV users, a breaking change). On an Android TV `android()` and `television()` are both true, `androidPhone()`/`androidTablet()` are false, `device.os` is `'android'` and the classes are `android television`
 - An Android app on a Chromebook sends an Android UA naming the Chromebook: `chromeos()` and `android()` are both true, `os` is `'chromeos'` and `type` is `'desktop'`. `tests/fixture-assertions.ts` therefore leaves `chromeos` (like `harmonyos`) out of the exclusive OS families
 - Feature phones and handsets without their own method (Symbian, Tizen, Sailfish...) are `mobile()` with `os: 'unknown'` and the class `mobile`; `linux()` excludes them

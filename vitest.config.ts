@@ -5,6 +5,6 @@ export default defineConfig({
     environment: 'jsdom',
     include: ['tests/**/*.test.ts'],
     // Needs a build first; run with `pnpm run test:dist`
-    exclude: ['tests/built/**']
-  }
+    exclude: ['tests/built/**'],
+  },
 })
