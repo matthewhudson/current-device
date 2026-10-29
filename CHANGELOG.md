@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.6.0
+
+### Minor Changes
+
+- [#440](https://github.com/matthewhudson/current-device/pull/440) [`73af9d5`](https://github.com/matthewhudson/current-device/commit/73af9d5cc9a7205220513a044947b8408b447ec6) Thanks [@matthewhudson](https://github.com/matthewhudson)! - Add `current-device/core`, an entry point with no side effects on import, for scripts that run on pages they don't own. Importing `current-device` adds generic class names such as `mobile` and `desktop` to `<html>`, which can collide with the page's own CSS. `current-device/core` exports `createDevice({ classPrefix })`: calling it adds the classes with the given prefix (`cd-ios cd-iphone cd-mobile cd-portrait`), starts the orientation listener and returns a device object with the whole API. The prefix applies to every class, the orientation classes included. The returned object is not assigned to the `device` global, and the user agent is read when `createDevice()` is called rather than at import, which also makes detection easy to unit-test. Without a DOM it returns the same `'unknown'` device as the main entry point. The main entry point, the `<script>` build and `current-device/react` are unchanged.
+
 ## 2.5.0
 
 ### Minor Changes
