@@ -13,6 +13,17 @@ export default defineConfig([
     target: 'es2015',
   },
   {
+    // The side-effect-free factory, published as `current-device/core`. The
+    // main entry point bundles its own copy of this code: unlike the React
+    // entry, a second copy is harmless, since this one does nothing on import
+    entry: ['src/core.ts'],
+    format: ['cjs', 'esm'],
+    dts: true,
+    sourcemap: true,
+    outDir: 'dist',
+    target: 'es2015',
+  },
+  {
     // The <script> build (dist/index.global.js), served by unpkg and jsDelivr.
     // Bundlers minify the CJS/ESM builds themselves; nothing minifies this one
     entry: ['src/index.ts'],

@@ -79,6 +79,18 @@ describe('Without a DOM (server-side rendering)', () => {
     expect((globalThis as { device?: Device }).device).toBeUndefined()
   })
 
+  it('createDevice() from current-device/core returns an unknown device', async () => {
+    const { createDevice } = await import('../src/core')
+    const device = createDevice({ classPrefix: 'cd-' })
+    expect(device.type).toBe('unknown')
+    expect(device.os).toBe('unknown')
+    expect(device.orientation).toBe('unknown')
+    for (const method of METHODS) {
+      expect(device[method](), method).toBe(false)
+    }
+    expect(device.noConflict()).toBe(device)
+  })
+
   it('renders the React hooks with unknown values', async () => {
     const { useDevice, useOrientation } = await import('../src/react')
     function Probe() {

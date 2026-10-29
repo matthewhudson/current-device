@@ -20,12 +20,13 @@ This is a widely-used public package. Follow semver strictly: breaking changes r
 
 ## Architecture
 
-- `src/index.ts` — all detection logic
+- `src/core.ts` — all detection logic, inside `createDevice(options)`; published as `current-device/core`, which has no side effects on import. `options.classPrefix` is prepended to every `<html>` class
+- `src/index.ts` — the main entry: `createDevice()` plus the `window.device` global and the real `noConflict()`
 - `src/react.ts` — React hooks (`useDevice`, `useOrientation`), published as `current-device/react`; React is an optional peer dependency
 - Tests: `tests/*.test.ts` run against src/ (Vitest + jsdom); `tests/built/` runs against the built files with its own config (`vitest.built.config.ts`); `tests/browser/` is Playwright (`playwright.config.ts`)
-- Build output: `dist/` (index.js=CJS, index.mjs=ESM, index.global.js=`<script>`, index.d.ts/index.d.mts=types; the same for react.*, without a `<script>` build)
+- Build output: `dist/` (index.js=CJS, index.mjs=ESM, index.global.js=`<script>`, index.d.ts/index.d.mts=types; the same for core.* and react.*, without a `<script>` build)
 - Uses window, navigator, document, screen at module scope, guarded by `isBrowser`: without a DOM (server-side rendering) the import must not throw, methods return false and type/os/orientation are 'unknown'
-- Module has side effects on import in a browser (adds CSS classes to <html>, attaches orientation listener)
+- The main module has side effects on import in a browser (adds CSS classes to <html>, attaches orientation listener); `current-device/core` has none until `createDevice()` is called
 
 ## Key Conventions
 
@@ -49,7 +50,8 @@ This is a widely-used public package. Follow semver strictly: breaking changes r
 - UA fixtures (`tests/ua-strings.ts`) are shared by the src/ and dist/ tests. New real-world UAs must be copied verbatim with a `source` URL. A fixture with `knownIssue` holds the *correct* expectations and runs as `it.fails`; when you fix that bug the test fails, so remove `knownIssue` then. Every other fixture must also pass the invariants in `tests/fixture-assertions.ts`
 - `pnpm approve-builds` is interactive — use `pnpm.onlyBuiltDependencies` in package.json instead
 - `dist/react.*` must import `current-device` instead of bundling `src/index.ts` (the esbuild plugin in `tsup.config.ts` does this): a second copy would add its own listener and overwrite `window.device`
-- `react/package.json` lets tools without `exports` support (TypeScript `moduleResolution: node`, webpack 4) resolve `current-device/react`; it is in `files`
+- `dist/index.*` and `dist/index.global.js` bundle their own copy of `src/core.ts` on purpose: unlike the React entry, a second copy is harmless because core does nothing on import, and making the main entry resolve `current-device/core` through package self-reference would risk breaking consumers with older tooling
+- `react/package.json` and `core/package.json` let tools without `exports` support (TypeScript `moduleResolution: node`, webpack 4) resolve `current-device/react` and `current-device/core`; both are in `files`
 - Tests that need no DOM start with `// @vitest-environment node` (`tests/ssr.test.ts`)
 - Biome (`biome.jsonc`) formats and lints `.ts`/`.mjs` only. Two recommended rules are off on purpose: `useArrowFunction` (the API is `device.x = function () {}`) and `noPrototypeBuiltins` (its fix, `Object.hasOwn`, is ES2022)
 - A television is never a phone or a tablet, so `device.type` is `'desktop'` for every TV (there is no `'television'` type: adding one would change `type` for existing TV users, a breaking change). On an Android TV `android()` and `television()` are both true, `androidPhone()`/`androidTablet()` are false, `device.os` is `'android'` and the classes are `android television`
