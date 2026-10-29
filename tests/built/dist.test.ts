@@ -213,6 +213,51 @@ describe('Without a DOM (server-side rendering)', () => {
   })
 })
 
+// `current-device/core` resolves through the package's own exports
+describe('current-device/core (createDevice factory)', () => {
+  type Core = typeof import('../../src/core')
+
+  function expectPrefixedIphone(win: DeviceWindow, core: Core): void {
+    // Importing adds nothing
+    expect(htmlClasses(win)).toEqual([])
+    expect(win.device).toBeUndefined()
+
+    setViewport(win, 390, 844)
+    const device = core.createDevice({ classPrefix: 'cd-' })
+
+    expect(device.os).toBe('ios')
+    expect(device.type).toBe('mobile')
+    expect(htmlClasses(win).sort()).toEqual(['cd-ios', 'cd-iphone', 'cd-mobile', 'cd-portrait'])
+    expect(win.device).toBeUndefined()
+  }
+
+  it('dist/core.js has no side effects and prefixes the classes', () => {
+    const win = createWindow(IPHONE_UA)
+    installGlobals(win)
+    const core = require('current-device/core') as Core
+    expectPrefixedIphone(win, core)
+  })
+
+  it('dist/core.mjs has no side effects and prefixes the classes', async () => {
+    const win = createWindow(IPHONE_UA)
+    installGlobals(win)
+    // biome-ignore lint/suspicious/noTsIgnore: the import resolves to dist/ only after a build; @ts-expect-error would fail once it does
+    // @ts-ignore -- resolves to dist/, which only exists after a build
+    const core = (await import('current-device/core')) as Core
+    expectPrefixedIphone(win, core)
+  })
+
+  it('createDevice() works on a server', () => {
+    const core = require('current-device/core') as Core
+    const device = core.createDevice()
+
+    expect(device.type).toBe('unknown')
+    expect(device.os).toBe('unknown')
+    expect(device.orientation).toBe('unknown')
+    expect(device.mobile()).toBe(false)
+  })
+})
+
 // `current-device/react` resolves through the package's own exports
 describe('current-device/react (React hooks)', () => {
   type Hooks = typeof import('../../src/react')

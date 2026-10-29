@@ -45,7 +45,8 @@ const device = require("current-device").default;
 ```
 
 Importing the module adds the classes to `<html>` and starts listening for
-orientation changes. Nothing else is needed.
+orientation changes. Nothing else is needed. To add the classes with a prefix,
+or only when you say so, see [Custom class prefix](#custom-class-prefix).
 
 ### CDN / Script Tag
 
@@ -103,6 +104,42 @@ while a component renders. They return `false` on the server and the real value
 in the browser, which causes a hydration error, and React then removes the
 classes from `<html>`. Use the hooks, or call the methods in an effect or an
 event handler.
+
+### Custom class prefix
+
+The class names current-device adds, such as `mobile`, `desktop` and
+`landscape`, are generic. In a script that runs on pages you don't own, such as
+an embedded widget, they can collide with the page's own CSS. For that, import
+`current-device/core` instead. It does nothing on import; its `createDevice()`
+adds the classes, with the prefix you choose, and starts listening for
+orientation changes when you call it:
+
+```ts
+import { createDevice } from "current-device/core";
+
+const device = createDevice({ classPrefix: "cd-" });
+
+device.mobile(); // <html class="cd-ios cd-iphone cd-mobile cd-portrait">
+```
+
+The prefix applies to every class, including `cd-landscape`/`cd-portrait`,
+`cd-cordova` and `cd-node-webkit`. Without `classPrefix`, `createDevice()`
+adds the same classes as the main entry point.
+
+The returned object has the whole [JavaScript API](#javascript-api), but:
+
+- it is not assigned to the `device` global, so `noConflict()` does nothing
+  but return it;
+- each `createDevice()` call adds its own classes and listener, so call it
+  once;
+- the user agent is read when `createDevice()` is called, not when the module
+  is imported, which also makes detection easy to unit-test with different
+  user agents.
+
+Without a DOM, `createDevice()` returns a device whose methods return `false`
+and whose properties are `'unknown'`, like the
+[main entry point](#server-side-rendering). The options type is exported as
+`DeviceOptions`.
 
 ### TypeScript
 
@@ -468,8 +505,9 @@ Notes on `device.os`:
 - Feature phones and phones on platforms without their own method are
   `'unknown'` with `device.type === 'mobile'`.
 
-`device.type` and `device.os` are computed once when the module is imported;
-only `device.orientation` changes afterwards.
+`device.type` and `device.os` are computed once, when the module is imported
+(or [`createDevice()`](#custom-class-prefix) is called); only
+`device.orientation` changes afterwards.
 
 ### device.noConflict()
 
