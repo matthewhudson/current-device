@@ -4,22 +4,36 @@
 // device type and OS family.
 //
 //   pnpm run build && pnpm run corpus [--dump]
+//   pnpm run corpus:check    compare with scripts/corpus-baseline.json, exit 1 on any difference (CI)
+//   pnpm run corpus:update   rewrite scripts/corpus-baseline.json from this run
 //
-// The fixtures are downloaded once into node_modules/.cache. `--dump` also
-// writes the misdetected user agents to node_modules/.cache/current-device/misses/.
-// The corpus is historical and not weighted by traffic: the percentages
-// describe coverage of user agent shapes, not the share of real users.
+// The fixtures are pinned to MATOMO_COMMIT and downloaded once into
+// node_modules/.cache. `--dump` also writes the misdetected user agents to
+// node_modules/.cache/current-device/misses/. The corpus is historical and not
+// weighted by traffic: the percentages describe coverage of user agent shapes,
+// not the share of real users.
+//
+// To take newer fixtures, set MATOMO_COMMIT to a commit of
+// https://github.com/matomo-org/device-detector, run `pnpm run corpus:update`
+// and commit the new baseline on its own, so its diff shows the corpus change
+// and not a detection change.
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { buildBaseline, compareBaseline, formatComparison } from './corpus-baseline.mjs'
+
+const MATOMO_COMMIT = '0ca48a37aa7a4388e9ec5897f033aaef9155ed90' // 2026-11-05
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const cache = path.join(root, 'node_modules', '.cache', 'current-device')
-const fixtureDir = path.join(cache, 'matomo')
+const fixtureDir = path.join(cache, 'matomo', MATOMO_COMMIT)
 const bundle = path.join(root, 'dist', 'index.global.js')
+const baselineFile = path.join(root, 'scripts', 'corpus-baseline.json')
 const dump = process.argv.includes('--dump')
+const check = process.argv.includes('--check')
+const update = process.argv.includes('--update')
 
-const BASE = 'https://raw.githubusercontent.com/matomo-org/device-detector/master/Tests/fixtures/'
+const BASE = `https://raw.githubusercontent.com/matomo-org/device-detector/${MATOMO_COMMIT}/Tests/fixtures/`
 const FILES = [
   'desktop',
   'tv',
@@ -184,4 +198,22 @@ if (dump) {
     fs.writeFileSync(path.join(dir, `${key.replace(/[^a-z0-9]+/gi, '_')}.txt`), `${list.join('\n')}\n`)
   }
   console.log(`misdetected user agents written to ${dir}`)
+}
+
+const current = buildBaseline({ commit: MATOMO_COMMIT, groups })
+
+if (update) {
+  fs.writeFileSync(baselineFile, `${JSON.stringify(current, null, 2)}\n`)
+  console.log(`baseline written to ${path.relative(root, baselineFile)}`)
+}
+
+if (check) {
+  if (!fs.existsSync(baselineFile)) {
+    console.error(`\n${path.relative(root, baselineFile)} is missing: run \`pnpm run corpus:update\` and commit it`)
+    process.exit(1)
+  }
+  const baseline = JSON.parse(fs.readFileSync(baselineFile, 'utf8'))
+  const result = compareBaseline(baseline, current)
+  console.log(`\n${formatComparison(result, current)}`)
+  process.exit(result.ok ? 0 : 1)
 }

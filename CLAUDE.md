@@ -15,6 +15,8 @@ This is a widely-used public package. Follow semver strictly: breaking changes r
 - `pnpm run test:browser` — load the <script> build in real Chromium/Firefox/WebKit with Playwright device profiles (run `pnpm run build` and `pnpm exec playwright install` first)
 - `pnpm run check:es2015` — verify dist/ has no syntax or built-ins newer than ES2015
 - `pnpm run check:package` — validate package.json exports and types (publint + attw)
+- `pnpm run corpus:check` — fail if detection accuracy on the pinned Matomo corpus differs from `scripts/corpus-baseline.json` (run `pnpm run build` first; CI runs this)
+- `pnpm run corpus:update` — rewrite `scripts/corpus-baseline.json` after a deliberate detection change
 - `pnpm changeset` — create a changeset describing your changes (run before committing)
 - `pnpm changeset status` — check pending changesets
 
@@ -58,4 +60,4 @@ This is a widely-used public package. Follow semver strictly: breaking changes r
 - An Android app on a Chromebook sends an Android UA naming the Chromebook: `chromeos()` and `android()` are both true, `os` is `'chromeos'` and `type` is `'desktop'`. `tests/fixture-assertions.ts` therefore leaves `chromeos` (like `harmonyos`) out of the exclusive OS families
 - Feature phones and handsets without their own method (Symbian, Tizen, Sailfish...) are `mobile()` with `os: 'unknown'` and the class `mobile`; `linux()` excludes them
 - "TV" as a separate word in a model name means television. A phone named "... TV" is therefore a TV: a `knownIssue` fixture documents that
-- `pnpm run corpus` runs the built `<script>` bundle against the Matomo device-detector fixtures (downloaded on first run) and prints type/os accuracy per device type; use it to measure a detection change before and after
+- `pnpm run corpus` runs the built `<script>` bundle against the Matomo device-detector fixtures (pinned to `MATOMO_COMMIT` in `scripts/corpus.mjs`, downloaded on first run) and prints type/os accuracy per device type; use it to measure a detection change before and after. `scripts/corpus-baseline.json` holds the per-class correct counts for main and CI fails on any difference, better or worse, so every detection change must also run `pnpm run corpus:update` and commit the baseline. Bump the pinned commit in its own PR, so the baseline diff shows the corpus change and not a detection change
