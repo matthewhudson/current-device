@@ -39,3 +39,24 @@ jobs:
       - run: pnpm run build
       - run: pnpm exec playwright install --with-deps chromium firefox webkit
       - run: pnpm run test:browser
+
+  # Detection accuracy against the pinned Matomo corpus must match
+  # scripts/corpus-baseline.json (see scripts/corpus.mjs)
+  corpus:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install
+      - run: pnpm run build
+      # The fixtures are pinned to a commit in scripts/corpus.mjs, so the cache
+      # is good until that pin changes
+      - uses: actions/cache@v4
+        with:
+          path: node_modules/.cache/current-device/matomo
+          key: matomo-fixtures-${{ hashFiles('scripts/corpus.mjs') }}
+      - run: pnpm run corpus:check

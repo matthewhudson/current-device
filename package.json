@@ -58,6 +58,8 @@
     "lint": "biome check",
     "format": "biome check --write",
     "corpus": "node scripts/corpus.mjs",
+    "corpus:check": "node scripts/corpus.mjs --check",
+    "corpus:update": "node scripts/corpus.mjs --update",
     "prepublishOnly": "pnpm run build && pnpm run check:es2015 && pnpm run test:dist",
     "changeset": "changeset",
     "release": "changeset publish"

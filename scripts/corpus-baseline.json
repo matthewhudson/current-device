@@ -1,0 +1,454 @@
+{
+  "matomo": "0ca48a37aa7a4388e9ec5897f033aaef9155ed90",
+  "total": {
+    "n": 35849,
+    "typeOk": 31934
+  },
+  "groups": {
+    "AmigaOS | desktop": {
+      "n": 6,
+      "typeOk": 6,
+      "osOk": 0
+    },
+    "Android | camera": {
+      "n": 7,
+      "typeOk": 0,
+      "osOk": 7
+    },
+    "Android | car browser": {
+      "n": 57,
+      "typeOk": 0,
+      "osOk": 57
+    },
+    "Android | console": {
+      "n": 21,
+      "typeOk": 0,
+      "osOk": 20
+    },
+    "Android | desktop": {
+      "n": 48,
+      "typeOk": 0,
+      "osOk": 48
+    },
+    "Android | peripheral": {
+      "n": 91,
+      "typeOk": 0,
+      "osOk": 90
+    },
+    "Android | phablet": {
+      "n": 842,
+      "typeOk": 781,
+      "osOk": 834
+    },
+    "Android | portable media player": {
+      "n": 40,
+      "typeOk": 0,
+      "osOk": 40
+    },
+    "Android | smart display": {
+      "n": 22,
+      "typeOk": 0,
+      "osOk": 21
+    },
+    "Android | smart speaker": {
+      "n": 19,
+      "typeOk": 0,
+      "osOk": 18
+    },
+    "Android | smartphone": {
+      "n": 22769,
+      "typeOk": 21999,
+      "osOk": 22560
+    },
+    "Android | tablet": {
+      "n": 6871,
+      "typeOk": 5849,
+      "osOk": 6806
+    },
+    "Android | tv": {
+      "n": 2186,
+      "typeOk": 1039,
+      "osOk": 2177
+    },
+    "Android | unknown": {
+      "n": 132,
+      "typeOk": 0,
+      "osOk": 132
+    },
+    "Android | wearable": {
+      "n": 85,
+      "typeOk": 0,
+      "osOk": 79
+    },
+    "BeOS | desktop": {
+      "n": 3,
+      "typeOk": 3,
+      "osOk": 0
+    },
+    "BlackBerry | smartphone": {
+      "n": 24,
+      "typeOk": 24,
+      "osOk": 24
+    },
+    "BlackBerry | tablet": {
+      "n": 1,
+      "typeOk": 1,
+      "osOk": 1
+    },
+    "BlackBerry | unknown": {
+      "n": 1,
+      "typeOk": 0,
+      "osOk": 0
+    },
+    "Brew | feature phone": {
+      "n": 5,
+      "typeOk": 4,
+      "osOk": 0
+    },
+    "Brew | smartphone": {
+      "n": 4,
+      "typeOk": 3,
+      "osOk": 0
+    },
+    "Brew | unknown": {
+      "n": 1,
+      "typeOk": 0,
+      "osOk": 0
+    },
+    "Chrome OS | desktop": {
+      "n": 18,
+      "typeOk": 18,
+      "osOk": 18
+    },
+    "Firefox OS | feature phone": {
+      "n": 85,
+      "typeOk": 85,
+      "osOk": 77
+    },
+    "Firefox OS | smartphone": {
+      "n": 2,
+      "typeOk": 2,
+      "osOk": 2
+    },
+    "GNU/Linux | car browser": {
+      "n": 5,
+      "typeOk": 0,
+      "osOk": 5
+    },
+    "GNU/Linux | desktop": {
+      "n": 70,
+      "typeOk": 70,
+      "osOk": 66
+    },
+    "GNU/Linux | peripheral": {
+      "n": 3,
+      "typeOk": 0,
+      "osOk": 3
+    },
+    "GNU/Linux | phablet": {
+      "n": 1,
+      "typeOk": 1,
+      "osOk": 0
+    },
+    "GNU/Linux | smart speaker": {
+      "n": 41,
+      "typeOk": 0,
+      "osOk": 40
+    },
+    "GNU/Linux | smartphone": {
+      "n": 18,
+      "typeOk": 17,
+      "osOk": 1
+    },
+    "GNU/Linux | tablet": {
+      "n": 16,
+      "typeOk": 0,
+      "osOk": 4
+    },
+    "GNU/Linux | tv": {
+      "n": 603,
+      "typeOk": 563,
+      "osOk": 600
+    },
+    "GNU/Linux | unknown": {
+      "n": 2,
+      "typeOk": 0,
+      "osOk": 2
+    },
+    "Gaming Console | console": {
+      "n": 12,
+      "typeOk": 0,
+      "osOk": 0
+    },
+    "Google TV | tv": {
+      "n": 4,
+      "typeOk": 4,
+      "osOk": 0
+    },
+    "IBM | desktop": {
+      "n": 1,
+      "typeOk": 1,
+      "osOk": 0
+    },
+    "Mac | desktop": {
+      "n": 216,
+      "typeOk": 216,
+      "osOk": 140
+    },
+    "Mac | tablet": {
+      "n": 2,
+      "typeOk": 0,
+      "osOk": 2
+    },
+    "Mac | tv": {
+      "n": 1,
+      "typeOk": 0,
+      "osOk": 1
+    },
+    "Mobile Gaming Console | console": {
+      "n": 7,
+      "typeOk": 0,
+      "osOk": 0
+    },
+    "OpenHarmony | desktop": {
+      "n": 3,
+      "typeOk": 3,
+      "osOk": 0
+    },
+    "OpenVMS | desktop": {
+      "n": 2,
+      "typeOk": 2,
+      "osOk": 0
+    },
+    "Other Mobile | peripheral": {
+      "n": 6,
+      "typeOk": 0,
+      "osOk": 0
+    },
+    "Other Mobile | smartphone": {
+      "n": 44,
+      "typeOk": 38,
+      "osOk": 0
+    },
+    "Other Mobile | tablet": {
+      "n": 1,
+      "typeOk": 0,
+      "osOk": 0
+    },
+    "Other Mobile | tv": {
+      "n": 212,
+      "typeOk": 212,
+      "osOk": 0
+    },
+    "Other Mobile | unknown": {
+      "n": 1,
+      "typeOk": 0,
+      "osOk": 0
+    },
+    "Other Mobile | wearable": {
+      "n": 29,
+      "typeOk": 0,
+      "osOk": 0
+    },
+    "Other Smart TV | peripheral": {
+      "n": 1,
+      "typeOk": 0,
+      "osOk": 0
+    },
+    "Other Smart TV | tv": {
+      "n": 38,
+      "typeOk": 37,
+      "osOk": 0
+    },
+    "RISC OS | unknown": {
+      "n": 3,
+      "typeOk": 0,
+      "osOk": 0
+    },
+    "Real-time OS | feature phone": {
+      "n": 76,
+      "typeOk": 76,
+      "osOk": 0
+    },
+    "Real-time OS | smartphone": {
+      "n": 37,
+      "typeOk": 37,
+      "osOk": 0
+    },
+    "Real-time OS | tv": {
+      "n": 5,
+      "typeOk": 2,
+      "osOk": 0
+    },
+    "Symbian | feature phone": {
+      "n": 5,
+      "typeOk": 5,
+      "osOk": 0
+    },
+    "Symbian | smartphone": {
+      "n": 29,
+      "typeOk": 29,
+      "osOk": 0
+    },
+    "Unix | desktop": {
+      "n": 18,
+      "typeOk": 18,
+      "osOk": 0
+    },
+    "Unix | tv": {
+      "n": 3,
+      "typeOk": 3,
+      "osOk": 0
+    },
+    "Unknown | console": {
+      "n": 4,
+      "typeOk": 0,
+      "osOk": 0
+    },
+    "Unknown | desktop": {
+      "n": 1,
+      "typeOk": 1,
+      "osOk": 0
+    },
+    "Unknown | feature phone": {
+      "n": 19,
+      "typeOk": 13,
+      "osOk": 0
+    },
+    "Unknown | smart speaker": {
+      "n": 4,
+      "typeOk": 0,
+      "osOk": 0
+    },
+    "Unknown | smartphone": {
+      "n": 14,
+      "typeOk": 12,
+      "osOk": 0
+    },
+    "Unknown | tablet": {
+      "n": 1,
+      "typeOk": 1,
+      "osOk": 0
+    },
+    "Unknown | tv": {
+      "n": 60,
+      "typeOk": 47,
+      "osOk": 0
+    },
+    "Unknown | unknown": {
+      "n": 13,
+      "typeOk": 0,
+      "osOk": 0
+    },
+    "WebTV | tv": {
+      "n": 1,
+      "typeOk": 0,
+      "osOk": 0
+    },
+    "Windows Mobile | console": {
+      "n": 1,
+      "typeOk": 0,
+      "osOk": 1
+    },
+    "Windows Mobile | feature phone": {
+      "n": 2,
+      "typeOk": 2,
+      "osOk": 2
+    },
+    "Windows Mobile | phablet": {
+      "n": 7,
+      "typeOk": 6,
+      "osOk": 7
+    },
+    "Windows Mobile | portable media player": {
+      "n": 1,
+      "typeOk": 0,
+      "osOk": 1
+    },
+    "Windows Mobile | smartphone": {
+      "n": 158,
+      "typeOk": 140,
+      "osOk": 158
+    },
+    "Windows Mobile | tablet": {
+      "n": 2,
+      "typeOk": 2,
+      "osOk": 2
+    },
+    "Windows Mobile | unknown": {
+      "n": 4,
+      "typeOk": 0,
+      "osOk": 4
+    },
+    "Windows | console": {
+      "n": 5,
+      "typeOk": 0,
+      "osOk": 5
+    },
+    "Windows | desktop": {
+      "n": 235,
+      "typeOk": 235,
+      "osOk": 224
+    },
+    "Windows | phablet": {
+      "n": 2,
+      "typeOk": 0,
+      "osOk": 2
+    },
+    "Windows | smartphone": {
+      "n": 10,
+      "typeOk": 1,
+      "osOk": 10
+    },
+    "Windows | tablet": {
+      "n": 7,
+      "typeOk": 0,
+      "osOk": 7
+    },
+    "Windows | tv": {
+      "n": 1,
+      "typeOk": 1,
+      "osOk": 1
+    },
+    "iOS | phablet": {
+      "n": 131,
+      "typeOk": 106,
+      "osOk": 106
+    },
+    "iOS | portable media player": {
+      "n": 7,
+      "typeOk": 0,
+      "osOk": 7
+    },
+    "iOS | smart speaker": {
+      "n": 2,
+      "typeOk": 0,
+      "osOk": 0
+    },
+    "iOS | smartphone": {
+      "n": 108,
+      "typeOk": 90,
+      "osOk": 89
+    },
+    "iOS | tablet": {
+      "n": 116,
+      "typeOk": 116,
+      "osOk": 116
+    },
+    "iOS | tv": {
+      "n": 13,
+      "typeOk": 13,
+      "osOk": 13
+    },
+    "iOS | unknown": {
+      "n": 1,
+      "typeOk": 0,
+      "osOk": 0
+    },
+    "iOS | wearable": {
+      "n": 64,
+      "typeOk": 0,
+      "osOk": 0
+    }
+  }
+}

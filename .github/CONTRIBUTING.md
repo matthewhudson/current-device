@@ -29,16 +29,22 @@ pnpm install
 | `pnpm run check:package` | Validates `package.json` exports and types (publint and attw) |
 | `pnpm run test:browser` | Loads the `<script>` build in real browsers with Playwright device profiles (run `pnpm run build` and `pnpm exec playwright install` first) |
 | `pnpm run corpus` | Runs the built `<script>` build against the Matomo device-detector fixtures and prints detection accuracy per device type (run `pnpm run build` first) |
+| `pnpm run corpus:check` | Fails if that accuracy differs, for any device class, from `scripts/corpus-baseline.json` |
+| `pnpm run corpus:update` | Rewrites `scripts/corpus-baseline.json` from the current build |
 
-CI runs Biome, typecheck, test, build, check:es2015, test:dist, check:package
-and the browser tests on every pull request.
+CI runs Biome, typecheck, test, build, check:es2015, test:dist, check:package,
+corpus:check and the browser tests on every pull request.
 
 ## Making a change
 
 1. Fork the repository and create a branch from `main`.
 2. Make the change. For a detection change, run `pnpm run corpus` before and
    after to see what it does across 35,000 real user agents, and add a
-   fixture for the user agent you are fixing (see below).
+   fixture for the user agent you are fixing (see below). Then run
+   `pnpm run corpus:update` and commit `scripts/corpus-baseline.json`: CI
+   fails when detection accuracy differs from it for any device class, in
+   either direction, so the baseline diff in your pull request shows exactly
+   what the change did to each class.
 3. Run `pnpm run format`, `pnpm run typecheck`, `pnpm run test`,
    `pnpm run build` and `pnpm run test:dist`.
 4. Run `pnpm changeset` and describe the change for the changelog. Pick
